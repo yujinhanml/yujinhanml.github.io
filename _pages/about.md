@@ -28,11 +28,10 @@ Recent Papers
 - **Han, Yujin,** and Leying Guan. "[GAN-based federated learning for label protection in binary classification.](https://arxiv.org/pdf/2302.02245.pdf)" arXiv preprint arXiv:2302.02245 (2023). [[Code]](https://github.com/yujinhan98/Generative-Adversarial-Federated-Model)
 - **Han, Yujin<sup>*</sup>**, Mingwenchan Xu<sup>*</sup>, and Leying Guan. "[Conformalized semi-supervised random forest for classification and abnormality detection.]([https://arxiv.org/pdf/2302.02245.pdf](https://arxiv.org/pdf/2302.02237.pdf))" arXiv preprint arXiv:2302.02237 (2023). [[Code]](https://github.com/yujinhan98/CSForest)
 
-Academic Services
+Services
 ======
 Conference Reviewer
 - AISTATS 2023, 2024
 
 Teaching Assistant
-======
 - BIS 620 Data Science Software Systems (Fall 2022, Yale)
