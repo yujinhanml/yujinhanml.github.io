@@ -21,7 +21,7 @@ News
 Recent Papers
 ======
 
-* indicates equal contribution.
+"*" indicates equal contribution.
   
 **2023**
 
