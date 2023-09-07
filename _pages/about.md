@@ -15,11 +15,3 @@ News
 
 Recent Papers
 ======
-
-
-Academic Services
-======
-
-
-Teaching Assistant
-======
