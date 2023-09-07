@@ -30,8 +30,8 @@ Recent Papers
 
 Services
 ======
-Conference Reviewer
+**Conference Reviewer**
 - AISTATS 2023, 2024
 
-Teaching Assistant
+**Teaching Assistant**
 - BIS 620 Data Science Software Systems (Fall 2022, Yale)
