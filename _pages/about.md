@@ -26,5 +26,5 @@ Recent Papers
 **2023**
 
 - Han, Yujin, and Leying Guan. "[GAN-based federated learning for label protection in binary classification.](https://arxiv.org/pdf/2302.02245.pdf)" arXiv preprint arXiv:2302.02245 (2023). [[Code]](https://github.com/yujinhan98/Generative-Adversarial-Federated-Model)
-- Han, Yujin*, Mingwenchan Xu*, and Leying Guan. "[Conformalized semi-supervised random forest for classification and abnormality detection.]([https://arxiv.org/pdf/2302.02245.pdf](https://arxiv.org/pdf/2302.02237.pdf))" arXiv preprint arXiv:2302.02237 (2023). [[Code]](https://github.com/yujinhan98/Generative-Adversarial-Federated-Model)
+- Han, Yujin*, Mingwenchan Xu*, and Leying Guan. "[Conformalized semi-supervised random forest for classification and abnormality detection.]([https://arxiv.org/pdf/2302.02245.pdf](https://arxiv.org/pdf/2302.02237.pdf))" arXiv preprint arXiv:2302.02237 (2023). [[Code]](https://github.com/yujinhan98/CSForest)
 
