@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Yujin Han/Personal Homepage"
+title                    : "Yujin Han's Homepage"
 title_separator          : "-"
 name                     : &name "Yujin Han"
 description              : &description "personal description"
@@ -82,12 +82,12 @@ analytics:
 author:
   name             : "Yujin Han (韩雨锦)"
   avatar           : "myprofile2.png"
-  bio              : "Your biography for the left-hand sidebar"
-  location         : "Location"
+  bio              : “If you can't explain it simply, you don't understand it well enough.”#"Simplicity, Purity"
+  location         : "The University of Hong Kong, Pokfulam, Hong Kong"
   employer         :
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
-  googlescholar    : "http://yourfullgooglescholarurl.com"
-  email            :
+  pubmed           : # "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  googlescholar    : "https://scholar.google.com/citations?user=SxpbS5YAAAAJ&hl=en"
+  email            : "yujinhan@connect.hku.hk"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :
@@ -96,7 +96,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "academicpages"
+  github           : "https://github.com/yujinhan98"
   google_plus      :
   keybase          :
   instagram        :
