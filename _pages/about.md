@@ -17,6 +17,7 @@ I am open to any challenging research topics in machine learning and statistical
 
 News
 ======
+- [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
 
 Recent Papers
 ======
