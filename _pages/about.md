@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Yujin Han's academic webpage"
+title: ""
 excerpt: "About me"
 author_profile: true
 redirect_from: 
