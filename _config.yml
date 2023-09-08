@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Yujin Han's Homepage"
+title                    : "Home"
 title_separator          : "-"
 name                     : &name "Yujin Han"
 description              : &description "personal description"
