@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 
-I am currently a Ph.D. candidate in the Department of Computer Science at The University of Hong Kong, supervised by [Prof.Difan Zou](https://difanzou.github.io). Prior to this, I completed my Master's degree in Science at Yale University, where I collaborated closely with [Prof.Leying Guan](https://campuspress.yale.edu/lguan) and [Prof.Sten H. Vermund](https://ysph.yale.edu/profile/sten-vermund/), and I also hold a Bachelor's degree in Statistics from Renmin University of China. Here is my [CV](https://github.com/yujinhan98/yujinhan98.github.io/blob/master/yujin_CV_2023.pdf).
+I am currently a Ph.D. candidate in the Department of Computer Science at The University of Hong Kong, supervised by [Prof.Difan Zou](https://difanzou.github.io). Prior to this, I completed my Master's degree in Science at Yale University, where I collaborated closely with [Prof.Leying Guan](https://campuspress.yale.edu/lguan) and [Prof.Sten H. Vermund](https://ysph.yale.edu/profile/sten-vermund/), and I also hold a Bachelor's degree in Statistics from Renmin University of China (RUC). Here is my [CV](https://github.com/yujinhan98/yujinhan98.github.io/blob/master/yujin_CV_2023.pdf).
 
 I am open to any challenging research topics in machine learning and statistical learning. My research goal is to propose simple and novel methods with theoretical support to reveal the essence of problems and provide new perspectives for the ML community. Recently, I focus on subpopulation shift problems in domain generalization.
 
