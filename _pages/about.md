@@ -17,6 +17,7 @@ I maintain a curiosity for any challenging research topics in machine learning a
 
 News
 ======
+- [2023-10] Our new work, DISK, has been accepted by the NeurIPS 2023 workshop Causal Representation Learning. The paper and code will be released soon.
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
 
 Recent Papers
