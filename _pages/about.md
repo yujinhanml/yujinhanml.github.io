@@ -16,7 +16,7 @@ I maintain a curiosity for any challenging research topics in machine learning a
 
 News
 ======
-- [2023-10] We will introduce our new work, DISK, which is a novel method for inferring the domain label, at the NeurIPS 2023 workshop on Causal Representation Learning. The paper and code will be released soon.
+- [2023-10] Our new work, DISK, which is a novel method for inferring the domain label, was accepted by the [Causal Representation Learning workshop in NeurIPS 2023] (https://neurips.cc/virtual/2023/workshop/66497). The paper and code will be released soon.
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
 
 Recent Papers
