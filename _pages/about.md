@@ -11,12 +11,12 @@ redirect_from:
 
 I am currently a Ph.D. candidate in Computer Science at the University of Hong Kong (HKU), where I have the privilege of being supervised by [Prof.Difan Zou](https://difanzou.github.io). Before joining HKU, I obtained my Master's degree from Yale University, where I was fortunate to be mentored by [Prof.Leying Guan](https://campuspress.yale.edu/lguan) and collaborating closely with [Prof.Sten H. Vermund](https://ysph.yale.edu/profile/sten-vermund/). I also hold a Bachelor's degree from Renmin University of China (RUC). Here is my [CV](https://github.com/yujinhan98/yujinhan98.github.io/blob/master/yujin_CV_2023.pdf).
 
-I maintain a curiosity for any challenging research topics in machine learning and statistical learning, exploring them with the aim of creating technology that can benefit the general public. My research goal is to propose simple and novel methods with elegant theoretical support to uncover the essence of problems and offer new perspectives for the ML community. Recently, I focus on subpopulation shift problems in domain generalization.
+I maintain a curiosity for any challenging research topics in machine learning and deep learning, exploring them with the aim of creating technology that can benefit the general public. My research goal is to propose simple and novel methods with elegant theoretical support to uncover the essence of problems and offer new perspectives for the ML community. Recently, I focus on how to utilize diffusion models to mitigate the generalization problem.
 
 
 News
 ======
-- [2023-10] Our new work, DISK, which is a novel method for inferring the domain label, was accepted by the [Causal Representation Learning workshop in NeurIPS 2023](https://neurips.cc/virtual/2023/workshop/66497). The paper and code will be released soon.
+- [2023-10] Our new work, DISK, which is a novel method for inferring the domain label, was accepted by the [Causal Representation Learning workshop in NeurIPS 2023](https://neurips.cc/virtual/2023/workshop/66497). The paper (under review) and code will be released soon.
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
 
 Recent Papers
