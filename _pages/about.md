@@ -17,7 +17,7 @@ I maintain a curiosity for any challenging research topics in machine learning a
 
 News
 ======
-- [2024-01] One paper was was accepted by AISTATS 2024.
+- [2024-01] Our work, CSForest, was was accepted by AISTATS 2024.
 - [2023-10] Our new work, DISK, which is a novel idea for inferring the domain label under the subpopulation shift setting, was accepted by the [Causal Representation Learning workshop in NeurIPS 2023](https://neurips.cc/virtual/2023/workshop/66497). The paper (under review) and code will be released soon.
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
 
@@ -29,7 +29,10 @@ Research Papers
 **2023**
 
 - GAN-based federated learning for label protection in binary classification. arXiv preprint arXiv:2302.02245 (2023).
-  **Yujin Han,** Leying Guan. [[PDF]](https://arxiv.org/pdf/2302.02245.pdf) [[Code]](https://github.com/yujinhan98/Generative-Adversarial-Federated-Model)
+  
+  **Yujin Han,** Leying Guan.
+
+  [[PDF]](https://arxiv.org/pdf/2302.02245.pdf) [[Code]](https://github.com/yujinhan98/Generative-Adversarial-Federated-Model)
   
 - Conformalized semi-supervised random forest for classification and abnormality detection. arXiv preprint arXiv:2302.02237 (2023).
   
