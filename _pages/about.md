@@ -34,7 +34,11 @@ Research Papers
 
 - GAN-based federated learning for label protection in binary classification. [[PDF]](https://arxiv.org/pdf/2302.02245.pdf) [[Code]](https://github.com/yujinhan98/Generative-Adversarial-Federated-Model)
   **Yujin Han,** Leying Guan.
-  
+
+Benign Oscillation of Stochastic Gradient Descent with Large Learning Rates
+Miao Lu, Beining Wu, Xiaodong Yang, Difan Zou
+NeurIPS Workshop on Mathematics of Modern Machine Learning (M3L), 2023
+International Conference on Learning Representations (ICLR), 2024
 
 Services
 ======
