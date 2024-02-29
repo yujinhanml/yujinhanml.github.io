@@ -30,7 +30,8 @@ Research Papers
 
 - Conformalized semi-supervised random forest for classification and abnormality detection.  
   **Yujin Han<sup>*</sup>**, Mingwenchan Xu<sup>*</sup>, Leying Guan. [[PDF]](https://arxiv.org/abs/2302.02237)[[Code]](https://github.com/yujinhan98/CSForest)  
-  International Conference on Artificial Intelligence and Statistics (AISTATS), 2024  
+  International Conference on Artificial Intelligence and Statistics (AISTATS), 2024
+  
 - GAN-based federated learning for label protection in binary classification.  
   **Yujin Han,** Leying Guan.
   [[PDF]](https://arxiv.org/pdf/2302.02245.pdf) [[Code]](https://github.com/yujinhan98/Generative-Adversarial-Federated-Model)
