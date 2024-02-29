@@ -21,7 +21,7 @@ News
 - [2023-10] Our work, DISK, which is a novel idea for inferring the domain label under the subpopulation shift setting, was accepted by the [Causal Representation Learning workshop in NeurIPS 2023](https://neurips.cc/virtual/2023/workshop/66497). The paper (under review) and code will be released soon.
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
 
-Research Papers
+Selected Publications
 ======
 
 <sup>*</sup> indicates equal contribution.
