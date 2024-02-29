@@ -28,17 +28,13 @@ Research Papers
   
 **2023**
 
-- Conformalized semi-supervised random forest for classification and abnormality detection.
-  **Yujin Han<sup>*</sup>**, Mingwenchan Xu<sup>*</sup>, Leying Guan. [[PDF]](https://arxiv.org/abs/2302.02237)[[Code]](https://github.com/yujinhan98/CSForest)
-  International Conference on Artificial Intelligence and Statistics (AISTATS), 2024
-
-- GAN-based federated learning for label protection in binary classification. [[PDF]](https://arxiv.org/pdf/2302.02245.pdf) [[Code]](https://github.com/yujinhan98/Generative-Adversarial-Federated-Model)
+- Conformalized semi-supervised random forest for classification and abnormality detection.  
+  **Yujin Han<sup>*</sup>**, Mingwenchan Xu<sup>*</sup>, Leying Guan. [[PDF]](https://arxiv.org/abs/2302.02237)[[Code]](https://github.com/yujinhan98/CSForest)  
+  International Conference on Artificial Intelligence and Statistics (AISTATS), 2024  
+- GAN-based federated learning for label protection in binary classification.  
   **Yujin Han,** Leying Guan.
+  [[PDF]](https://arxiv.org/pdf/2302.02245.pdf) [[Code]](https://github.com/yujinhan98/Generative-Adversarial-Federated-Model)
 
-Benign Oscillation of Stochastic Gradient Descent with Large Learning Rates  
-Miao Lu, Beining Wu, Xiaodong Yang, Difan Zou  
-NeurIPS Workshop on Mathematics of Modern Machine Learning (M3L), 2023  
-International Conference on Learning Representations (ICLR), 2024
 
 Services
 ======
