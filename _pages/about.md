@@ -17,8 +17,8 @@ I maintain a curiosity for any challenging research topics in machine learning a
 
 News
 ======
-- [2024-01] Our work, CSForest, which aims to perform efficient conformal prediction and anomaly detection under general label shift, was accepted by AISTATS 2024.
-- [2023-10] Our work, DISK, which is a novel idea for inferring the domain label under the subpopulation shift setting, was accepted by the [Causal Representation Learning workshop in NeurIPS 2023](https://neurips.cc/virtual/2023/workshop/66497). The paper (under review) and code will be released soon.
+- [2024-01] Our work, CSForest, which aims to perform efficient conformal prediction and anomaly detection under general label shift, was accepted by AISTATS 2024!
+- [2023-10] One cute paper, DISK, was accepted by the [Causal Representation Learning workshop in NeurIPS 2023](https://neurips.cc/virtual/2023/workshop/66497). The paper (under review) and code will be released soon.
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
 
 Selected Publications
