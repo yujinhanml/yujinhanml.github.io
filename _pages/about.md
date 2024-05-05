@@ -17,6 +17,7 @@ I maintain a curiosity for any challenging research topics in machine learning a
 
 News
 ======
+- [2024-5] One paper, GIC, is accepted to ICML 2024!
 - [2024-01] Our work, CSForest, which aims to perform efficient conformal prediction and anomaly detection under general label shift, was accepted by AISTATS 2024!
 - [2023-10] One cute paper, DISK, was accepted by the [Causal Representation Learning workshop in NeurIPS 2023](https://neurips.cc/virtual/2023/workshop/66497). The paper (under review) and code will be released soon.
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
@@ -27,6 +28,10 @@ Selected Publications
 <sup>*</sup> indicates equal contribution.
   
 **2023**
+- Improving Group Robustness on Spurious Correlation Requires Preciser Group Inference.  
+  **Yujin Han<sup>*</sup>**, Difan Zou. [[PDF]](https://arxiv.org/pdf/2404.13815) [[Code]](https://github.com/yujinhan98/GIC)
+  NeurIPS Workshop on Causal Representation Learning (CRL), 2023
+  International Conference on Machine Learning (ICML), 2024
 
 - Conformalized semi-supervised random forest for classification and abnormality detection.  
   **Yujin Han<sup>*</sup>**, Mingwenchan Xu<sup>*</sup>, Leying Guan. [[PDF]](https://arxiv.org/abs/2302.02237) [[Code]](https://github.com/yujinhan98/CSForest)  
