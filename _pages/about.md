@@ -18,7 +18,7 @@ I maintain a curiosity for any challenging research topics in machine learning a
 News
 ======
 - [2024-05] One paper, GIC, is accepted to ICML 2024!
-- [2024-01] Our work, CSForest, which aims to perform efficient conformal prediction and anomaly detection under general label shift, was accepted by AISTATS 2024!
+- [2024-01] Our work, CSForest, is accepted by AISTATS 2024!
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
 
 Selected Publications
