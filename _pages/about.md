@@ -28,7 +28,7 @@ Selected Publications
   
 **2024**
 - Improving Group Robustness on Spurious Correlation Requires Preciser Group Inference.  
-  **Yujin Han<sup>*</sup>**, Difan Zou. [[PDF]](https://arxiv.org/pdf/2404.13815) [[Code]](https://github.com/yujinhan98/GIC)  
+  **Yujin Han**, Difan Zou. [[PDF]](https://arxiv.org/pdf/2404.13815) [[Code]](https://github.com/yujinhan98/GIC)  
   NeurIPS Workshop on Causal Representation Learning (CRL), 2023  
   International Conference on Machine Learning (ICML), 2024
 
