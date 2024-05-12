@@ -11,7 +11,7 @@ title                    : "Yujin Han's Homepage"
 title_separator          : "-"
 name                     : &name "Yujin Han"
 description              : &description "personal description"
-url                      : https://yujinhan98.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : https://yujinhanml.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "academicpages/academicpages.github.io"
 teaser                   :  "hku.png"# filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
@@ -96,7 +96,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "/yujinhan98"
+  github           : "/yujinhanml"
   google_plus      :
   keybase          :
   instagram        :
