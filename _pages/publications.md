@@ -21,5 +21,5 @@ Publications
 
 Preprint
 ======
-- Slight Corruption in Pre-training Data Makes Better Diffusion Models.
+- Slight Corruption in Pre-training Data Makes Better Diffusion Models.  
   Hao Chen, **Yujin Han**, Diganta Misra, Xiang Li, Kai Hu, Difan Zou, Masashi Sugiyama, Jindong Wang, Bhiksha Raj. [[PDF]](https://arxiv.org/abs/2405.20494)
