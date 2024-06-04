@@ -17,13 +17,12 @@ I maintain a curiosity for any challenging research topics in machine learning a
 
 News
 ======
-- [2024-05] One paper, GIC, is accepted to ICML 2024!
-- [2024-01] One paper, CSForest, is accepted to AISTATS 2024!
+- [2024-05] One paper, GIC, is accepted to ICML 2024.
+- [2024-01] One paper, CSForest, is accepted to AISTATS 2024.
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
-
 
 
 Services
 ======
-- Conference Reviewer: NeurIPS 2024, AISTATS 2023  
-- Teaching Assistant: BIS620 Data Science Software Systems (Fall 2022, Yale), CCST9047 The Age of Big Data (Spring 2023, HKU)
+- Conference Reviewer: NeurIPS 2024; AISTATS 2023.  
+- Teaching Experience: CCST9047 The Age of Big Data (Spring 2023, HKU); BIS620 Data Science Software Systems (Fall 2022, Yale).
