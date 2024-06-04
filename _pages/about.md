@@ -25,6 +25,5 @@ News
 
 Services
 ======
-- Conference Reviewer: NeurIPS 2024, AISTATS 2023
-
+- Conference Reviewer: NeurIPS 2024, AISTATS 2023  
 - Teaching Assistant: BIS620 Data Science Software Systems (Fall 2022, Yale), CCST9047 The Age of Big Data (Spring 2023, HKU)
