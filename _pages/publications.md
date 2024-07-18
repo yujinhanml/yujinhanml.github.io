@@ -26,5 +26,5 @@ Preprint
   Hao Chen, **Yujin Han**, Diganta Misra, Xiang Li, Kai Hu, Difan Zou, Masashi Sugiyama, Jindong Wang, Bhiksha Raj. [[PDF]](https://arxiv.org/abs/2405.20494)
 
 - On the Discrepancy and Connection between Memorization and Generation in Diffusion Models.  
-  Hanyu Wang, Yujin Han, Difan Zou  
+  Hanyu Wang, **Yujin Han**, Difan Zou  
   ICML 2024 Workshop on Foundation Models in the Wild, 2024
