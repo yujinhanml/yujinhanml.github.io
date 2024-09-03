@@ -25,4 +25,4 @@ News
 Services
 ======
 - Conference Reviewer: ICLR 2025; NeurIPS 2024; AISTATS 2023, 2025.  
-- Teaching Experience: CCST9047 The Age of Big Data (Spring 2023, HKU); BIS620 Data Science Software Systems (Fall 2022, Yale).
+- Teaching Experience: COMP3354 Statistical Learning (Fall 2024, HKU); CCST9047 The Age of Big Data (Spring 2023, HKU); BIS620 Data Science Software Systems (Fall 2022, Yale).
