@@ -17,8 +17,9 @@ I maintain a curiosity for any challenging research topics in machine learning a
 
 News
 ======
-- [2024-05] One paper, GIC, is accepted to ICML 2024.
-- [2024-01] One paper, CSForest, is accepted to AISTATS 2024.
+- [2024-09] One paper on [noised diffusion models](https://arxiv.org/abs/2405.20494), is accepted as Spotlight at NeurIPS 2024. 
+- [2024-05] One paper on [mitigationg spurious correlations](https://arxiv.org/abs/2404.13815), is accepted to ICML 2024.
+- [2024-01] One paper on  [efficient comfromal predicticion](https://proceedings.mlr.press/v238/han24b.html), is accepted to AISTATS 2024.
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
 
 
