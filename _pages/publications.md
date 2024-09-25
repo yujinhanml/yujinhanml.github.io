@@ -11,6 +11,10 @@ Publications
 ------
 
 **2024**  
+- Slight Corruption in Pre-training Data Makes Better Diffusion Models.  
+  Hao Chen, **Yujin Han**, Diganta Misra, Xiang Li, Kai Hu, Difan Zou, Masashi Sugiyama, Jindong Wang, Bhiksha Raj. [[PDF]](https://arxiv.org/abs/2405.20494)  
+  Conference on Advances in Neural Information Processing Systems (NeurIPS) (**Spotlight**), 2024
+  
 - Improving Group Robustness on Spurious Correlation Requires Preciser Group Inference.  
   **Yujin Han**, Difan Zou. [[PDF]](https://arxiv.org/pdf/2404.13815) [[Code]](https://github.com/yujinhan98/GIC)  
   NeurIPS Workshop on Causal Representation Learning (CRL), 2023  
@@ -22,8 +26,6 @@ Publications
 
 Preprint
 ------
-- Slight Corruption in Pre-training Data Makes Better Diffusion Models.  
-  Hao Chen, **Yujin Han**, Diganta Misra, Xiang Li, Kai Hu, Difan Zou, Masashi Sugiyama, Jindong Wang, Bhiksha Raj. [[PDF]](https://arxiv.org/abs/2405.20494)
 
 - On the Discrepancy and Connection between Memorization and Generation in Diffusion Models.  
   Hanyu Wang, **Yujin Han**, Difan Zou  
