@@ -27,6 +27,9 @@ Publications
 Preprint
 ------
 
+- Beyond Surface Structure: A Causal Assessment of LLMs' Comprehension Ability.  
+  **Yujin Han**, Lei Xu, Sirui Chen, Difan Zou, Chaochao Lu.  [[Arxiv]](https://arxiv.org/abs/2411.19456)
+
 - On the Discrepancy and Connection between Memorization and Generation in Diffusion Models.  
-  Hanyu Wang, **Yujin Han**, Difan Zou  
+  Hanyu Wang, **Yujin Han**, Difan Zou.    
   ICML 2024 Workshop on Foundation Models in the Wild, 2024
