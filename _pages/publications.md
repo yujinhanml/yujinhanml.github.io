@@ -26,6 +26,8 @@ Publications
 
 Preprint
 ------
+- Parallelized Autoregressive Visual Generation.  
+  Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu1. [[Project]](https://epiphqny.github.io/PAR-project/)  
 
 - Beyond Surface Structure: A Causal Assessment of LLMs' Comprehension Ability.  
   **Yujin Han**, Lei Xu, Sirui Chen, Difan Zou, Chaochao Lu. [[Arxiv]](https://arxiv.org/abs/2411.19456) [[Code]](https://github.com/OpenCausaLab/ADCE)  
