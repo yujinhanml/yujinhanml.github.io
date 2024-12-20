@@ -24,7 +24,7 @@ Publications
   **Yujin Han<sup>*</sup>**, Mingwenchan Xu<sup>*</sup>, Leying Guan. [[PDF]](https://arxiv.org/abs/2302.02237) [[Code]](https://github.com/yujinhan98/CSForest)  
   International Conference on Artificial Intelligence and Statistics (AISTATS), 2024
 
-Preprint
+Preprints
 ------
 - Parallelized Autoregressive Visual Generation.  
   Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu. [[Project]](https://epiphqny.github.io/PAR-project/)  
