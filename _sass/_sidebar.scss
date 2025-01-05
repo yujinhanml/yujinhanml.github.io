@@ -110,12 +110,22 @@
 
 .author__name {
   margin: 0;
+  margin-bottom: 10px; /* 增加名字与下一行的间距 */
 
   @include breakpoint($large) {
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* 增大名字和地点之间的间距 */
   }
 }
+// .author__name {
+//   margin: 0;
+//    margin-bottom: 10px; /* 增加名字与下一行的间距 */
+
+//   @include breakpoint($large) {
+//     margin-top: 10px;
+//     margin-bottom: 10px;
+//   }
+// }
 .sidebar .author__name {
   font-family: $sans-serif;
   font-size: $type-size-5;
