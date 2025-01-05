@@ -98,7 +98,7 @@
   vertical-align: top;
   padding-left: 15px;
   padding-right: 25px;
-  line-height: 1;
+  line-height: 1.5;
 
   @include breakpoint($large) {
     display: block;
@@ -110,16 +110,15 @@
 
 .author__name {
   margin: 0;
-  margin-bottom: 10px; /* 增加名字与下一行的间距 */
+  margin-bottom: 20px; /* 增加名字与下一行的间距 */
 
   @include breakpoint($large) {
     margin-top: 10px;
-    margin-bottom: 15px; /* 增大名字和地点之间的间距 */
+    margin-bottom: 20px; /* 增大名字和地点之间的间距 */
   }
 }
 // .author__name {
 //   margin: 0;
-//    margin-bottom: 10px; /* 增加名字与下一行的间距 */
 
 //   @include breakpoint($large) {
 //     margin-top: 10px;
