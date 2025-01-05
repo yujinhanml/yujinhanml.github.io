@@ -114,7 +114,7 @@
 
   @include breakpoint($large) {
     margin-top: 10px;
-    margin-bottom: 10px; /* 增大名字和地点之间的间距 */
+    margin-bottom: 15px; /* 增大名字和地点之间的间距 */
   }
 }
 // .author__name {
