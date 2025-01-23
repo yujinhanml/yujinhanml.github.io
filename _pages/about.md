@@ -17,7 +17,8 @@ I maintain a curiosity for any challenging research topics in machine learning a
 
 News
 ======
-- [2024-09] One paper on [noised diffusion models](https://arxiv.org/abs/2405.20494), is accepted at NeurIPS'24 as a spotlight. 
+- [2025-01] One paper on [interpretability of LLMs](https://arxiv.org/abs/2411.19456), is accepted to ICLR'25. 
+- [2024-09] One paper on [noised diffusion models](https://arxiv.org/abs/2405.20494), is accepted to NeurIPS'24 as a spotlight. 
 - [2024-05] One paper on [mitigationg spurious correlations](https://arxiv.org/abs/2404.13815), is accepted to ICML'24.
 - [2024-01] One paper on  [efficient comfromal predicticion](https://proceedings.mlr.press/v238/han24b.html), is accepted to AISTATS'24.
 - [2023-09] I commenced my doctoral journey at HKU under the guidance of Prof.Difan Zou.
