@@ -9,7 +9,11 @@ author_profile: true
 
 Publications
 ------
-
+**2025** 
+- Beyond Surface Structure: A Causal Assessment of LLMs' Comprehension Ability.  
+  **Yujin Han**, Lei Xu, Sirui Chen, Difan Zou, Chaochao Lu. [[Arxiv]](https://arxiv.org/abs/2411.19456) [[Code]](https://github.com/OpenCausaLab/ADCE)
+  International Conference on Learning Representations (ICLR), 2025  
+  
 **2024**  
 - Slight Corruption in Pre-training Data Makes Better Diffusion Models.  
   Hao Chen, **Yujin Han**, Diganta Misra, Xiang Li, Kai Hu, Difan Zou, Masashi Sugiyama, Jindong Wang, Bhiksha Raj. [[PDF]](https://arxiv.org/abs/2405.20494)  
@@ -28,9 +32,6 @@ Preprints
 ------
 - Parallelized Autoregressive Visual Generation.  
   Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu. [[Arxiv]](https://arxiv.org/abs/2412.15119) [[Project]](https://epiphqny.github.io/PAR-project/)  
-
-- Beyond Surface Structure: A Causal Assessment of LLMs' Comprehension Ability.  
-  **Yujin Han**, Lei Xu, Sirui Chen, Difan Zou, Chaochao Lu. [[Arxiv]](https://arxiv.org/abs/2411.19456) [[Code]](https://github.com/OpenCausaLab/ADCE)  
 
 - On the Discrepancy and Connection between Memorization and Generation in Diffusion Models.  
   Hanyu Wang, **Yujin Han**, Difan Zou. [[PDF]](https://openreview.net/pdf?id=ZqG5lo18tq)  
