@@ -31,7 +31,7 @@ Publications
 Preprints
 ------
 - Can Diffusion Models Learn Hidden Inter-Feature Rules Behind Images?  
-  **Yujin Han<sup>*</sup>**, Andi Han*, Wei Huang, Chaochao Lu, Difan Zou. [[Arxiv]](https://www.arxiv.org/abs/2502.04725)
+  **Yujin Han<sup>*</sup>**, Andi Han<sup>*</sup>, Wei Huang, Chaochao Lu, Difan Zou. [[Arxiv]](https://www.arxiv.org/abs/2502.04725)
 
 - Masked Autoencoders Are Effective Tokenizers for Diffusion Models.   
   Hao Chen*, **Yujin Han<sup>*</sup>**, Fangyi Chen, Xiang Li, Yidong Wang, Jindong Wang, Ze Wang, Zicheng Liu, Difan Zou, Bhiksha Raj. [[Arxiv]](https://arxiv.org/abs/2502.03444) 
