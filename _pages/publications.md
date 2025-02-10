@@ -30,6 +30,9 @@ Publications
 
 Preprints
 ------
+- Can Diffusion Models Learn Hidden Inter-Feature Rules Behind Images?  
+  **Yujin Han<sup>*</sup>**, **Andi Han<sup>*</sup>**, Wei Huang, Chaochao Lu, Difan Zou. [[Arxiv]](https://www.arxiv.org/abs/2502.04725) 
+
 - Parallelized Autoregressive Visual Generation.  
   Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu. [[Arxiv]](https://arxiv.org/abs/2412.15119) [[Project]](https://epiphqny.github.io/PAR-project/)  
 
