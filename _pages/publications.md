@@ -31,10 +31,10 @@ Publications
 Preprints
 ------
 - Can Diffusion Models Learn Hidden Inter-Feature Rules Behind Images?  
-  **Yujin Han<sup>*</sup>**, Andi Han<sup>*</sup>, Wei Huang, Chaochao Lu, Difan Zou. [[Arxiv]](https://www.arxiv.org/abs/2502.04725)
+  **Yujin Han<sup>*</sup>**, Andi Han*, Wei Huang, Chaochao Lu, Difan Zou. [[Arxiv]](https://www.arxiv.org/abs/2502.04725)
 
 - Masked Autoencoders Are Effective Tokenizers for Diffusion Models.   
-  Hao Chen<sup>*</sup>, **Yujin Han<sup>*</sup>**, Fangyi Chen, Xiang Li, Yidong Wang, Jindong Wang, Ze Wang, Zicheng Liu, Difan Zou, Bhiksha Raj. [[Arxiv]](https://arxiv.org/abs/2502.03444) 
+  Hao Chen*, **Yujin Han<sup>*</sup>**, Fangyi Chen, Xiang Li, Yidong Wang, Jindong Wang, Ze Wang, Zicheng Liu, Difan Zou, Bhiksha Raj. [[Arxiv]](https://arxiv.org/abs/2502.03444) 
 
 - Parallelized Autoregressive Visual Generation.  
   Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu. [[Arxiv]](https://arxiv.org/abs/2412.15119) [[Project]](https://epiphqny.github.io/PAR-project/)  
