@@ -20,7 +20,7 @@ Publications
   Conference on Advances in Neural Information Processing Systems (NeurIPS), 2024 (**Spotlight**)
   
 - Improving Group Robustness on Spurious Correlation Requires Preciser Group Inference.  
-  **Yujin Han**, Difan Zou. [[PDF]](https://arxiv.org/pdf/2404.13815) [[Code]](https://github.com/yujinhan98/GIC)  
+  **Yujin Han**, Difan Zou. [[PDF]](https://arxiv.org/pdf/2404.13815) [[Code]](https://github.com/yujinhan98/GIC) [[Code]](https://github.com/yujinhanml/yujinhanml.github.io/blob/master/slides/GIC_pre.pdf)  
   NeurIPS Workshop on Causal Representation Learning (CRL), 2023  
   International Conference on Machine Learning (ICML), 2024
 
