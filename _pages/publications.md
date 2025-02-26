@@ -11,7 +11,7 @@ Publications
 ------
 **2025** 
 - Beyond Surface Structure: A Causal Assessment of LLMs' Comprehension Ability.  
-  **Yujin Han**, Lei Xu, Sirui Chen, Difan Zou, Chaochao Lu. [[Arxiv]](https://arxiv.org/abs/2411.19456) [[Code]](https://github.com/OpenCausaLab/ADCE)  
+  **Yujin Han**, Lei Xu, Sirui Chen, Difan Zou, Chaochao Lu. [[Arxiv]](https://arxiv.org/abs/2411.19456) [[Code]](https://github.com/OpenCausaLab/ADCE) [[Slide]](https://github.com/yujinhanml/yujinhanml.github.io/blob/master/slides/adce.pdf)  
   International Conference on Learning Representations (ICLR), 2025  
   
 **2024**  
