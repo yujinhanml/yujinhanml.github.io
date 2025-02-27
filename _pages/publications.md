@@ -10,6 +10,10 @@ author_profile: true
 Publications
 ------
 **2025** 
+- Parallelized Autoregressive Visual Generation.  
+  Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu. [[Arxiv]](https://arxiv.org/abs/2412.15119) [[Project]](https://epiphqny.github.io/PAR-project/)
+  Conference on Computer Vision and Pattern Recognition (CVPR), 2025
+  
 - Beyond Surface Structure: A Causal Assessment of LLMs' Comprehension Ability.  
   **Yujin Han**, Lei Xu, Sirui Chen, Difan Zou, Chaochao Lu. [[Arxiv]](https://arxiv.org/abs/2411.19456) [[Code]](https://github.com/OpenCausaLab/ADCE) [[Slide]](https://github.com/yujinhanml/yujinhanml.github.io/blob/master/slides/adce.pdf)  
   International Conference on Learning Representations (ICLR), 2025  
@@ -34,11 +38,8 @@ Preprints
   **Yujin Han<sup>*</sup>**, Andi Han<sup>*</sup>, Wei Huang, Chaochao Lu, Difan Zou. [[Arxiv]](https://www.arxiv.org/abs/2502.04725)
 
 - Masked Autoencoders Are Effective Tokenizers for Diffusion Models.   
-  Hao Chen*, **Yujin Han<sup>*</sup>**, Fangyi Chen, Xiang Li, Yidong Wang, Jindong Wang, Ze Wang, Zicheng Liu, Difan Zou, Bhiksha Raj. [[Arxiv]](https://arxiv.org/abs/2502.03444) [[Code]](https://github.com/Hhhhhhao/continuous_tokenizer)  
-
-- Parallelized Autoregressive Visual Generation.  
-  Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu. [[Arxiv]](https://arxiv.org/abs/2412.15119) [[Project]](https://epiphqny.github.io/PAR-project/)  
-
+  Hao Chen*, **Yujin Han<sup>*</sup>**, Fangyi Chen, Xiang Li, Yidong Wang, Jindong Wang, Ze Wang, Zicheng Liu, Difan Zou, Bhiksha Raj. [[Arxiv]](https://arxiv.org/abs/2502.03444) [[Code]](https://github.com/Hhhhhhao/continuous_tokenizer)
+  
 - On the Discrepancy and Connection between Memorization and Generation in Diffusion Models.  
   Hanyu Wang, **Yujin Han**, Difan Zou. [[PDF]](https://openreview.net/pdf?id=ZqG5lo18tq)  
   ICML 2024 Workshop on Foundation Models in the Wild, 2024
