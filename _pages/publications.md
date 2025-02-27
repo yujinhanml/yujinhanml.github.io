@@ -11,7 +11,7 @@ Publications
 ------
 **2025** 
 - Parallelized Autoregressive Visual Generation.  
-  Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu. [[Arxiv]](https://arxiv.org/abs/2412.15119) [[Project]](https://epiphqny.github.io/PAR-project/)
+  Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu. [[Arxiv]](https://arxiv.org/abs/2412.15119) [[Project]](https://epiphqny.github.io/PAR-project/)  
   Conference on Computer Vision and Pattern Recognition (CVPR), 2025
   
 - Beyond Surface Structure: A Causal Assessment of LLMs' Comprehension Ability.  
