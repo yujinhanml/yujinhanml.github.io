@@ -22,6 +22,10 @@ Publications
 - Slight Corruption in Pre-training Data Makes Better Diffusion Models. [[PDF]](https://arxiv.org/abs/2405.20494)  
   Hao Chen, **Yujin Han**, Diganta Misra, Xiang Li, Kai Hu, Difan Zou, Masashi Sugiyama, Jindong Wang, Bhiksha Raj.  
   Conference on Advances in Neural Information Processing Systems (NeurIPS), 2024 (**Spotlight**)
+
+- On the Discrepancy and Connection between Memorization and Generation in Diffusion Models. [[PDF]](https://openreview.net/pdf?id=ZqG5lo18tq)  
+  Hanyu Wang, **Yujin Han**, Difan Zou.  
+  ICML 2024 Workshop on Foundation Models in the Wild, 2024
   
 - Improving Group Robustness on Spurious Correlation Requires Preciser Group Inference. [[PDF]](https://arxiv.org/pdf/2404.13815) [[Code]](https://github.com/yujinhan98/GIC) [[Slide]](https://github.com/yujinhanml/yujinhanml.github.io/blob/master/slides/GIC_pre.pdf)  
   **Yujin Han**, Difan Zou.   
@@ -39,7 +43,3 @@ Preprints
 
 - Masked Autoencoders Are Effective Tokenizers for Diffusion Models. [[Arxiv]](https://arxiv.org/abs/2502.03444) [[Code]](https://github.com/Hhhhhhao/continuous_tokenizer)  
   Hao Chen*, **Yujin Han<sup>*</sup>**, Fangyi Chen, Xiang Li, Yidong Wang, Jindong Wang, Ze Wang, Zicheng Liu, Difan Zou, Bhiksha Raj.  
-  
-- On the Discrepancy and Connection between Memorization and Generation in Diffusion Models. [[PDF]](https://openreview.net/pdf?id=ZqG5lo18tq)  
-  Hanyu Wang, **Yujin Han**, Difan Zou.  
-  ICML 2024 Workshop on Foundation Models in the Wild, 2024
