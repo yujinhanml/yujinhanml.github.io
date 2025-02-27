@@ -14,7 +14,7 @@ Publications
   Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu.  
   Conference on Computer Vision and Pattern Recognition (CVPR), 2025
   
-- Beyond Surface Structure: A Causal Assessment of LLMs' Comprehension Ability.  [[Arxiv]](https://arxiv.org/abs/2411.19456) [[Code]](https://github.com/OpenCausaLab/ADCE) [[Slide]](https://github.com/yujinhanml/yujinhanml.github.io/blob/master/slides/adce.pdf) 
+- Beyond Surface Structure: A Causal Assessment of LLMs' Comprehension Ability.  [[Arxiv]](https://arxiv.org/abs/2411.19456) [[Code]](https://github.com/OpenCausaLab/ADCE) [[Slide]](https://github.com/yujinhanml/yujinhanml.github.io/blob/master/slides/adce.pdf)  
   **Yujin Han**, Lei Xu, Sirui Chen, Difan Zou, Chaochao Lu.   
   International Conference on Learning Representations (ICLR), 2025  
   
