@@ -17,7 +17,7 @@ I maintain a curiosity for any challenging research topics in machine learning a
 
 News
 ======
-- [2025-02] One paper on [Accelerating Autoregressive Visual Generation](https://arxiv.org/abs/2412.15119), is accepted to CVPR'25. 
+- [2025-02] One paper on [efficient autoregressive generation](https://arxiv.org/abs/2412.15119), is accepted to CVPR'25. 
 - [2025-01] One paper on [interpretability of LLMs](https://arxiv.org/abs/2411.19456), is accepted to ICLR'25. 
 - [2024-09] One paper on [noised diffusion models](https://arxiv.org/abs/2405.20494), is accepted to NeurIPS'24 as a spotlight. 
 - [2024-05] One paper on [mitigationg spurious correlations](https://arxiv.org/abs/2404.13815), is accepted to ICML'24.
