@@ -12,7 +12,7 @@ About Me
 
 I am currently a second-year Ph.D. candidate in Computer Science at the University of Hong Kong (HKU), where I have the privilege of being supervised by [Prof.Difan Zou](https://difanzou.github.io). Before joining HKU, I obtained my Master's degree from Yale University, where I was fortunate to be mentored by [Prof.Leying Guan](https://campuspress.yale.edu/lguan) and collaborating closely with [Prof.Sten H. Vermund](https://ysph.yale.edu/profile/sten-vermund/). I also hold a Bachelor's degree from Renmin University of China (RUC). Here is my [CV](https://github.com/yujinhan98/yujinhan98.github.io/blob/master/yujin_CV_2023.pdf).
 
-I maintain a curiosity for any challenging research topics in machine learning and deep learning, exploring them with the aim of proposing principled methods and providing insightful understanding that can benefit the public. 
+I maintain a curiosity for any challenging research topics in machine learning and deep learning, exploring them with the aim of proposing principled methods and providing insightful understanding that can benefit the public. Recently, I have been focusing on the application and theory of image and video generation models.  
 
 
 News
