@@ -17,6 +17,7 @@ I maintain a curiosity for any challenging research topics in machine learning a
 
 News
 ======
+- [2025-05] Two papers on diffusion models-[inter-feature rules](https://arxiv.org/abs/2502.04725) and [MAETok](https://arxiv.org/abs/2502.03444) (spotlight)-are accepted to ICML'25.  
 - [2025-02] One paper on [efficient autoregressive generation](https://arxiv.org/abs/2412.15119), is accepted to CVPR'25 as a highlight. 
 - [2025-01] One paper on [interpretability of LLMs](https://arxiv.org/abs/2411.19456), is accepted to ICLR'25. 
 - [2024-09] One paper on [noised diffusion models](https://arxiv.org/abs/2405.20494), is accepted to NeurIPS'24 as a spotlight. 
