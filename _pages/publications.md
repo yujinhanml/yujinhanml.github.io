@@ -10,6 +10,12 @@ author_profile: true
 Publications
 ------
 **2025** 
+- Can Diffusion Models Learn Hidden Inter-Feature Rules Behind Images? [[Arxiv]](https://www.arxiv.org/abs/2502.04725)  
+  **Yujin Han<sup>*</sup>**, Andi Han<sup>*</sup>, Wei Huang, Chaochao Lu, Difan Zou.  
+  International Conference on Machine Learning (ICML), 2025  
+- Masked Autoencoders Are Effective Tokenizers for Diffusion Models. [[Arxiv]](https://arxiv.org/abs/2502.03444) [[Code]](https://github.com/Hhhhhhao/continuous_tokenizer)  
+  Hao Chen*, **Yujin Han<sup>*</sup>**, Fangyi Chen, Xiang Li, Yidong Wang, Jindong Wang, Ze Wang, Zicheng Liu, Difan Zou, Bhiksha Raj.  
+  International Conference on Machine Learning (ICML), 2025   (**Spotlight**)
 - Parallelized Autoregressive Visual Generation. [[PDF]](https://arxiv.org/abs/2412.15119) [[Project]](https://epiphqny.github.io/PAR-project/)  
   Yuqing Wang, Shuhuai Ren, Zhijie Lin, **Yujin Han**, Haoyuan Guo, Zhenheng Yang, Difan Zou, Jiashi Feng, Xihui Liu.  
   Conference on Computer Vision and Pattern Recognition (CVPR), 2025 (**Highlight**)
@@ -38,8 +44,4 @@ Publications
 
 Preprints
 ------
-- Can Diffusion Models Learn Hidden Inter-Feature Rules Behind Images? [[Arxiv]](https://www.arxiv.org/abs/2502.04725)  
-  **Yujin Han<sup>*</sup>**, Andi Han<sup>*</sup>, Wei Huang, Chaochao Lu, Difan Zou.  
 
-- Masked Autoencoders Are Effective Tokenizers for Diffusion Models. [[Arxiv]](https://arxiv.org/abs/2502.03444) [[Code]](https://github.com/Hhhhhhao/continuous_tokenizer)  
-  Hao Chen*, **Yujin Han<sup>*</sup>**, Fangyi Chen, Xiang Li, Yidong Wang, Jindong Wang, Ze Wang, Zicheng Liu, Difan Zou, Bhiksha Raj.  
