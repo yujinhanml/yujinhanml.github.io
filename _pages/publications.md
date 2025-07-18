@@ -39,8 +39,8 @@ Publications
 
 Preprints
 ------
-- Theory of Autoregressive Diffusion Model: Inference Efficiency and Conditional Dependency Learning. [[ArXiv]](https://arxiv.org/abs/2504.21314) 
-  Xunpeng Huan<sup>*</sup>g, **Yujin Han<sup>*</sup>**, Difan Zou, Yian Ma, Tong Zhang  
+- Theory of Autoregressive Diffusion Model: Inference Efficiency and Conditional Dependency Learning. [[ArXiv]](https://arxiv.org/abs/2504.21314)  
+  Xunpeng Huan*, **Yujin Han<sup>*</sup>**, Difan Zou, Yian Ma, Tong Zhang  
    
 - On the Discrepancy and Connection between Memorization and Generation in Diffusion Models. [[PDF]](https://openreview.net/pdf?id=ZqG5lo18tq)  
   Hanyu Wang, **Yujin Han**, Difan Zou.  
