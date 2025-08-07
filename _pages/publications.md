@@ -39,6 +39,9 @@ Publications
 
 Preprints
 ------
+- Self-Contradiction as Self-Improvement: Mitigating the Generation-Understanding Gap in MLLMs.  [[ArXiv]](https://arxiv.org/abs/2507.16663)  
+  **Yujin Han**, Hao Chen, Andi Han, Zhiheng Wang, Xinyu Lin, Yingya Zhang, Shiwei Zhang, Difan Zou
+  
 - Theory of Autoregressive Diffusion Model: Inference Efficiency and Conditional Dependency Learning. [[ArXiv]](https://arxiv.org/abs/2504.21314)  
   Xunpeng Huang*, **Yujin Han<sup>*</sup>**, Difan Zou, Yian Ma, Tong Zhang  
    
