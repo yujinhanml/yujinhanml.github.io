@@ -10,7 +10,7 @@ redirect_from:
 About Me
 ======
 
-I am currently a second-year Ph.D. candidate in Computer Science at the University of Hong Kong (HKU), where I have the privilege of being supervised by [Prof.Difan Zou](https://difanzou.github.io). Before joining HKU, I obtained my Master's degree from Yale University, where I was fortunate to be mentored by [Prof.Leying Guan](https://campuspress.yale.edu/lguan) and collaborating closely with [Prof.Sten H. Vermund](https://ysph.yale.edu/profile/sten-vermund/). I also hold a Bachelor's degree from Renmin University of China (RUC). Here is my [CV](https://github.com/yujinhan98/yujinhan98.github.io/blob/master/yujin_CV_2023.pdf).
+I am currently a third-year Ph.D. candidate in Computer Science at the University of Hong Kong (HKU), where I have the privilege of being supervised by [Prof.Difan Zou](https://difanzou.github.io). Before joining HKU, I obtained my Master's degree from Yale University, where I was fortunate to be mentored by [Prof.Leying Guan](https://campuspress.yale.edu/lguan) and collaborating closely with [Prof.Sten H. Vermund](https://ysph.yale.edu/profile/sten-vermund/). I also hold a Bachelor's degree from Renmin University of China (RUC). Here is my [CV](https://github.com/yujinhan98/yujinhan98.github.io/blob/master/yujin_CV_2023.pdf).
 
 I’m deeply curious about challenging problems in generative modeling, especially image and video generation, and I explore them with the goal of offering insights and proposing principled methods that benefit the public. Recently, my work has focused on understanding and advancing unified multimodal LLMs.    
 
@@ -28,6 +28,6 @@ News
 
 Services
 ======
-- Conference Reviewer: ICML 2025; ICLR 2025; NeurIPS 2024 (Top Reviewers Award), 2025; AISTATS 2023, 2025; AAAI 2025.
+- Conference Reviewer: ICML 2025; ICLR 2025, 2026; NeurIPS 2024 (Top Reviewers Award), 2025; AISTATS 2023, 2025; AAAI 2025.
 - Journal Reviewer: TMLR.  
 - Teaching Experience: COMP3354 Statistical Learning (Fall 2024/2025, HKU); CCST9047 The Age of Big Data (Spring 2023, HKU); BIS620 Data Science Software Systems (Fall 2022, Yale).
