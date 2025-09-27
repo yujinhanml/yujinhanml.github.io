@@ -39,7 +39,7 @@ Publications
 
 Preprints
 ------
-- Turning Internal Gap into Self-Improvement: Promoting the Generation-Understanding Unification in MLLMs.  [[ArXiv]](https://arxiv.org/abs/2507.16663)  [[Project Page]](https://yujinhanml.github.io/self-improved-mllm/) 
+- Turning Internal Gap into Self-Improvement: Promoting the Generation-Understanding Unification in MLLMs.  [[ArXiv]](https://arxiv.org/abs/2507.16663)  [[Project Page]](https://yujinhanml.github.io/self-improved-mllm/)  
   **Yujin Han**, Hao Chen, Andi Han, Zhiheng Wang, Xinyu Liu, Yingya Zhang, Shiwei Zhang, Difan Zou
   
 - Theory of Autoregressive Diffusion Model: Inference Efficiency and Conditional Dependency Learning. [[ArXiv]](https://arxiv.org/abs/2504.21314)  
