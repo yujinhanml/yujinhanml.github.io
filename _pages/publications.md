@@ -9,6 +9,15 @@ author_profile: true
 
 Publications
 ------
+**2026** 
+- Turning Internal Gap into Self-Improvement: Promoting the Generation-Understanding Unification in MLLMs.  [[PDF]](https://arxiv.org/abs/2507.16663)  [[Project Page]](https://yujinhanml.github.io/self-improved-mllm/)  
+  **Yujin Han**, Hao Chen, Andi Han, Zhiheng Wang, Xinyu Liu, Yingya Zhang, Shiwei Zhang, Difan Zou.  
+  International Conference on Learning Representations (ICLR), 2026
+
+- Routing Matters in MoE: Scaling Diffusion Transformers with Explicit Routing Guidance.  [[PDF]](https://arxiv.org/abs/2510.24711)  
+  Yujie Wei, Shiwei Zhang, Hangjie Yuan, **Yujin Han**, Zhekai Chen, Jiayu Wang, Difan Zou, Xihui Liu, Yingya Zhang, Yu Liu, Hongming Shan.  
+  International Conference on Learning Representations (ICLR), 2026
+  
 **2025** 
 - Can Diffusion Models Learn Hidden Inter-Feature Rules Behind Images? [[PDF]](https://www.arxiv.org/abs/2502.04725)  
   **Yujin Han<sup>*</sup>**, Andi Han<sup>*</sup>, Wei Huang, Chaochao Lu, Difan Zou.  
@@ -39,8 +48,6 @@ Publications
 
 Preprints
 ------
-- Turning Internal Gap into Self-Improvement: Promoting the Generation-Understanding Unification in MLLMs.  [[ArXiv]](https://arxiv.org/abs/2507.16663)  [[Project Page]](https://yujinhanml.github.io/self-improved-mllm/)  
-  **Yujin Han**, Hao Chen, Andi Han, Zhiheng Wang, Xinyu Liu, Yingya Zhang, Shiwei Zhang, Difan Zou
   
 - Theory of Autoregressive Diffusion Model: Inference Efficiency and Conditional Dependency Learning. [[ArXiv]](https://arxiv.org/abs/2504.21314)  
   Xunpeng Huang*, **Yujin Han<sup>*</sup>**, Difan Zou, Yian Ma, Tong Zhang  
