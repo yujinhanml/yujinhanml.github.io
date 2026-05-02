@@ -49,7 +49,7 @@ Publications
 Preprints
 ------
 
-- AesRM: Improving Video Aesthetics with Expert-Level Feedback.  [[HomePage]](https://yujinhanml.github.io/aesrm-projectpage/)  
+- AesRM: Improving Video Aesthetics with Expert-Level Feedback.  [[HomePage]](https://yujinhanml.github.io/aesrm-projectpage/)  [[ArXiv]](https://arxiv.org/pdf/2604.28078v1)  
   **Yujin Han<sup>*</sup>**, Yujie Wei<sup>*</sup>, Yefei He, Xinyu Liu, Tianle Li, Zichao Yu, Andi Han, Shiwei Zhang, Tingyu Weng, Difan Zou  
   
 - Theory of Autoregressive Diffusion Model: Inference Efficiency and Conditional Dependency Learning. [[ArXiv]](https://arxiv.org/abs/2504.21314)  
