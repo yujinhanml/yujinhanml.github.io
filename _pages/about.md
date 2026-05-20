@@ -33,4 +33,4 @@ Services
 - Conference/Workshop Area Chair: FoGen , ICML 2026; DeLTa, ICLR 2026.
 - Journal Reviewer: TMLR, JASA.  
 - Teaching Experience: COMP3354 Statistical Learning (Fall 2024/2025, HKU); CCST9047 The Age of Big Data (Spring 2023, HKU); BIS620 Data Science Software Systems (Fall 2022, Yale).
-- Interns: Wan Group, Tongyi Lab; Shanghai AI Lab; Noah’s Ark Lab, etc.
+- Interns: Seed, ByteDance; Wan Group, Tongyi Lab; Shanghai AI Lab; Noah’s Ark Lab, etc.
