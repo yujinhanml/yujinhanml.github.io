@@ -49,6 +49,9 @@ Publications
 Preprints
 ------
 
+- MSAVBench: Towards Comprehensive and Reliable Evaluation of Multi-Shot Audio-Video Generation. [[ArXiv]](https://huggingface.co/papers/2605.20183)  
+  Yujie Wei*, **Yujin Han<sup>*</sup>**, Zhekai Chen, Yongming Li, Kaixun Jiang, Zhihang Liu, Quanhao Li, Zhiwu Qing, Xiang Wang, Zhen Xing, Ruihang Chu, Lingyi Hong, Yefei He, Junjie Zhou, Junqiu Yu, Yang Shi, Difan Zou, Kai Zhu, Shiwei Zhang, Yingya Zhang, Yu Liu, Xihui Liu, Hongming Shan  
+
 - AesRM: Improving Video Aesthetics with Expert-Level Feedback.  [[HomePage]](https://yujinhanml.github.io/aesrm-projectpage/)  [[ArXiv]](https://arxiv.org/pdf/2604.28078v1)  
   **Yujin Han<sup>*</sup>**, Yujie Wei<sup>*</sup>, Yefei He, Xinyu Liu, Tianle Li, Zichao Yu, Andi Han, Shiwei Zhang, Tingyu Weng, Difan Zou  
   
