@@ -202,6 +202,8 @@ def chart_style():
 def save_chart(fig,out,name):
     fig.savefig(out/(name+'.svg'),bbox_inches='tight',pad_inches=.25,metadata={'Date':None})
     plt.close(fig)
+    target = out / (name + '.svg')
+    target.write_text('\n'.join(line.rstrip() for line in target.read_text().splitlines()) + '\n')
 
 
 def index_bars(out,name,labels,values,title,reference,colors=None,horizontal=False):
