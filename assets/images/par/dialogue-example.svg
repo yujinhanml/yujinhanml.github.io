@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 580" role="img" aria-labelledby="title desc">
+<title id="title">Fictional dialogue edit with a lip-sync failure</title><desc id="desc">Fictional dialogue edit with a lip-sync failure</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="580" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">FICTIONAL DIALOGUE · WORDS CHANGE, LIP TIMING DOES NOT</tspan>
+</text>
+<rect x="30" y="65" width="490" height="440" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="55" y="102" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="55" dy="0">Original video</tspan>
+</text>
+<circle cx="165" cy="197" r="32" fill="#bed6dd" stroke="none" stroke-width="1"/>
+<rect x="130" y="235" width="70" height="74" rx="10" fill="#9dbbb3" stroke="#193b45"/>
+<rect x="80" y="330" width="175" height="63" rx="10" fill="white" stroke="#dce5e4"/>
+<text x="167" y="354" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="167" dy="0">Meet me at noon</tspan>
+</text>
+<circle cx="385" cy="197" r="32" fill="#d9c6ad" stroke="none" stroke-width="1"/>
+<rect x="350" y="235" width="70" height="74" rx="10" fill="#b8a2aa" stroke="#193b45"/>
+<rect x="300" y="330" width="175" height="63" rx="10" fill="white" stroke="#dce5e4"/>
+<text x="387" y="354" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="387" dy="0">I’ll bring lunch</tspan>
+</text>
+<text x="50" y="435" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start">
+<tspan x="50" dy="0">Speech timing</tspan>
+</text>
+<rect x="180" y="422" width="185" height="15" rx="3" fill="#147d73" stroke="#dce5e4"/>
+<text x="50" y="471" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start">
+<tspan x="50" dy="0">Lip timing</tspan>
+</text>
+<rect x="180" y="458" width="185" height="15" rx="3" fill="#b5934b" stroke="#dce5e4"/>
+<rect x="580" y="65" width="490" height="440" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="605" y="102" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="605" dy="0">Edited video</tspan>
+</text>
+<circle cx="715" cy="197" r="32" fill="#bed6dd" stroke="none" stroke-width="1"/>
+<rect x="680" y="235" width="70" height="74" rx="10" fill="#9dbbb3" stroke="#193b45"/>
+<rect x="630" y="330" width="175" height="63" rx="10" fill="white" stroke="#dce5e4"/>
+<text x="717" y="354" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="717" dy="0">Meet me at dusk</tspan>
+</text>
+<circle cx="935" cy="197" r="32" fill="#d9c6ad" stroke="none" stroke-width="1"/>
+<rect x="900" y="235" width="70" height="74" rx="10" fill="#b8a2aa" stroke="#193b45"/>
+<rect x="850" y="330" width="175" height="63" rx="10" fill="white" stroke="#dce5e4"/>
+<text x="937" y="354" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="937" dy="0">I’ll bring a</tspan>
+<tspan x="937" dy="23.2">lantern</tspan>
+</text>
+<text x="600" y="435" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start">
+<tspan x="600" dy="0">Speech timing</tspan>
+</text>
+<rect x="780" y="422" width="185" height="15" rx="3" fill="#147d73" stroke="#dce5e4"/>
+<text x="600" y="471" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" text-anchor="start">
+<tspan x="600" dy="0">Lip timing</tspan>
+</text>
+<rect x="730" y="458" width="185" height="15" rx="3" fill="#b5934b" stroke="#dce5e4"/>
+<text x="550" y="548" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">Content checks: pass  /  Lip-sync checks: fail</tspan>
+</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 340" role="img" aria-labelledby="title desc">
+<title id="title">Same model, different context</title><desc id="desc">A generic question leaves the model to choose its checks; targeted rubrics specify the object and edit to inspect.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="340" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">CONTEXT IS PART OF THE VERIFIER</tspan>
+</text>
+<rect x="30" y="65" width="480" height="150" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="270.0" y="96" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600" text-anchor="middle">
+<tspan x="270.0" dy="0">General question</tspan>
+</text>
+<text x="270.0" y="124" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="270.0" dy="0">Does the edited video satisfy the instruction?</tspan>
+</text>
+<rect x="590" y="65" width="480" height="150" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="830.0" y="96" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600" text-anchor="middle">
+<tspan x="830.0" dy="0">Prompt-aware question</tspan>
+</text>
+<text x="830.0" y="124" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="830.0" dy="0">Have all red delivery carts in the courtyard been</tspan>
+<tspan x="830.0" dy="23.2">changed to blue?</tspan>
+</text>
+<text x="55" y="251" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start">
+<tspan x="55" dy="0">Implicit task decomposition</tspan>
+</text>
+<text x="615" y="251" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start">
+<tspan x="615" dy="0">Explicit object + attribute + target change</tspan>
+</text>
+<text x="550" y="305" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">Same task. Same video. Same verifier. A more informative context.</tspan>
+</text>
+<polyline points="520,140 580,140" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" role="img" aria-labelledby="title desc">
+<title id="title">Fictional visual edit with an audio-preservation failure</title><desc id="desc">Fictional visual edit with an audio-preservation failure</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="480" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">ILLUSTRATIVE AUDIO-PRESERVATION FAILURE · NO ORIGINAL MEDIA</tspan>
+</text>
+<rect x="30" y="65" width="490" height="310" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="55" y="103" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="55" dy="0">Original video</tspan>
+</text>
+<rect x="230" y="170" width="88" height="49" rx="5" fill="#c76243" stroke="#c76243"/>
+<path d="M 215,158 L 225,158 L 235,218" fill="none" stroke="#193b45" stroke-width="5"/>
+<circle cx="250" cy="228" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="298" cy="228" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<polyline points="80,302.0 86,308.25 92,312.83 98,313.72 104,309.36 110,300.27 116,290.01 122,283.76 128,285.23 134,294.1 140,305.88 146,314.79 152,317.16 158,313.16 164,305.81 170,298.57 176,293.65 182,291.94 188,293.86 194,299.46 200,307.62 206,315.31 212,318.46 218,314.36 224,304.02 230,292.2 236,284.77 242,285.12 248,292.28 254,302.01 260,309.71 266,312.91 272,311.63 278,307.15 284,300.88 290,294.32 296,289.65 302,289.5 308,295.36 314,305.74 320,316.06 326,320.94 332,317.6 338,307.78 344,296.6 350,289.33 356,288.42 362,292.84 368,299.68 374,306.26 380,310.88 386,312.48 392,310.07 398,303.42 404,294.28 410,286.6 416,284.75 422,290.66 428,302.02 434,313.27 440,318.97 446,317.02 452,309.47 458,300.6 464,294.15" fill="none" stroke="#147d73" stroke-width="3"/>
+<text x="275" y="348" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" text-anchor="middle">
+<tspan x="275" dy="0">Original audio</tspan>
+</text>
+<rect x="580" y="65" width="490" height="310" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="605" y="103" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="605" dy="0">Edited video</tspan>
+</text>
+<rect x="780" y="170" width="88" height="49" rx="5" fill="#147d73" stroke="#147d73"/>
+<path d="M 765,158 L 775,158 L 785,218" fill="none" stroke="#193b45" stroke-width="5"/>
+<circle cx="800" cy="228" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="848" cy="228" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<polyline points="630,302.0 636,311.5 642,310.07 648,297.45 654,287.74 660,295.3 666,313.71 672,319.45 678,303.23 684,285.18 690,288.24 696,307.02 702,317.11 708,308.44 714,294.57 720,291.65 726,300.7 732,310.69 738,310.57 744,299.2 750,288.81 756,293.96 762,311.52 768,319.6 774,305.63 780,286.28 786,286.44 792,305.03 798,317.66 804,310.45 810,295.43 816,290.79 822,299.34 828,309.9 834,310.97 840,300.78 846,290.01 852,292.97 858,309.28 864,319.29 870,307.87 876,287.8 882,284.98 888,302.81 894,317.83 900,312.51 906,296.54 912,289.97 918,297.9 924,309.13 930,311.33 936,302.22 942,291.29 948,292.29 954,307.1 960,318.55 966,309.85 972,289.68 978,283.94 984,300.42 990,317.57 996,314.54 1002,297.94 1008,289.25 1014,296.35" fill="none" stroke="#c76243" stroke-width="3"/>
+<text x="825" y="348" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" text-anchor="middle">
+<tspan x="825" dy="0">Unexpectedly changed audio</tspan>
+</text>
+<text x="550" y="435" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">Requested visual replacement: pass  /  Audio preservation: fail</tspan>
+</text>
+</svg>

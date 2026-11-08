@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 460" role="img" aria-labelledby="title desc">
+<title id="title">Illustrative transient quality artifact</title><desc id="desc">Illustrative transient quality artifact</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="460" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">FICTIONAL TEMPORAL SEQUENCE · AN ARTIFACT APPEARS AND RECOVERS</tspan>
+</text>
+<rect x="30" y="65" width="310" height="300" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="185" y="108" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" text-anchor="middle">
+<tspan x="185" dy="0">Frame t − 1</tspan>
+</text>
+<g transform="translate(185,220) scale(0.9)">
+<rect x="-55" y="-50" width="110" height="95" rx="15" fill="#a8d6c9" stroke="#147d73"/>
+<circle cx="-23" cy="-10" r="8" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="23" cy="-10" r="8" fill="#193b45" stroke="none" stroke-width="1"/>
+<path d="M -22,22 L 22,22" stroke="#193b45" stroke-width="5"/>
+<rect x="-40" y="59" width="80" height="60" rx="8" fill="#bfd9e4" stroke="#bfd9e4"/>
+<path d="M 0,-50 L 0,-82" stroke="#147d73" stroke-width="5" fill="none"/>
+</g>
+<rect x="395" y="65" width="310" height="300" rx="12" fill="#fff0eb" stroke="#c76243"/>
+<text x="550" y="108" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" text-anchor="middle">
+<tspan x="550" dy="0">Frame t</tspan>
+</text>
+<g transform="translate(550,220) scale(0.9)">
+<rect x="-55" y="-50" width="110" height="95" rx="15" fill="#a8d6c9" stroke="#147d73"/>
+<path d="M -30,-25 L -5,-10 L -30,5 Z" fill="#c76243"/>
+<circle cx="24" cy="-10" r="9" fill="#c76243" stroke="none" stroke-width="1"/>
+<path d="M -22,22 L 22,22" stroke="#193b45" stroke-width="5"/>
+<rect x="-40" y="59" width="80" height="60" rx="8" fill="#bfd9e4" stroke="#bfd9e4"/>
+<path d="M 0,-50 L 0,-82" stroke="#147d73" stroke-width="5" fill="none"/>
+</g>
+<rect x="760" y="65" width="310" height="300" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="915" y="108" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" text-anchor="middle">
+<tspan x="915" dy="0">Frame t + 1</tspan>
+</text>
+<g transform="translate(915,220) scale(0.9)">
+<rect x="-55" y="-50" width="110" height="95" rx="15" fill="#a8d6c9" stroke="#147d73"/>
+<circle cx="-23" cy="-10" r="8" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="23" cy="-10" r="8" fill="#193b45" stroke="none" stroke-width="1"/>
+<path d="M -22,22 L 22,22" stroke="#193b45" stroke-width="5"/>
+<rect x="-40" y="59" width="80" height="60" rx="8" fill="#bfd9e4" stroke="#bfd9e4"/>
+<path d="M 0,-50 L 0,-82" stroke="#147d73" stroke-width="5" fill="none"/>
+</g>
+<text x="550" y="417" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">A brief shape inconsistency calls for neighboring-frame inspection.</tspan>
+</text>
+</svg>

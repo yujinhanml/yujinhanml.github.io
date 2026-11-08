@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 430" role="img" aria-labelledby="title desc">
+<title id="title">From human evaluation to PAR</title><desc id="desc">From human evaluation to PAR</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="430" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">THE DESIGN INSPIRATION</tspan>
+</text>
+<rect x="30" y="65" width="290" height="80" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="175.0" y="96" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="175.0" dy="0">Define the criteria</tspan>
+</text>
+<polyline points="175,148 175,199" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="30" y="205" width="290" height="122" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="175.0" y="236" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="175.0" dy="0">Rubric Handbook</tspan>
+</text>
+<text x="175.0" y="264" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="175.0" dy="0">Expert knowledge as a system</tspan>
+<tspan x="175.0" dy="23.2">prompt</tspan>
+</text>
+<rect x="405" y="65" width="290" height="80" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="550.0" y="96" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="550.0" dy="0">Create task-specific checks</tspan>
+</text>
+<polyline points="550,148 550,199" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="405" y="205" width="290" height="122" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="550.0" y="236" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="550.0" dy="0">Rubric Generator</tspan>
+</text>
+<text x="550.0" y="264" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="550.0" dy="0">Select and instantiate relevant</tspan>
+<tspan x="550.0" dy="23.2">criteria</tspan>
+</text>
+<rect x="780" y="65" width="290" height="80" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="925.0" y="96" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="925.0" dy="0">Train the evaluators</tspan>
+</text>
+<polyline points="925,148 925,199" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="780" y="205" width="290" height="122" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="925.0" y="236" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="925.0" dy="0">Rubric Verifier</tspan>
+</text>
+<text x="925.0" y="264" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="925.0" dy="0">Apply expert-aligned decision</tspan>
+<tspan x="925.0" dy="23.2">rules</tspan>
+</text>
+<polyline points="325,267 395,267" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="700,267 770,267" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="550" y="383" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">Task + video pair  →  task-specific checks  →  verdicts and reward</tspan>
+</text>
+</svg>

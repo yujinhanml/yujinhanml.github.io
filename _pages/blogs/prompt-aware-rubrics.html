@@ -1,0 +1,226 @@
+---
+layout: research-post
+title: "Prompt-Aware Rubrics for Video Generation"
+subtitle: "A Verifier (Reward) Framework Inspired by Human Evaluation"
+permalink: /blogs/prompt-aware-rubrics/
+date: 2026-11-08
+excerpt: "How human evaluation workflows inspired task-specific rubrics, a trained verifier, and an evolving system of specialist tools for video generation."
+blog_article: true
+blog_styles: true
+---
+<p class="lead">A verifier can miss an edit even when it has the visual ability to recognize the mistake. Sometimes, the missing ingredient is a better question.</p>
+
+<p><strong>Prompt-Aware Rubrics (PAR)</strong> is a framework for evaluating video generation and editing, inspired by the workflow of human evaluation experts: define the criteria, turn them into task-specific checks, and train evaluators to apply them consistently. PAR turns that workflow into a rubric handbook, a rubric generator, and a trained verifier. It later evolves into a system of specialists and evidence-based orchestration.</p>
+
+<div class="article-note"><strong>About the results.</strong> All quantitative results below are normalized: original absolute scores, rates, and sample counts are withheld. Each comparison uses a stated reference and one common scaling factor, preserving measured ratios and relative percentage gains before display rounding. These indices are not raw accuracy rates or percentage-point gains. All case visuals, instructions, and example verdicts are newly constructed illustrations. Single PAR and V1 were deployed; V4 and the final hybrid architecture are exploratory.</div>
+
+<figure class="results-overview"><img src="/assets/images/par/precision-overview.svg" alt="Normalized results on Bench2: precision indices relative to the external SOTA ensemble, which equals 1.000. V4 reaches 1.077."><figcaption><strong>Normalized results.</strong> Agentic PAR V4 exceeds the Gemini-3-Pro-Preview + GPT-5.6-Sol ensemble on precision by approximately <strong>7.7% relative</strong>. External ensemble = 1.000.</figcaption></figure>
+<div class="metric-strip metric-strip-pair" aria-label="Normalized project results">
+  <div><strong>+7.7<span>%</span></strong><span>Relative precision gain, V4 over the external SOTA ensemble</span></div>
+  <div><strong>2.20<span>×</span></strong><span>Usable + tolerable share, relative to the synthesis-pipeline baseline</span></div>
+</div>
+
+<section id="design" class="article-section">
+<div class="section-label">01 / THE IDEA</div>
+<h2>Motivation: building better context from human evaluation</h2>
+
+<h3 id="context">Same model, different context</h3>
+<p>Consider an instruction with several editing requirements:</p>
+<blockquote>Change every red delivery cart in the courtyard to blue, add two trees near the gate, and preserve the camera motion, pacing, and duration.</blockquote>
+<p>A fixed, generic evaluation prompt might ask, “Does the edited video satisfy the user’s instruction?” The model must parse every requirement, decide where to look, compare the relevant regions, and compress its findings into one judgment. It can overlook the red carts while attending to the overall scene.</p>
+<p>Now ask, “Have all red delivery carts in the courtyard been changed to blue?” The video is unchanged. The verifier is unchanged. But the context explicitly identifies an object, an attribute, and a target change. A failure under the general question does not necessarily establish an inability to recognize color; the relevant capability may not have been effectively elicited.</p>
+<figure><img src="/assets/images/par/context.svg" alt="The same verifier receives either a general question or an explicit question about changing red carts to blue." width="1100" height="340"><figcaption><span>Figure 1.</span> A conceptual comparison of evaluation contexts, rather than a controlled paired prediction experiment.</figcaption></figure>
+<p>This suggested a practical research question: <strong>how can we systematically construct context that helps a verifier use the capabilities it already has?</strong></p>
+
+<h3 id="human-workflow">Borrowing the workflow of human evaluation experts</h3>
+<p>Human evaluation begins before anyone assigns a score. Experts first decide what matters, distinguish different failure modes, and document the criteria. Evaluators are then trained to apply those criteria consistently. Asking a model to “judge the video” skips much of that work.</p>
+<figure><img src="/assets/images/par/human-to-par.svg" alt="Human criteria definition, task-specific checks and evaluator training map to the PAR handbook, generator and verifier." loading="lazy" width="1100" height="430"><figcaption><span>Figure 2.</span> The expert workflow becomes the architecture: specify the criteria, instantiate them for the task, and learn how to apply them.</figcaption></figure>
+<p>PAR has three components. The <strong>Rubric Handbook</strong> stores expert knowledge as the generator’s system prompt. The <strong>Rubric Generator</strong> converts a user instruction into concrete checks. The <strong>Rubric Verifier</strong> answers those checks using the video evidence and an expert-aligned decision rule.</p>
+
+<h3 id="rubric-example">What a prompt-aware rubric looks like</h3>
+<p>The rubric pool has <strong>two levels: category and subcategory</strong>. A generated question grounds a selected criterion in the actual task. The following fictional examples demonstrate that structure without reproducing an internal rubric inventory.</p>
+<figure><img src="/assets/images/par/courtyard-example.svg" alt="Fictional original and edited courtyard diagrams: one red cart is left unchanged in the edited scene." loading="lazy"><figcaption><span>Figure 3.</span> A newly drawn, fictional video-editing example. The targeted color check reveals an incomplete edit; no project media or original editing instruction is reproduced.</figcaption></figure>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Two-level rubric examples"><table class="rubric-table">
+<thead><tr><th>Category</th><th>Subcategory</th><th>Task-specific rubric</th></tr></thead>
+<tbody>
+<tr><td>Visual Editing</td><td>Element Replacement</td><td>Have all red delivery carts in the courtyard been changed to blue?</td></tr>
+<tr><td>Visual Editing</td><td>Scene and Background</td><td>Have two trees been added near the gate?</td></tr>
+<tr><td>Content Preservation</td><td>Background and Props</td><td>Are the original gate and other unedited courtyard elements preserved?</td></tr>
+<tr><td>Content Preservation</td><td>Camera and Motion Continuity</td><td>Is the original camera motion preserved?</td></tr>
+<tr><td>Editing Quality</td><td>Edit Integration</td><td>Is the cart recoloring temporally stable, without residual red areas or deformation?</td></tr>
+<tr><td>Editing Quality</td><td>Edit Integration</td><td>Do the added trees blend into the courtyard without visible seams?</td></tr>
+</tbody></table></div>
+<p>The full top-level space includes <em>Visual Editing, Audio Editing, Cross-Modal Editing, Content Preservation,</em> and <em>Editing Quality</em>. A visual-only task selects relevant checks; it does not need questions from every category.</p>
+<p>At inference time, the workflow is <strong>handbook + instruction → rubrics → video verification → rubric-level verdicts and an aggregate score</strong>. The per-check probability of “1” can supply a soft score for aggregation. The same representation supports interpretable evaluation, data filtering, and reward construction for post-training.</p>
+</section>
+
+<section id="single-verifier" class="article-section">
+<div class="section-label">02 / THE SINGLE VERIFIER</div>
+<h2>PAR: a single verifier</h2>
+
+<h3 id="handbook">The handbook is the generator’s system prompt</h3>
+<p>The handbook is implemented as text in the <strong>rubric generator’s system prompt</strong>. It has two parts: fixed generation requirements and a structured rubric pool.</p>
+<p>The fixed requirements favor atomic checks, prioritize important requirements within a question budget, enforce consistent polarity, and discourage contradictions and duplicates. A positive answer should always mean that the requirement is satisfied; a negative answer means it is unmet, incomplete, or unsupported by sufficient evidence.</p>
+<p>The rubric pool supplies the two-level categories and criteria from which the generator selects. It spans broad categories and finer criteria, with coverage expanded through iteration. Given a user prompt or editing instruction, the generator selects relevant entries and grounds them in specific objects, attributes, actions, and preservation constraints.</p>
+<figure><img src="/assets/images/par/handbook.svg" alt="The handbook contains fixed requirements and a two-level pool; selected criteria are instantiated using the user instruction." loading="lazy" width="1100" height="450"><figcaption><span>Figure 4.</span> The pool provides anchors for question construction, rather than a fixed checklist to repeat for every video.</figcaption></figure>
+<p>We built it in three stages. First, expert experience established the initial rules and pool. Second, inference failures and RL feedback exposed task requirements and failure modes that were not yet covered. <strong>The purpose of that feedback stage was to expand the pool’s coverage of real data and training scenarios.</strong> Third, an automated search proposed additions, removals, splits, and merges.</p>
+<p>The search loop evaluated the initial handbook, selected a current or historical anchor, and assigned an edit budget. It inspected incorrect or tied cases, proposed changes to pool entries, checked that the patch obeyed the allowed scope and format, regenerated rubrics, and evaluated the candidate using the verifier. Only an improvement passing the generation-success gate replaced the current best.</p>
+<figure class="tall-diagram"><a href="/assets/images/par/pool-search.svg" aria-label="Open the full rubric pool optimization diagram"><img src="/assets/images/par/pool-search.svg" alt="Full rubric pool search loop including anchor selection, edit budget, error analysis, patch validation, rubric regeneration, train and optional OOD evaluation, and best-candidate retention." loading="lazy" width="1100" height="1240"></a><figcaption><span>Figure 5.</span> Black-box text search over the rubric pool. The evaluator supplies feedback; the loop does not differentiate through the system prompt. Click to enlarge.</figcaption></figure>
+<p>Compared with the earlier handbook, the refined version made several criteria more specific, introduced an overall visual-quality criterion, and adjusted the question budget to cover important requirements. Bench1 results from the handbook iteration study were:</p>
+<figure><img src="/assets/images/par/handbook-results.svg" alt="Normalized Bench1 accuracy indices for fixed, expert-informed and agent-refined rubrics: 1.000, 1.119 and 1.151." loading="lazy"><figcaption><span>Figure 6.</span> Normalized results: fixed rubrics = 1.000. Handbook refinement preserves a roughly 15.1% relative gain; this is separate from the verifier-training study.</figcaption></figure>
+
+<h3 id="generator">A strong handbook reduces dependence on the generator</h3>
+<p>Before training a better answering model, we checked whether the generated questions were useful. Human review found that most generated rubrics were fully relevant to the task. Relevance varied across categories, with audio editing remaining a weaker area.</p>
+<figure><img src="/assets/images/par/relevance.svg" alt="Normalized rubric-relevance indices by category, with content preservation as the reference." loading="lazy"><figcaption><span>Figure 7.</span> Normalized results: content preservation = 1.000. The chart preserves relative category differences. Relevance does not establish coverage of every important requirement.</figcaption></figure>
+<p>We then compared a strong external generator with a lightweight internal generator using the same detailed handbook. In that experiment, both yielded the same downstream Bench1 accuracy.</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Rubric generator comparison"><table><thead><tr><th>Rubric generator</th><th>Bench1 accuracy index</th></tr></thead><tbody><tr><td>Strong external model</td><td>1.000</td></tr><tr><td>Lightweight internal model</td><td>1.000</td></tr></tbody></table></div>
+<p class="small-note">Normalized results: strong external generator = 1.000. The two generators also produced substantial rubric overlap and semantically similar same-category questions.</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Illustrative semantic equivalence of rubric wording"><table><thead><tr><th>Wording A</th><th>Wording B</th></tr></thead><tbody><tr><td>Have all red delivery carts in the courtyard been changed to blue?</td><td>Are all delivery carts that were red in the original courtyard now blue?</td></tr></tbody></table></div>
+<p class="small-note">An illustrative semantic pair, not verbatim outputs from the generator-comparison experiment.</p>
+<p>The takeaway is specific to this setup: sufficiently explicit generation guidance made the internal generator a practical substitute. The handbook carried much of the task knowledge that would otherwise have been left implicit. The relevance review and generator comparison are separate studies.</p>
+
+<h3 id="verifier-training">Direct GRPO, expert labels, and shortcut learning</h3>
+<p>For a video pair with <em>N</em> rubrics, the verifier outputs an <em>N</em>-position binary string. Each position answers one check. We skipped an SFT stage because <strong>the training data was limited and the base model already knew the required format</strong>: given <em>N</em> checks, emit <em>N</em> binary answers. Direct GRPO could therefore focus on judgment quality rather than relearning the output schema.</p>
+<figure><img src="/assets/images/par/verifier-training.svg" alt="Video pair and N rubrics enter the verifier, which outputs N binary verdicts and is trained using format and accuracy rewards." loading="lazy" width="1100" height="440"><figcaption><span>Figure 8.</span> The output is compact, but the judgment behind each position must follow the expert criteria.</figcaption></figure>
+<p>The reward checks length, valid binary output, and per-rubric correctness. A wrong output length invalidates the sequence; illegal symbols are penalized. The accuracy-related term for rollout <em>i</em> and rubric <em>j</em> is:</p>
+<div class="equation">\[R_{i,j}=a+b\,h_{i,j}\,p_{\mathrm{old}}(y_{i,j}),\qquad h_{i,j}\in\{-1,+1\}.\]</div>
+<p>Here, <em>h</em> is positive for a correct verdict and negative otherwise; <em>p</em> is the probability of the emitted token. The constants a and b set the reward offset and scale. Rubrics were equally weighted in this verifier setup; exact implementation hyperparameters are omitted.</p>
+<p>Data design mattered as much as the loss. The original training set was dominated by mixed pass/fail sequences, with relatively few all-pass or all-fail examples. The verifier could learn a shortcut: a long list of rubrics probably contains a failure.</p>
+<p>The first augmentation removed failed checks from selected samples, retained a subset of passing checks, and shuffled their order. The next version further balanced all-pass, mixed, and all-fail examples, while reducing correlations between rubric count and labels.</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Normalized verifier training results"><table><thead><tr><th>Training variant</th><th>Data change</th><th>Bench1 accuracy index</th></tr></thead><tbody>
+<tr><td>Training baseline</td><td>Original distribution</td><td>1.000</td></tr>
+<tr><td>Augmentation V1</td><td>Increase all-pass examples</td><td>1.047</td></tr>
+<tr><td>Augmentation V2</td><td>Balance all-pass / mixed / all-fail examples</td><td>1.056</td></tr>
+<tr><td>V2 + Gold-Rescue</td><td>Target all-incorrect rubric groups; no new source examples</td><td><strong>1.073</strong></td></tr>
+</tbody></table></div>
+<p class="small-note">Normalized results: training baseline = 1.000. These are experiment variants rather than an isolated data-only ablation; V1 also disabled thinking.</p>
+
+<h3 id="gold-rescue">Gold-Rescue: a learning signal for all-incorrect groups</h3>
+<p>For each prompt, ordinary GRPO samples <em>K</em> rollouts and computes group-relative advantages per rubric. A difficult rubric may be answered incorrectly in all <em>K</em>. Our <strong>Gold-Rescue trigger operates on that rubric</strong>: when every sampled answer is wrong, inject one gold answer into the group and use it to provide a positive target.</p>
+<figure><img src="/assets/images/par/gold-rescue.svg" alt="K rollout answers are checked per rubric; all-incorrect groups receive a gold answer and a shaped off-policy loss." loading="lazy" width="1100" height="610"><figcaption><span>Figure 9.</span> The rescue condition is project-specific. The shaped off-policy objective is adapted from LUFFY.</figcaption></figure>
+<p>For a binary correctness illustration, add one gold answer to <em>K</em> incorrect answers. With population-standard-deviation normalization, the incorrect answers receive advantage \(-1/\sqrt{K}\), and the gold answer receives \(\sqrt{K}\). This explains how rescue restores a learning signal to an otherwise uniform group.</p>
+<p>Ordinary rollout tokens retain the PPO clipped loss. Writing the probability ratio as \(\rho_t=\pi_\theta(y_t\mid x,y_{&lt;t})/\pi_{\mathrm{old}}(y_t\mid x,y_{&lt;t})\), the per-token loss is:</p>
+<div class="equation">\[\mathcal L_{\mathrm{on},t}=\max\!\left(-A_t\rho_t,\;-A_t\operatorname{clip}(\rho_t,1-\epsilon_{\mathrm{low}},1+\epsilon_{\mathrm{high}})\right).\]</div>
+<p>The gold token is evaluated under a gold prefix. Following the policy-shaping function in <a href="https://arxiv.org/abs/2504.14945">LUFFY: Learning to Reason under Off-Policy Guidance</a>, we use \(f(p)=p/(p+\gamma)\). With the gold teacher probability treated as 1, the corresponding loss term is:</p>
+<div class="equation">\[p_t=\pi_\theta(y_t^*\mid x,y_{&lt;t}^*),\qquad\mathcal L_{\mathrm{gold},t}=-A_t^{\mathrm{gold}}\frac{p_t}{p_t+\gamma} ,\quad\gamma&gt;0.\]</div>
+<p>For a positive gold advantage, minimizing this loss increases the probability of the correct token. The saturating transformation reshapes the off-policy update; it is not the usual negative-log-likelihood objective. Gold-Rescue adapts this ingredient to a targeted rubric-level trigger, rather than reproducing the complete LUFFY training procedure.</p>
+<figure><img src="/assets/images/par/training-curves.svg" alt="Normalized training and validation trends for Augmentation V2 and Gold-Rescue, with normalized training progress." loading="lazy"><figcaption><span>Figure 10.</span> Normalized results, approximately digitized from the experiment plots. Within each panel, the first Augmentation V2 point = 1.000; training progress is rescaled to 0–1. The panels have separate references and are not raw logs.</figcaption></figure>
+<p>On Bench1, Gold-Rescue improved the V2 verifier by approximately <strong>1.6% relative</strong>, without collecting additional source training examples.</p>
+
+<h3 id="single-results">Generalization, diagnosis, and PAR for RL</h3>
+<p>On Bench3, a held-out editing evaluation, the largest improvements appeared in instruction following. Quality changed much less, a clue for the later failure analysis.</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Normalized Bench3 scores"><table><thead><tr><th>Method</th><th>Overall index</th><th>Instruction-following index</th><th>Consistency index</th><th>Quality index</th></tr></thead><tbody>
+<tr><td>Fixed-prompt baseline</td><td>1.000</td><td>1.000</td><td>1.000</td><td>1.000</td></tr>
+<tr><td>Single PAR</td><td><strong>1.576</strong></td><td><strong>1.360</strong></td><td><strong>1.078</strong></td><td>1.010</td></tr>
+<tr><td>External SOTA model</td><td>1.329</td><td>1.051</td><td>1.060</td><td><strong>1.089</strong></td></tr>
+</tbody></table></div>
+<p class="small-note">Normalized results: the fixed-prompt baseline = 1.000 separately for each metric. These indices preserve relative gains, not absolute evaluation scores. On the audio-focused Bench4, trained PAR improved accuracy by approximately 8.9% relative to its fixed-prompt baseline.</p>
+<p><strong>PAR for RL.</strong> PAR can also provide rewards for video-generation post-training. In policy-gradient-style methods where the update is weighted by a reward or advantage, more accurate verification can provide a more reliable learning signal for editing instructions. Better verifier accuracy can therefore translate into better downstream editing responsiveness, although the effect depends on the optimizer and training setup. Category-level rubric weights offer another control: increasing the weight on instruction following, preservation, or quality changes the emphasis of the reward and steers what the generator is optimized to improve.</p>
+<p>The fictional dialogue example below illustrates how atomic checks make an error interpretable. It is newly constructed for this article and does not reproduce a project sample or a measured model response.</p>
+<figure class="case-card">
+<div class="case-kicker">ILLUSTRATIVE CASE / DIALOGUE EDITING</div>
+<div class="case-prompt"><strong>Fictional editing instruction</strong><p>Change the first speaker’s line from “Meet me at noon” to “Meet me at dusk,” and the second speaker’s reply from “I’ll bring lunch” to “I’ll bring a lantern.” Keep the lip movements synchronized and preserve the unedited dialogue.</p></div>
+<div class="case-human"><strong>Illustrative human review</strong><p>The new words are correct, but both speakers’ lip movements remain out of sync.</p></div>
+<img src="/assets/images/par/dialogue-example.svg" alt="Newly drawn fictional dialogue-editing illustration, with new speech but unchanged lip timing." loading="lazy">
+<div class="case-output-summary"><span><strong>Illustrative verifier output</strong> <code>11001</code></span><span>Example verdicts, not measured outputs</span></div>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Illustrative dialogue rubrics"><table class="rubric-table"><thead><tr><th>Category</th><th>Subcategory</th><th>Example rubric</th><th>Illustrative answer</th></tr></thead><tbody>
+<tr><td>Audio Editing</td><td>Dialogue Content</td><td>Does the first speaker now say “Meet me at dusk”?</td><td><span class="pass">1 · Pass</span></td></tr>
+<tr><td>Audio Editing</td><td>Dialogue Content</td><td>Does the reply now say “I’ll bring a lantern”?</td><td><span class="pass">1 · Pass</span></td></tr>
+<tr class="case-failed-row"><td>Cross-Modal Editing</td><td>Lip Synchronization</td><td>Are the first speaker’s lip movements synchronized with the new speech?</td><td><span class="fail">0 · Fail</span></td></tr>
+<tr class="case-failed-row"><td>Cross-Modal Editing</td><td>Lip Synchronization</td><td>Are the second speaker’s lip movements synchronized with the new reply?</td><td><span class="fail">0 · Fail</span></td></tr>
+<tr><td>Content Preservation</td><td>Audio Preservation</td><td>Is dialogue outside the edited exchange preserved?</td><td><span class="pass">1 · Pass</span></td></tr>
+</tbody></table></div>
+<figcaption><span>Figure 11.</span> A fictional teaching example: dialogue-content checks pass while lip-sync checks fail. All artwork, instructions, and verdicts are illustrative; no original video, confidence score, or internal output is reproduced.</figcaption>
+</figure>
+</section>
+
+<section id="agentic" class="article-section">
+<div class="section-label">03 / FROM ONE MODEL TO A SYSTEM</div>
+<h2>Agentic PAR: multi-tool integration and harness design</h2>
+
+<h3 id="audio-case">Deployment exposes a different kind of failure</h3>
+<p>A more informative question can elicit an existing capability. It cannot guarantee that the capability is strong enough. After deployment, new data exposed weaknesses in audio preservation and editing quality.</p>
+<p>A representative failure pattern is a visual-only object replacement that also changes the soundtrack. A verifier focused on the visible instruction may accept the edit while overlooking the audio-preservation failure. This suggested a targeted intervention: add an audio-consistency specialist for tasks whose sound should remain unchanged.</p>
+<figure><img src="/assets/images/par/audio-example.svg" alt="Fictional original and edited videos: a visual object changes as requested, but the audio pattern also changes." loading="lazy"><figcaption><span>Figure 12.</span> A newly drawn illustrative failure: the visual edit is complete, but audio that should have been preserved has changed.</figcaption></figure>
+
+<h3 id="sandbox-v1">Local sandbox discovery and Agentic PAR V1</h3>
+<p>We followed a failure-driven tool-discovery loop. Starting from a rubric and its human explanation, we identified the missing capability, executed candidate operators in a local sandbox, and tested both abnormal and normal examples. Audio checks included both inconsistent and consistent cases, so a tool had to detect the problem without indiscriminately rejecting valid edits.</p>
+<figure><img src="/assets/images/par/sandbox.svg" alt="Tool discovery from failure analysis through local sandbox testing, detection and false-rejection evaluation, and integration." loading="lazy" width="1100" height="460"><figcaption><span>Figure 13.</span> Operators were selected through execution and validation, rather than added solely because their descriptions sounded relevant.</figcaption></figure>
+<p>The audio investigation considered signal-level evidence such as waveform correlation, spectral similarity, coherence, and residual signal analysis. Similar analysis introduced a <strong>Lip-Sync Verifier</strong> and a <strong>Visual Quality Specialist</strong>. Exact deployment thresholds and internal tool identifiers are omitted here.</p>
+<p><strong>Agentic PAR V1</strong> put these capabilities into a fixed workflow: use applicable preservation prechecks, run PAR verification, and route relevant rubric types to specialists. The task matters: an audio-preservation check should not reject a sample merely because the user explicitly requested an audio change.</p>
+<figure><img src="/assets/images/par/agentic-v1.svg" alt="Agentic V1 uses a task-conditioned audio precheck followed by PAR and fixed rubric routing to lip-sync and quality specialists." loading="lazy" width="1100" height="650"><figcaption><span>Figure 14.</span> V1, deployed: specialist capabilities supplement the trained verifier through a fixed routing workflow.</figcaption></figure>
+
+<h3 id="v4">Agentic PAR V4: an evidence-based harness</h3>
+<p>V4 explored how to use a larger tool pool more effectively. Its harness has three stages. <strong>Rubric gap review</strong> checks for omissions and adds task-relevant synthetic rubrics. <strong>Tool orchestration</strong> binds checks to tools and collects evidence bundles. <strong>Evidence-based judgment</strong> makes a decision for each rubric, with an independent adjudicator when evidence conflicts.</p>
+<figure><img src="/assets/images/par/agentic-v4.svg" alt="V4 reviews rubric gaps, orchestrates tools and makes evidence-based decisions with independent conflict resolution." loading="lazy" width="1100" height="655"><figcaption><span>Figure 15.</span> V4, exploratory: the tool pool determines what evidence is available, while the harness determines how that evidence affects the verdict.</figcaption></figure>
+<p>In this implementation, rubric-to-tool bindings structured the orchestration; we did not first collect a tool-call dataset and train a general autonomous tool-use policy. The system’s flexibility came from extensible tools, task-specific checks, and evidence handling.</p>
+
+<h3 id="comparison">Comparison with an external SOTA ensemble</h3>
+<p>Bench2 evaluates filtering on a real-distribution editing set. Here, <strong>positive means usable</strong>: precision measures the usable fraction among accepted samples, while recall measures how many usable samples are retained. This definition differs from the artifact-positive diagnostic experiment in Section 5.</p>
+<figure><img src="/assets/images/par/versions.svg" alt="Normalized Bench2 precision and recall relative to the external ensemble, and accuracy relative to Single PAR." loading="lazy"><figcaption><span>Figure 16.</span> Normalized results from one version-comparison snapshot. Precision and recall each use the external ensemble = 1.000; accuracy uses Single PAR = 1.000.</figcaption></figure>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Normalized Bench2 comparison"><table><thead><tr><th>Method</th><th>Precision index</th><th>Recall index</th><th>Accuracy index</th><th>F1 index</th></tr></thead><tbody>
+<tr><td>Single PAR</td><td>0.969</td><td>0.986</td><td>1.000</td><td>1.000</td></tr>
+<tr><td>Agentic PAR V1</td><td>1.032</td><td>0.927</td><td>1.016</td><td>1.004</td></tr>
+<tr class="highlight-row"><td>Agentic PAR V4</td><td><strong>1.077</strong></td><td>0.929</td><td><strong>1.034</strong></td><td><strong>1.028</strong></td></tr>
+<tr><td>External SOTA ensemble<br><small>Gemini-3-Pro-Preview + GPT-5.6-Sol</small></td><td>1.000</td><td><strong>1.000</strong></td><td>—</td><td>—</td></tr>
+</tbody></table></div>
+<p class="small-note">Precision and recall: external ensemble = 1.000 for each metric. Accuracy and F1: Single PAR = 1.000 for each metric. A dash means unavailable in this comparison. Columns are separate indices and should not be compared numerically with one another.</p>
+<p><strong>Agentic PAR V4 exceeds the external Gemini-3-Pro-Preview + GPT-5.6-Sol ensemble on precision by approximately 7.7% relative.</strong> From Single PAR to V4, accuracy improves by approximately <strong>3.4% relative</strong>. The external ensemble retains higher recall, so this is a filtering trade-off.</p>
+<p>Error review attributed newly detected failures to both audio-consistency operators and quality specialists. Within V4, per-rubric judgment, gap review, conflict resolution, and the expanded tool pool each corrected some decisions and introduced others. These categories are diagnostic views, not disjoint gains to add together.</p>
+
+<h3 id="production">Production impact: 2.20× usable + tolerable data</h3>
+<p>In a real data synthesis pipeline, deployed Agentic PAR V1 increased the share of usable + tolerable data to approximately <strong>2.20× its baseline level</strong>. The stacked chart preserves the relative contributions of strictly usable and tolerable data, while withholding all original absolute rates and sample counts.</p>
+<figure><img src="/assets/images/par/business.svg" alt="Normalized usability index: baseline 1.00; Agentic V1 total 2.20, composed of strictly usable and tolerable portions." loading="lazy"><figcaption><span>Figure 17.</span> Normalized results: baseline usable + tolerable share = 1.00. Both final components use that same baseline; they are contributions to an index, not raw percentages.</figcaption></figure>
+<p>This is the practical role of a verifier in a data pipeline: improve the concentration of suitable examples. The combined outcome includes tolerable data and does not, by itself, quantify end-to-end cost savings.</p>
+</section>
+
+<section id="why-it-works" class="article-section">
+<div class="section-label">04 / UNDERSTANDING THE GAINS</div>
+<h2>Why PAR is a better choice</h2>
+
+<h3 id="better-context">Better context activates atomic capabilities</h3>
+<p>The first source of improvement is explicit task context. A rubric identifies what to inspect: a target object, a color change, a preserved background, or a synchronization requirement. Instead of asking the verifier to discover every relevant test on its own, the generator supplies expert-informed hints.</p>
+<p>The handbook study—<strong>1.000 → 1.119 → 1.151</strong>, with fixed rubrics as the reference—is consistent with this mechanism. It shows useful headroom in how the evaluation problem is specified. It does not imply that every remaining failure can be fixed by prompting.</p>
+<figure><img src="/assets/images/par/context-activation.svg" alt="Normalized context-optimization accuracy indices: 1.000, 1.119 and 1.151." loading="lazy"><figcaption><span>Figure 18a.</span> Optimizing context activates base-model capabilities. Normalized results: fixed rubrics = 1.000; the final handbook delivers approximately 15.1% higher accuracy relative to that baseline.</figcaption></figure>
+
+<h3 id="expert-alignment">Training aligns the decision rule with experts</h3>
+<p>The second source is alignment with the evaluation standard. Even after the right question is asked, models and experts may disagree about whether an edit is complete enough or whether a defect should cause rejection. Expert labels provide the decision boundary; balanced data discourages shortcuts, and rescue supplies supervision on difficult checks.</p>
+<figure><img src="/assets/images/par/expert-alignment.svg" alt="Normalized answering-model accuracy: reference 1.000, expert-aligned training 1.056." loading="lazy"><figcaption><span>Figure 18b.</span> Optimizing the answering model aligns judgments with expert standards. Normalized results: comparison reference = 1.000; expert-aligned training improves accuracy by approximately 5.6% relative.</figcaption></figure>
+<p>The training comparison reflects the full expert-aligned setup, including data design and optimization. Gold-Rescue adds a further <strong>1.6% relative</strong> over the V2 verifier. Together, the context and training results explain why PAR improves both the questions and the answers.</p>
+<p>They also explain its ceiling. A well-posed question cannot make an invisible detail visible, and an expert-aligned decision rule cannot reliably use evidence the model fails to perceive. That is where the answering process itself needs to become more capable.</p>
+</section>
+
+<section id="hybrid" class="article-section">
+<div class="section-label">05 / LIMITATIONS AND NEXT STEPS</div>
+<h2>The future of PAR: a hybrid System 1 and System 2 verifier</h2>
+
+<h3 id="failure-analysis">The question is present, but the answer is wrong</h3>
+<p>Among the remaining errors analyzed, incorrect tool/verifier judgments were the dominant failure mode; missing rubrics and evidence aggregation accounted for smaller shares. In this subset, improving the question inventory alone would leave the main bottleneck untouched.</p>
+<figure><img src="/assets/images/par/failure-analysis.svg" alt="Relative failure-frequency indices, with tool/verifier judgment errors as the reference." loading="lazy"><figcaption><span>Figure 19.</span> Normalized results: tool/verifier judgment errors = 1.000. The chart preserves relative frequencies within the analyzed failure subset; it does not show absolute counts.</figcaption></figure>
+
+<h3 id="artifact-cases">Quality artifacts require spatial and temporal inspection</h3>
+<p>A frame may look acceptable globally while a small region breaks locally. A different defect may appear in one frame and disappear immediately afterward. These cases call for closer inspection: locate the region, crop or zoom, examine neighboring frames, and then decide.</p>
+<figure><img src="/assets/images/par/spatial-example.svg" alt="New schematic robot scene with a small malformed antenna, shown globally and in a local crop." loading="lazy"><figcaption><span>Figure 20.</span> A newly drawn illustration of a local quality artifact. The crop makes the small deformation easier to inspect; this is not an experimental sample.</figcaption></figure>
+<figure><img src="/assets/images/par/temporal-example.svg" alt="Three fictional schematic frames show a brief shape inconsistency in the middle frame." loading="lazy"><figcaption><span>Figure 21.</span> A newly drawn illustration of a transient artifact. The middle frame changes and then recovers; no original video frames or frame IDs are shown.</figcaption></figure>
+
+<h3 id="cot-experiment">A diagnostic experiment with tool-assisted reasoning</h3>
+<p>We compared artifact detection on a diagnostic set of confirmed editing failures. Direct binary verification and specialist baselines motivated two questions: can reasoning help recognize a local defect, and does explicitly selecting the relevant frames improve detection further?</p>
+<div class="article-note"><strong>Targeted system prompt (SP).</strong> The three inspection configurations below—5 FPS without CoT, 5 FPS with CoT, and manually selected frames with CoT—use an SP specifically optimized for quality-artifact detection. The CoT configurations add explicit reasoning and crop-based inspection. The comparisons therefore concern an artifact-focused inspection setup.</div>
+<figure><img src="/assets/images/par/artifact-cot.svg" alt="Normalized artifact detection at 5 FPS: no-CoT reference 1.000; CoT plus crop 1.112." loading="lazy"><figcaption><span>Figure 22a.</span> CoT with crop-based inspection helps identify artifacts: approximately 11.2% relative improvement at 5 FPS. Normalized results: no CoT = 1.000. Both configurations use a quality-artifact-focused SP.</figcaption></figure>
+<p>At the same 5 FPS sampling rate, CoT with crop-based inspection helps the model examine the local evidence and recognize more defects. This supports strengthening the answering process after the rubric has already specified what to inspect.</p>
+<figure><img src="/assets/images/par/artifact-frames.svg" alt="Normalized artifact detection with CoT: uniform 5 FPS reference 1.000; selected frames 0.950." loading="lazy"><figcaption><span>Figure 22b.</span> Targeted frame selection provides no additional gain in this study. Normalized results: uniform 5 FPS with CoT = 1.000; selected frames reach 0.950. Both use an artifact-focused SP.</figcaption></figure>
+<p>Manually selected frames with CoT performed approximately <strong>5.0% lower in relative terms</strong> than uniform 5 FPS. Supplying selected frames did not solve the remaining recognition errors in this study. This points toward improving reasoning and local inspection, while leaving the general limits of uniform sampling open.</p>
+<p>Because the set contains only artifact-positive cases, these indices compare <strong>artifact detection rates, not overall accuracy</strong>. A complete evaluation still needs clean negative cases, false-positive rates, latency, and cost.</p>
+
+<h3 id="proposed-architecture">Let PAR define the checks; let the answering process adapt</h3>
+<p>We propose a hybrid answering system. <strong>System 1</strong> performs fast, direct verification for routine checks. <strong>System 2</strong> uses a more elaborate reasoning and tool-inspection process for local defects, temporal inconsistencies, or conflicting evidence. Prompt-Aware Rubrics (PAR) bind both paths to the actual task.</p>
+<figure><img src="/assets/images/par/hybrid.svg" alt="Proposed architecture routes task-specific rubrics to fast binary verification or tool-assisted reasoning before combining evidence and verdicts." loading="lazy" width="1100" height="650"><figcaption><span>Figure 23.</span> Proposed architecture. Routing criteria and the quality–latency–cost trade-off remain to be validated.</figcaption></figure>
+<p>Both paths can end in the same binary verdict. The distinction is the <em>process used to obtain the evidence</em>, not whether the final answer is 0 or 1. PAR supplies a stable interface for that process: a task-grounded question, the evidence needed to answer it, and a result that can feed evaluation, filtering, or reward construction.</p>
+<p>The next experiment should compare pure System 1, pure System 2, and hybrid routing on the same positive-and-negative evaluation set. The goal is to reserve expensive inspection for checks that benefit from it, while measuring the mistakes introduced by routing itself.</p>
+</section>
+
+<aside class="article-methods" id="evaluation-notes">
+<h2>Data presentation and references</h2>
+<p>All absolute experimental values have been transformed into normalized indices; original scores, rates, and sample counts are not disclosed. A single common scale is applied within each stated comparison, so the measured ratios and relative gains are preserved, subject only to display rounding. Raw percentage-point differences are not reported. All case images, prompts, and example outputs are fictional teaching illustrations, distinct from the normalized experimental results.</p>
+<ol class="references"><li><a href="https://arxiv.org/abs/2504.14945">Jianhao Yan et al. Learning to Reason under Off-Policy Guidance (LUFFY).</a> Policy shaping with <span class="inline-code">f(p) = p / (p + γ)</span>; adapted here for gold-token supervision.</li><li><a href="https://arxiv.org/abs/2402.03300">Zhihong Shao et al. DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models.</a> Introduces GRPO.</li><li><a href="https://arxiv.org/abs/1707.06347">John Schulman et al. Proximal Policy Optimization Algorithms.</a> The clipped on-policy objective.</li></ol>
+</aside>

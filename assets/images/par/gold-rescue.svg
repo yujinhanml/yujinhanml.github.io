@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 610" role="img" aria-labelledby="title desc">
+<title id="title">Gold-Rescue training flow</title><desc id="desc">Gold-Rescue training flow</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="610" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">RESCUE IS TRIGGERED PER RUBRIC</tspan>
+</text>
+<rect x="200" y="65" width="700" height="90" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="550.0" y="96" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="550.0" dy="0">Sample K rollouts</tspan>
+</text>
+<text x="550.0" y="124" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="550.0" dy="0">Score each rubric against its gold label</tspan>
+</text>
+<polyline points="550,155 550,205" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="200" y="210" width="700" height="85" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="550.0" y="241" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="550.0" dy="0">Are all K answers wrong on rubric j?</tspan>
+</text>
+<text x="550.0" y="269" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="550.0" dy="0">Inspect correctness, not only the scalar reward</tspan>
+</text>
+<polyline points="550,295 550,325 265,325 265,355" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="550,295 550,325 835,325 835,355" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<text x="265" y="342" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="265" dy="0">No</tspan>
+</text>
+<text x="835" y="342" fill="#c76243" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="835" dy="0">Yes</tspan>
+</text>
+<rect x="30" y="360" width="470" height="110" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="265.0" y="391" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="265.0" dy="0">Ordinary GRPO</tspan>
+</text>
+<text x="265.0" y="419" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="265.0" dy="0">Group-relative advantages</tspan>
+<tspan x="265.0" dy="23.2">PPO clipped loss</tspan>
+</text>
+<rect x="600" y="360" width="470" height="110" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="835.0" y="391" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="835.0" dy="0">Inject one gold answer</tspan>
+</text>
+<text x="835.0" y="419" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="835.0" dy="0">Recompute group advantages</tspan>
+<tspan x="835.0" dy="23.2">LUFFY-style shaped gold loss</tspan>
+</text>
+<text x="550" y="540" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">Gold supervision uses an off-policy token under a gold prefix.</tspan>
+</text>
+<text x="550" y="574" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">The trigger is project-specific; policy shaping is adapted from LUFFY.</tspan>
+</text>
+</svg>

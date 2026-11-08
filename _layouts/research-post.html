@@ -1,0 +1,24 @@
+---
+layout: default
+---
+<a class="par-skip" href="#article-body">Skip to article</a>
+<main class="par-page" id="top">
+  <header class="par-hero">
+    <a class="back-link" href="{{ '/blogs/' | relative_url }}">← All blogs</a>
+    <div class="eyebrow">RESEARCH NOTES / VIDEO GENERATION</div>
+    <h1>Prompt-Aware Rubrics <span>for Video Generation</span></h1>
+    <p class="hero-subtitle">{{ page.subtitle }}</p>
+    <div class="article-meta"><span>{{ page.author | default: 'Yujin Han' }}</span><span aria-hidden="true">·</span><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%B %-d, %Y' }}</time><span aria-hidden="true">·</span><span>{{ content | number_of_words | divided_by: 220 | plus: 1 }} min read</span></div>
+    <div class="article-tags"><span>Video Verification</span><span>Reward Modeling</span><span>Agentic Systems</span></div>
+  </header>
+  <div class="par-reading-layout">
+    <aside class="par-toc" aria-label="Table of contents">
+      <span class="toc-title">IN THIS ARTICLE</span>
+      <nav><a href="#design"><span>01</span> Motivation: better context from human evaluation</a><a href="#single-verifier"><span>02</span> PAR: a single verifier</a><a href="#agentic"><span>03</span> Agentic PAR: multi-tool integration and harness design</a><a href="#why-it-works"><span>04</span> Why PAR is a better choice</a><a href="#hybrid"><span>05</span> The future of PAR: System 1 and System 2</a><a href="#evaluation-notes" class="toc-notes">Data &amp; references</a></nav>
+      <a class="toc-back" href="{{ '/blogs/' | relative_url }}">← Blogs</a>
+    </aside>
+    <article id="article-body" class="par-article">{{ content }}</article>
+  </div>
+  <footer class="par-article-footer"><a href="{{ '/blogs/' | relative_url }}">← Back to blogs</a><a href="#top">Back to top ↑</a></footer>
+</main>
+<script src="{{ '/assets/js/par-blog.js' | relative_url }}" defer></script>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 440" role="img" aria-labelledby="title desc">
+<title id="title">GRPO training for rubric verification</title><desc id="desc">GRPO training for rubric verification</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="440" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">ONE BINARY VERDICT PER RUBRIC</tspan>
+</text>
+<rect x="30" y="70" width="290" height="110" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="175.0" y="101" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="175.0" dy="0">Video pair + N rubrics</tspan>
+</text>
+<text x="175.0" y="129" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="175.0" dy="0">Task-grounded evaluation inputs</tspan>
+</text>
+<rect x="405" y="70" width="290" height="110" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="550.0" y="101" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="550.0" dy="0">Verifier rollouts</tspan>
+</text>
+<text x="550.0" y="129" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="550.0" dy="0">N-bit output, e.g. 11001</tspan>
+</text>
+<rect x="780" y="70" width="290" height="110" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="925.0" y="101" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="925.0" dy="0">GRPO update</tspan>
+</text>
+<text x="925.0" y="129" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="925.0" dy="0">Improve the rubric-level</tspan>
+<tspan x="925.0" dy="23.2">judgments</tspan>
+</text>
+<polyline points="325,125 400,125" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="700,125 775,125" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="30" y="240" width="290" height="104" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="175.0" y="271" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="175.0" dy="0">Length check</tspan>
+</text>
+<text x="175.0" y="299" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="175.0" dy="0">Exactly N positions</tspan>
+</text>
+<rect x="405" y="240" width="290" height="104" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="550.0" y="271" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="550.0" dy="0">Format check</tspan>
+</text>
+<text x="550.0" y="299" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="550.0" dy="0">Every position is 0 or 1</tspan>
+</text>
+<rect x="780" y="240" width="290" height="104" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="925.0" y="271" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="925.0" dy="0">Accuracy reward</tspan>
+</text>
+<text x="925.0" y="299" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="925.0" dy="0">Correctness + token probability</tspan>
+</text>
+<text x="550" y="398" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">Direct GRPO: limited data, and the base model already knows the output format.</tspan>
+</text>
+</svg>

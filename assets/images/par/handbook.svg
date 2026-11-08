@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 450" role="img" aria-labelledby="title desc">
+<title id="title">Inside the rubric generator&#x27;s system prompt</title><desc id="desc">Inside the rubric generator&#x27;s system prompt</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="450" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">HANDBOOK = FIXED REQUIREMENTS + STRUCTURED RUBRIC POOL</tspan>
+</text>
+<rect x="30" y="67" width="495" height="155" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="277.5" y="98" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="277.5" dy="0">Fixed generation requirements</tspan>
+</text>
+<text x="277.5" y="126" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="277.5" dy="0">Atomicity · importance first</tspan>
+<tspan x="277.5" dy="23.2">Consistent polarity · no contradictions</tspan>
+<tspan x="277.5" dy="23.2">No duplicates · verifiable wording</tspan>
+</text>
+<rect x="575" y="67" width="495" height="155" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="822.5" y="98" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="822.5" dy="0">Two-level rubric pool</tspan>
+</text>
+<text x="822.5" y="126" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="822.5" dy="0">Category → subcategory</tspan>
+<tspan x="822.5" dy="23.2">Broad categories and finer criteria</tspan>
+<tspan x="822.5" dy="23.2">Only relevant criteria are selected</tspan>
+</text>
+<polyline points="278,224 278,265" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="823,224 823,265" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="30" y="270" width="1040" height="94" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="550.0" y="301" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="550.0" dy="0">Select → Ground in the task → Ask</tspan>
+</text>
+<text x="550.0" y="329" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="550.0" dy="0">User prompt / editing instruction supplies the objects, attributes and constraints</tspan>
+</text>
+<text x="550" y="412" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">The pool is a set of anchors, not a questionnaire to copy into every task.</tspan>
+</text>
+</svg>

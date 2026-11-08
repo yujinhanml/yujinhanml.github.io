@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" role="img" aria-labelledby="title desc">
+<title id="title">Illustrative spatial defect and local inspection</title><desc id="desc">Illustrative spatial defect and local inspection</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="520" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">ORIGINAL SCHEMATIC ARTWORK · INSPECT A SMALL LOCAL DEFECT</tspan>
+</text>
+<rect x="30" y="65" width="490" height="350" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="55" y="103" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="55" dy="0">Global video view</tspan>
+</text>
+<g transform="translate(275,245) scale(0.9)">
+<rect x="-55" y="-50" width="110" height="95" rx="15" fill="#a8d6c9" stroke="#147d73"/>
+<circle cx="-23" cy="-10" r="8" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="23" cy="-10" r="8" fill="#193b45" stroke="none" stroke-width="1"/>
+<path d="M -22,22 L 22,22" stroke="#193b45" stroke-width="5"/>
+<rect x="-40" y="59" width="80" height="60" rx="8" fill="#bfd9e4" stroke="#bfd9e4"/>
+<path d="M 0,-50 L 0,-75 L 16,-66 L 0,-91 L -18,-76 L 0,-75" stroke="#c76243" stroke-width="5" fill="none"/>
+</g>
+<rect x="250" y="153" width="50" height="44" rx="2" fill="none" stroke="#c76243"/>
+<polyline points="527,235 574,235" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="580" y="65" width="490" height="350" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="605" y="103" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="605" dy="0">Crop / zoom inspection</tspan>
+</text>
+<defs><clipPath id="detail-crop"><rect x="582" y="120" width="486" height="290"/></clipPath></defs><g clip-path="url(#detail-crop)"><g transform="translate(825,340) scale(2.1)">
+<rect x="-55" y="-50" width="110" height="95" rx="15" fill="#a8d6c9" stroke="#147d73"/>
+<circle cx="-23" cy="-10" r="8" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="23" cy="-10" r="8" fill="#193b45" stroke="none" stroke-width="1"/>
+<path d="M -22,22 L 22,22" stroke="#193b45" stroke-width="5"/>
+<rect x="-40" y="59" width="80" height="60" rx="8" fill="#bfd9e4" stroke="#bfd9e4"/>
+<path d="M 0,-50 L 0,-75 L 16,-66 L 0,-91 L -18,-76 L 0,-75" stroke="#c76243" stroke-width="5" fill="none"/>
+</g>
+</g>
+<text x="550" y="473" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">A small malformed antenna becomes easier to judge after cropping.</tspan>
+</text>
+</svg>

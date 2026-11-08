@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" role="img" aria-labelledby="title desc">
+<title id="title">Fictional courtyard editing example</title><desc id="desc">Fictional courtyard editing example</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="480" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">ORIGINAL SCHEMATIC ARTWORK · ILLUSTRATIVE, NOT A PROJECT SAMPLE</tspan>
+</text>
+<rect x="30" y="65" width="490" height="325" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="54" y="100" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" text-anchor="start">
+<tspan x="54" dy="0">Original video</tspan>
+</text>
+<rect x="195" y="130" width="150" height="70" rx="2" fill="#d1ded9" stroke="#dce5e4"/>
+<text x="270" y="175" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="middle">
+<tspan x="270" dy="0">Gate</tspan>
+</text>
+<rect x="95" y="260" width="88" height="49" rx="5" fill="#c76243" stroke="#c76243"/>
+<path d="M 80,248 L 90,248 L 100,308" fill="none" stroke="#193b45" stroke-width="5"/>
+<circle cx="115" cy="318" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="163" cy="318" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<rect x="330" y="260" width="88" height="49" rx="5" fill="#c76243" stroke="#c76243"/>
+<path d="M 315,248 L 325,248 L 335,308" fill="none" stroke="#193b45" stroke-width="5"/>
+<circle cx="350" cy="318" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="398" cy="318" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<rect x="580" y="65" width="490" height="325" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="604" y="100" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" text-anchor="start">
+<tspan x="604" dy="0">Edited video</tspan>
+</text>
+<rect x="745" y="130" width="150" height="70" rx="2" fill="#d1ded9" stroke="#dce5e4"/>
+<text x="820" y="175" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="middle">
+<tspan x="820" dy="0">Gate</tspan>
+</text>
+<rect x="645" y="260" width="88" height="49" rx="5" fill="#147d73" stroke="#147d73"/>
+<path d="M 630,248 L 640,248 L 650,308" fill="none" stroke="#193b45" stroke-width="5"/>
+<circle cx="665" cy="318" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="713" cy="318" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<rect x="880" y="260" width="88" height="49" rx="5" fill="#c76243" stroke="#c76243"/>
+<path d="M 865,248 L 875,248 L 885,308" fill="none" stroke="#193b45" stroke-width="5"/>
+<circle cx="900" cy="318" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="948" cy="318" r="10" fill="#193b45" stroke="none" stroke-width="1"/>
+<rect x="665" y="181" width="10" height="46" rx="2" fill="#a48b70" stroke="#a48b70"/>
+<circle cx="670" cy="167" r="29" fill="#81b69d" stroke="none" stroke-width="1"/>
+<rect x="965" y="181" width="10" height="46" rx="2" fill="#a48b70" stroke="#a48b70"/>
+<circle cx="970" cy="167" r="29" fill="#81b69d" stroke="none" stroke-width="1"/>
+<text x="275" y="430" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="275" dy="0">Two red carts</tspan>
+</text>
+<text x="825" y="430" fill="#c76243" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="middle">
+<tspan x="825" dy="0">One cart remains red: incomplete edit</tspan>
+</text>
+</svg>
