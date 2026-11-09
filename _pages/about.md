@@ -21,6 +21,7 @@ News
 <div class="news-scroll" role="region" aria-labelledby="news" tabindex="0" markdown="1">
 
 - [2026-11] <em style="color: #c62828; font-weight: 400;">New!</em> Exploring how to build verifiers (rewards) for video generation in real-world production settings. [Prompt-Aware Rubrics for Video Generation: A Verifier (Reward) Framework Inspired by Human Evaluation]({{ '/blogs/prompt-aware-rubrics/' | relative_url }}). [Slides (PDF)]({{ '/assets/slides/par.pdf' | relative_url }}).
+- [2026-11] <em style="color: #c62828; font-weight: 400;">New!</em> [SkillRubric: Co-Evolving Actor Guidance and Evaluator Rubrics for Multimodal Agents](https://arxiv.org/abs/2609.34557) has been selected for an **oral presentation** at the EvoRobust Workshop @ NeurIPS 2026.
 - [2026-01] Two papers on [Self-Improvement of unified MLLM](https://arxiv.org/abs/2507.16663) and [Vision MoE](https://arxiv.org/abs/2510.24711) are accepted to ICLR'26.  
 - [2025-05] Two papers on diffusion models-[inter-feature rules](https://arxiv.org/abs/2502.04725) and [MAETok](https://arxiv.org/abs/2502.03444) (spotlight)-are accepted to ICML'25.  
 - [2025-02] One paper on [efficient autoregressive generation](https://arxiv.org/abs/2412.15119), is accepted to CVPR'25 as a highlight. 

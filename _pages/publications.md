@@ -10,6 +10,10 @@ author_profile: true
 Publications
 ------
 **2026** 
+- SkillRubric: Co-Evolving Actor Guidance and Evaluator Rubrics for Multimodal Agents. [[PDF]](https://arxiv.org/abs/2609.34557)<br>
+  Bingqing Jiang, Guoxi Zhang, Jasper Wang, Auric Wang, Bingning Wang, Tianyi Lin, Zichao Yu, **Yujin Han**, Ziye Ma, Difan Zou.<br>
+  EvoRobust Workshop @ NeurIPS 2026 (**Oral**).
+
 - Turning Internal Gap into Self-Improvement: Promoting the Generation-Understanding Unification in MLLMs.  [[PDF]](https://arxiv.org/abs/2507.16663)  [[Project Page]](https://yujinhanml.github.io/self-improved-mllm/)  
   **Yujin Han**, Hao Chen, Andi Han, Zhiheng Wang, Xinyu Liu, Yingya Zhang, Shiwei Zhang, Difan Zou.  
   International Conference on Learning Representations (ICLR), 2026
@@ -44,9 +48,6 @@ Preprints
 
 - CoRe: Co-Evolving Reward Models for Mitigating Latent Reward Hacking in Video Diffusion Models. [[ArXiv]](https://arxiv.org/abs/2609.36245)  
   Zhaolong Su, **Yujin Han**, Feng Wang, Jameson Dong, Hins Hu, Difan Zou.
-
-- SkillRubric: Co-Evolving Actor Guidance and Evaluator Rubrics for Multimodal Agents. [[ArXiv]](https://arxiv.org/abs/2609.34557)  
-  Bingqing Jiang, Guoxi Zhang, Jasper Wang, Auric Wang, Bingning Wang, Tianyi Lin, Zichao Yu, **Yujin Han**, Ziye Ma, Difan Zou.
 
 - From Static to Dynamic: On-Policy Distillation from Image to Video Diffusion Models. [[ArXiv]](https://arxiv.org/abs/2609.34371)  
   Bingqing Jiang<sup>*</sup>, Li Luo<sup>*</sup>, Zichao Yu<sup>*</sup>, **Yujin Han<sup>*</sup>**, Zhaolong Su, Difan Zou.
