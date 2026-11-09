@@ -130,7 +130,7 @@
   font-size: $type-size-5;
 
   @include breakpoint($large) {
-    margin-bottom: 18px;
+    margin-bottom: 0;
   }
 }
 
@@ -160,6 +160,7 @@
 
   @include breakpoint($large) {
     display: block;
+    padding-top: 28px;
   }
 
   button {
