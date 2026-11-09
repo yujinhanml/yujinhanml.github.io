@@ -49,7 +49,7 @@ Preprints
   Bingqing Jiang, Guoxi Zhang, Jasper Wang, Auric Wang, Bingning Wang, Tianyi Lin, Zichao Yu, **Yujin Han**, Ziye Ma, Difan Zou.
 
 - From Static to Dynamic: On-Policy Distillation from Image to Video Diffusion Models. [[ArXiv]](https://arxiv.org/abs/2609.34371)  
-  Bingqing Jiang, Li Luo, Zichao Yu, **Yujin Han**, Zhaolong Su, Difan Zou.
+  Bingqing Jiang<sup>*</sup>, Li Luo<sup>*</sup>, Zichao Yu<sup>*</sup>, **Yujin Han<sup>*</sup>**, Zhaolong Su, Difan Zou.
 
 - Mismatch Matters: On-Policy Distillation Beyond Token Agreement. [[ArXiv]](https://arxiv.org/abs/2608.09836)  
   Zichao Yu, Chengzhi Yu, Shengze Xu, **Yujin Han**, Bingqing Jiang, Xu Wang, Difan Zou.
