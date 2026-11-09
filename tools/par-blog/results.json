@@ -57,6 +57,17 @@
     63.5,
     60.3
   ],
+  "version_gain_sources": {
+    "single_to_v1": [35, 24],
+    "v4_corrected": [40, 20, 18, 33, 25],
+    "v4_new_errors": [10, 14, 10, 11, 14]
+  },
+  "calibration": {
+    "standard_grpo": [68.91, 75.04, 71.84, 75.33],
+    "grpo_rlcd": [71.56, 74.40, 72.95, 76.87],
+    "mean_score": [0.803, 0.775],
+    "high_confidence_share": [75, 67]
+  },
   "generalization": [
     [
       0.474,

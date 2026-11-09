@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" role="img" aria-labelledby="title desc">
-<title id="title">Proposed hybrid System 1 and System 2 verifier</title><desc id="desc">Proposed hybrid System 1 and System 2 verifier</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 710" role="img" aria-labelledby="title desc">
+<title id="title">Proposed hybrid System 1 and System 2 verifier</title><desc id="desc">Checks within the base answering model&#x27;s capabilities use expert-aligned fast verification. Difficult local and temporal inspection uses reasoning and tools.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
-<rect width="1100" height="650" rx="20" fill="white"/>
+<rect width="1100" height="710" rx="20" fill="white"/>
 <text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
-<tspan x="30" dy="0">PROPOSED ARCHITECTURE · ROUTING AND COST BENEFITS REMAIN TO BE VALIDATED</tspan>
+<tspan x="30" dy="0">PROPOSED ARCHITECTURE / CHOOSE THE ANSWERING PROCESS BY CAPABILITY</tspan>
 </text>
 <rect x="230" y="65" width="640" height="90" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
 <text x="550.0" y="96" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
@@ -15,30 +15,35 @@
 <polyline points="550,155 550,205" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
 <rect x="230" y="210" width="640" height="75" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
 <text x="550.0" y="241" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
-<tspan x="550.0" dy="0">Task / capability routing</tspan>
+<tspan x="550.0" dy="0">What capability does this rubric require?</tspan>
 </text>
-<rect x="30" y="350" width="470" height="125" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
-<text x="265.0" y="381" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="600" text-anchor="middle">
-<tspan x="265.0" dy="0">System 1</tspan>
+<rect x="30" y="350" width="470" height="155" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="265.0" y="381" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600" text-anchor="middle">
+<tspan x="265.0" dy="0">System 1 / Direct judgment</tspan>
 </text>
 <text x="265.0" y="409" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
-<tspan x="265.0" dy="0">Fast binary verification</tspan>
-<tspan x="265.0" dy="23.2">Routine and directly observable checks</tspan>
+<tspan x="265.0" dy="0">Within the base model&#x27;s capabilities</tspan>
+<tspan x="265.0" dy="23.2">Expert-aligned answering-model training</tspan>
+<tspan x="265.0" dy="23.2">Fast binary verification</tspan>
 </text>
 <polyline points="550,285 550,315 265,315 265,346" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
-<polyline points="265,475 265,505 550,505 550,535" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
-<rect x="600" y="350" width="470" height="125" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
-<text x="835.0" y="381" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="600" text-anchor="middle">
-<tspan x="835.0" dy="0">System 2</tspan>
+<polyline points="265,505 265,540 550,540 550,570" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="600" y="350" width="470" height="155" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="835.0" y="381" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600" text-anchor="middle">
+<tspan x="835.0" dy="0">System 2 / Deliberate inspection</tspan>
 </text>
 <text x="835.0" y="409" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
-<tspan x="835.0" dy="0">Tool-assisted reasoning</tspan>
-<tspan x="835.0" dy="23.2">Crop · zoom · temporal inspection</tspan>
+<tspan x="835.0" dy="0">Difficult local or temporal evidence</tspan>
+<tspan x="835.0" dy="23.2">Elaborate reasoning + inspection tools</tspan>
+<tspan x="835.0" dy="23.2">Crop · zoom · neighboring frames</tspan>
 </text>
 <polyline points="550,285 550,315 835,315 835,346" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
-<polyline points="835,475 835,505 550,505 550,535" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
-<rect x="160" y="540" width="780" height="80" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
-<text x="550.0" y="571" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<polyline points="835,505 835,540 550,540 550,570" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="160" y="575" width="780" height="80" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="550.0" y="606" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
 <tspan x="550.0" dy="0">Rubric-level evidence + verdicts → aggregate reward</tspan>
+</text>
+<text x="550" y="690" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">One task-grounded interface; different processes for obtaining a reliable answer.</tspan>
 </text>
 </svg>

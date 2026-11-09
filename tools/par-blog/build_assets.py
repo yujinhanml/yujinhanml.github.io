@@ -142,9 +142,28 @@ def specialist_operator_figures(out):
     d.save(out, "sandbox")
 
 
+def hybrid_figure(out):
+    d = Diagram(1100, 710, "Proposed hybrid System 1 and System 2 verifier",
+                "Checks within the base answering model's capabilities use expert-aligned fast verification. Difficult local and temporal inspection uses reasoning and tools.")
+    d.label("PROPOSED ARCHITECTURE / CHOOSE THE ANSWERING PROCESS BY CAPABILITY")
+    d.box(230, 65, 640, 90, "Task + video pair → prompt-aware rubrics", "Define what needs to be checked")
+    d.arrow(550, 155, 550, 205)
+    d.box(230, 210, 640, 75, "What capability does this rubric require?", fill=SAND)
+    for x, title, body, fill in [
+        (30, "System 1 / Direct judgment", "Within the base model's capabilities\nExpert-aligned answering-model training\nFast binary verification", LIGHT),
+        (600, "System 2 / Deliberate inspection", "Difficult local or temporal evidence\nElaborate reasoning + inspection tools\nCrop · zoom · neighboring frames", SAND)]:
+        d.box(x, 350, 470, 155, title, body, fill, 23)
+        d.arrow(550, 285, x+235, 346, points=[(550, 285), (550, 315), (x+235, 315), (x+235, 346)])
+        d.arrow(x+235, 505, 550, 570, points=[(x+235, 505), (x+235, 540), (550, 540), (550, 570)])
+    d.box(160, 575, 780, 80, "Rubric-level evidence + verdicts → aggregate reward")
+    d.text(550, 690, "One task-grounded interface; different processes for obtaining a reliable answer.", 18, MUTED, anchor="middle")
+    d.save(out, "hybrid")
+
+
 def diagrams(out):
     rubric_pool_example(out)
     specialist_operator_figures(out)
+    hybrid_figure(out)
     d = Diagram(1100, 340, "Same model, different context", "A generic question leaves the model to choose its checks; targeted rubrics specify the object and edit to inspect.")
     d.label("CONTEXT IS PART OF THE VERIFIER")
     d.box(30, 65, 480, 150, "General question", "Does the edited video satisfy the instruction?", SAND, 23)
@@ -252,18 +271,6 @@ def diagrams(out):
     d.text(550,591,"Tool capability supplies evidence. The harness determines how to use it.",20,anchor="middle")
     d.save(out,"agentic-v4")
 
-    d = Diagram(1100, 650, "Proposed hybrid System 1 and System 2 verifier")
-    d.label("PROPOSED ARCHITECTURE · ROUTING AND COST BENEFITS REMAIN TO BE VALIDATED")
-    d.box(230,65,640,90,"Task + video pair → prompt-aware rubrics","Define what needs to be checked")
-    d.arrow(550,155,550,205)
-    d.box(230,210,640,75,"Task / capability routing",fill=SAND)
-    for x,t,b in [(30,"System 1","Fast binary verification\nRoutine and directly observable checks"),(600,"System 2","Tool-assisted reasoning\nCrop · zoom · temporal inspection")]:
-        d.box(x,350,470,125,t,b,LIGHT if x==30 else SAND,25)
-        d.arrow(550,285,x+235,346,points=[(550,285),(550,315),(x+235,315),(x+235,346)])
-        d.arrow(x+235,475,550,535,points=[(x+235,475),(x+235,505),(550,505),(550,535)])
-    d.box(160,540,780,80,"Rubric-level evidence + verdicts → aggregate reward")
-    d.save(out,"hybrid")
-
 
 
 def chart_style():
@@ -301,8 +308,61 @@ def metric_bars(out,name,labels,values,title,reference,colors=None,horizontal=Fa
     save_chart(fig,out,name)
 
 
+def extension_charts(out):
+    chart_style()
+    data = json.loads((Path(__file__).parent/'results.json').read_text())
+    gains = data['version_gain_sources']
+    fig, axes = plt.subplots(3, 1, figsize=(10.4, 10.2), gridspec_kw={'height_ratios': [1, 1.35, 1]})
+    ax = axes[0]
+    values = gains['single_to_v1']
+    ax.barh([0, 1], values, color=[TEAL, '#69aa9e'], height=.48)
+    ax.set_yticks([0, 1], ['Audio-consistency\noperators', 'Visual-quality\nspecialists'])
+    ax.set_title('Single PAR → V1 · specialist discoveries', loc='left', fontsize=14)
+    for i, value in enumerate(values):
+        ax.text(value+.8, i, str(value), va='center', fontweight='bold')
+    ax.set_xlabel('Newly detected failure cases')
+    for ax, indices, labels, title in [
+        (axes[1], [0, 1, 2], ['Per-rubric judgment\n(replaces averaging)', 'Rubric-gap review\n(synthetic checks)', 'Independent conflict\nadjudication'], 'V1 → V4 · harness design'),
+        (axes[2], [3, 4], ['Local operators\n(10 lightweight tools)', 'External VLM expert'], 'V1 → V4 · expanded tool pool')]:
+        y = np.arange(len(indices))
+        corrected = [gains['v4_corrected'][i] for i in indices]
+        errors = [gains['v4_new_errors'][i] for i in indices]
+        ax.barh(y-.17, corrected, color=TEAL, height=.29, label='Decisions corrected')
+        ax.barh(y+.17, errors, color=CORAL, height=.29, label='New errors introduced')
+        ax.set_yticks(y, labels)
+        ax.set_title(title, loc='left', fontsize=14)
+        ax.set_xlabel('Decision count in component-level error review')
+        for values, offset in [(corrected, -.17), (errors, .17)]:
+            for i, value in enumerate(values):
+                ax.text(value+.8, i+offset, str(value), va='center', fontsize=11, fontweight='bold')
+    for ax in axes:
+        ax.invert_yaxis(); ax.set_xlim(0, 48)
+        ax.xaxis.grid(True, color=LINE, alpha=.6); ax.set_axisbelow(True)
+        ax.tick_params(axis='both', length=0, pad=8)
+    axes[1].legend(frameon=False, loc='lower right', fontsize=10)
+    fig.tight_layout(h_pad=3)
+    save_chart(fig, out, 'version-gain-sources')
+
+    calibration = data['calibration']
+    fig, axes = plt.subplots(1, 2, figsize=(10.8, 4.5))
+    for ax, values, title, limit, labels in [
+        (axes[0], calibration['mean_score'], 'Mean rubric probability', 1, ['0.803', '0.775']),
+        (axes[1], calibration['high_confidence_share'], 'Scores in [0.95, 1.00]', 100, ['75%', '67%'])]:
+        ax.bar([0, 1], values, color=['#bccbc7', TEAL], width=.5)
+        ax.set_xticks([0, 1], ['Standard\nGRPO', 'GRPO-RLCD'])
+        ax.set_ylim(0, limit); ax.set_title(title, loc='left', fontsize=13)
+        ax.yaxis.grid(True, color=LINE, alpha=.6); ax.set_axisbelow(True)
+        ax.tick_params(axis='both', length=0, pad=8)
+        for i, (value, label) in enumerate(zip(values, labels)):
+            ax.text(i, value+limit*.035, label, ha='center', fontweight='bold', fontsize=14)
+    axes[0].set_ylabel('Mean probability'); axes[1].set_ylabel('Share of rubric scores (%)')
+    fig.tight_layout(w_pad=3)
+    save_chart(fig, out, 'calibration-confidence')
+
+
 def charts(out):
     chart_style()
+    extension_charts(out)
     data=json.loads((Path(__file__).parent/'results.json').read_text())
     labels=['Fixed\nrubrics','Expert-informed\nhandbook','Agent-refined\nhandbook']
     colors=['#bccbc7','#69aa9e',TEAL]
