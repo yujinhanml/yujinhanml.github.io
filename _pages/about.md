@@ -10,9 +10,9 @@ redirect_from:
 About Me
 ======
 
-I am currently a third-year Ph.D. candidate in Computer Science at the University of Hong Kong (HKU), where I have the privilege of being supervised by [Prof.Difan Zou](https://difanzou.github.io). Before joining HKU, I obtained my Master's degree from Yale University, where I was fortunate to be mentored by [Prof.Leying Guan](https://campuspress.yale.edu/lguan) and collaborating closely with [Prof.Sten H. Vermund](https://ysph.yale.edu/profile/sten-vermund/). I also hold a Bachelor's degree from Renmin University of China (RUC). Here is my [CV](https://github.com/yujinhan98/yujinhan98.github.io/blob/master/yujin_CV_2023.pdf).
+I am currently a fourth-year Ph.D. candidate in Computer Science at the University of Hong Kong (HKU), where I have the privilege of being supervised by [Prof.Difan Zou](https://difanzou.github.io). Before joining HKU, I obtained my Master's degree from Yale University, where I was fortunate to be mentored by [Prof.Leying Guan](https://campuspress.yale.edu/lguan) and collaborating closely with [Prof.Sten H. Vermund](https://ysph.yale.edu/profile/sten-vermund/). I also hold a Bachelor's degree from Renmin University of China (RUC). Here is my [CV](https://github.com/yujinhan98/yujinhan98.github.io/blob/master/yujin_CV_2023.pdf).
 
-I’m deeply curious about challenging problems in generative modeling, especially image and video generation, and I explore them with the goal of offering insights and proposing principled methods that benefit the public. Recently, my work has focused on understanding and advancing unified multimodal LLMs.    
+I’m deeply curious about challenging problems in generative modeling, especially image and video generation, and I explore them with the goal of offering insights and proposing principled methods that benefit the public. My current research focuses on reward models for video generation and reinforcement learning for diffusion models (diffusion RL).
 
 
 News
