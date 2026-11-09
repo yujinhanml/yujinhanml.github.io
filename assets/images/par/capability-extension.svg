@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 540" role="img" aria-labelledby="title desc">
+<title id="title">Introduce operators to strengthen the answering model</title><desc id="desc">Business evaluation explanations and rubric-level errors locate weaknesses. Add specialist operators and adjust routing to extend the current verifier.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="540" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">TARGET CAPABILITY GAPS / FROM ONE ANSWERING MODEL TO A TOOL POOL</tspan>
+</text>
+<rect x="30" y="70" width="310" height="110" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="185.0" y="101" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="middle">
+<tspan x="185.0" dy="0">Single answering model</tspan>
+</text>
+<text x="185.0" y="129" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="185.0" dy="0">Existing PAR verifier</tspan>
+</text>
+<polyline points="345,125 425,125" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="430" y="70" width="640" height="110" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="750.0" y="101" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="middle">
+<tspan x="750.0" dy="0">Answering model + specialist tool pool</tspan>
+</text>
+<text x="750.0" y="129" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="750.0" dy="0">Audio consistency · lip synchronization · visual quality</tspan>
+</text>
+<rect x="30" y="265" width="230" height="145" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="145.0" y="296" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="145.0" dy="0">Step 1 / Run</tspan>
+</text>
+<text x="145.0" y="324" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="145.0" dy="0">Current verifier inference</tspan>
+</text>
+<polyline points="264,337 294,337" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="300" y="265" width="230" height="145" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="415.0" y="296" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="415.0" dy="0">Step 2 / Diagnose</tspan>
+</text>
+<text x="415.0" y="324" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="415.0" dy="0">Business explanations +</tspan>
+<tspan x="415.0" dy="23.2">error cases + affected</tspan>
+<tspan x="415.0" dy="23.2">rubrics</tspan>
+</text>
+<polyline points="534,337 564,337" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="570" y="265" width="230" height="145" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="685.0" y="296" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="685.0" dy="0">Step 3 / Extend</tspan>
+</text>
+<text x="685.0" y="324" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="685.0" dy="0">Introduce operators +</tspan>
+<tspan x="685.0" dy="23.2">adjust routing</tspan>
+</text>
+<polyline points="804,337 834,337" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="840" y="265" width="230" height="145" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="955.0" y="296" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600" text-anchor="middle">
+<tspan x="955.0" dy="0">Step 4 / Re-run</tspan>
+</text>
+<text x="955.0" y="324" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+<tspan x="955.0" dy="0">Updated verifier inference</tspan>
+</text>
+<text x="550" y="470" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">Human explanations identify the failure; rubrics locate the missing capability.</tspan>
+</text>
+<text x="550" y="506" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="middle">
+<tspan x="550" dy="0">Discover and validate operators in a local sandbox before integration.</tspan>
+</text>
+</svg>

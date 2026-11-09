@@ -100,8 +100,51 @@ def rubric_pool_example(out):
     d.save(out, "rubric-pool-example")
 
 
+def specialist_operator_figures(out):
+    d = Diagram(1100, 540, "Introduce operators to strengthen the answering model",
+                "Business evaluation explanations and rubric-level errors locate weaknesses. Add specialist operators and adjust routing to extend the current verifier.")
+    d.label("TARGET CAPABILITY GAPS / FROM ONE ANSWERING MODEL TO A TOOL POOL")
+    d.box(30, 70, 310, 110, "Single answering model", "Existing PAR verifier", SAND, 22)
+    d.arrow(345, 125, 425, 125)
+    d.box(430, 70, 640, 110, "Answering model + specialist tool pool",
+          "Audio consistency · lip synchronization · visual quality", LIGHT, 22)
+    steps = [
+        ("Step 1 / Run", "Current verifier inference"),
+        ("Step 2 / Diagnose", "Business explanations + error cases + affected rubrics"),
+        ("Step 3 / Extend", "Introduce operators + adjust routing"),
+        ("Step 4 / Re-run", "Updated verifier inference")]
+    for i, (title, body) in enumerate(steps):
+        x = 30 + i * 270
+        d.box(x, 265, 230, 145, title, body, LIGHT if i == 3 else SAND, 19)
+        if i < 3:
+            d.arrow(x + 234, 337, x + 264, 337)
+    d.text(550, 470, "Human explanations identify the failure; rubrics locate the missing capability.", 20, anchor="middle")
+    d.text(550, 506, "Discover and validate operators in a local sandbox before integration.", 18, MUTED, anchor="middle")
+    d.save(out, "capability-extension")
+
+    d = Diagram(1100, 760, "Step 3 expanded: operator discovery and validation",
+                "Build a local validation set, execute candidate operators with a strong model, assess detection and false rejection, and select tools for fixed routing.")
+    d.label("STEP 3 EXPANDED / LOCAL SANDBOX EXPERIMENTS")
+    steps = [
+        (70, "1. Build a focused validation set", "50 abnormal cases + 50 normal cases"),
+        (220, "2. Execute candidate operators", "Strong model proposes and runs candidates in a local sandbox"),
+        (370, "3. Validate on both sides", "High failure-detection rate + low false-rejection rate"),
+        (520, "4. Select operators for deployment", "Bind validated specialists to applicable rubrics and fixed routes")]
+    for y, title, body in steps:
+        d.box(165, y, 770, 105, title, body, SAND if y == 370 else LIGHT, 23)
+        if y < 520:
+            d.arrow(550, y + 105, 550, y + 145)
+    d.arrow(935, 422, 935, 272, True,
+            points=[(935, 422), (1005, 422), (1005, 272), (941, 272)])
+    d.text(1017, 342, "Retry", 16, CORAL)
+    d.text(550, 690, "Example: Audio Consistency Checker for visual_only tasks", 21, TEAL, 600, anchor="middle")
+    d.text(550, 728, "Apply preservation checks only where the instruction requires preservation.", 18, MUTED, anchor="middle")
+    d.save(out, "sandbox")
+
+
 def diagrams(out):
     rubric_pool_example(out)
+    specialist_operator_figures(out)
     d = Diagram(1100, 340, "Same model, different context", "A generic question leaves the model to choose its checks; targeted rubrics specify the object and edit to inspect.")
     d.label("CONTEXT IS PART OF THE VERIFIER")
     d.box(30, 65, 480, 150, "General question", "Does the edited video satisfy the instruction?", SAND, 23)
@@ -184,16 +227,6 @@ def diagrams(out):
     d.text(550,540,"Gold supervision uses an off-policy token under a gold prefix.",19,anchor="middle")
     d.text(550,574,"The trigger is project-specific; policy shaping is adapted from LUFFY.",17,MUTED,anchor="middle")
     d.save(out,"gold-rescue")
-
-    d = Diagram(1100, 460, "Specialist discovery in a local sandbox")
-    d.label("FROM A FAILURE CASE TO A VALIDATED TOOL")
-    steps=[("Locate the gap","Rubric + human explanation"),("Run candidates","Local sandbox experiments"),("Test both sides","Detection + false rejection"),("Integrate","Task-conditioned routing")]
-    for i,(t,b) in enumerate(steps):
-        x=25+i*280;d.box(x,70,230,145,t,b,SAND if i%2 else LIGHT,18)
-        if i<3:d.arrow(x+235,142,x+270,142)
-    d.box(30,275,1040,105,"Example: Audio Consistency Checker","Waveform correlation · spectral similarity · coherence · residual signal analysis")
-    d.text(550,425,"The same workflow can add lip-sync and visual-quality specialists.",19,MUTED,anchor="middle")
-    d.save(out,"sandbox")
 
     d = Diagram(1100, 650, "Agentic PAR V1 with fixed rubric routing")
     d.label("V1 · DEPLOYED · SPECIALISTS IN A FIXED WORKFLOW")
