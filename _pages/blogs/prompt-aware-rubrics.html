@@ -8,15 +8,15 @@ excerpt: "How human evaluation workflows inspired task-specific rubrics, a train
 blog_article: true
 blog_styles: true
 ---
-<p class="lead">A verifier can miss an edit even when it has the visual ability to recognize the mistake. Sometimes, the missing ingredient is a better question.</p>
+<p class="lead">Better Context, Better Verifiers.</p>
 
-<p><strong>Prompt-Aware Rubrics (PAR)</strong> is a framework for evaluating video generation and editing, inspired by the workflow of human evaluation experts: define the criteria, turn them into task-specific checks, and train evaluators to apply them consistently. PAR turns that workflow into a rubric handbook, a rubric generator, and a trained verifier. It later evolves into a system of specialists and evidence-based orchestration.</p>
+<p><strong>Prompt-Aware Rubrics (PAR)</strong> is a verifier (reward) framework for video generation, where success is often difficult to verify with fixed rules. It draws inspiration from the workflow of human evaluation experts: define the criteria, translate them into task-specific checks, and train evaluators to apply those checks consistently. PAR implements this workflow as a <strong>Rubric Handbook</strong>, a <strong>Rubric Generator</strong>, and a trained <strong>Rubric Verifier</strong>. The handbook and generator construct better context for the verifier, turning open-ended evaluation into explicit, task-grounded questions. This gives PAR a path to scale with the answering model: as the model’s underlying capabilities improve, targeted rubrics help elicit those capabilities. The longer-term direction is a hybrid verifier that combines <strong>System 1</strong> for fast, direct decisions with <strong>System 2</strong> for more elaborate chain-of-thought reasoning and tool-assisted inspection on selected rubric categories.</p>
 
-<div class="article-note">Experimental results are reported at their original values. Benchmarks are anonymized as Bench1–Bench5. All case visuals, editing instructions, and example verdicts are fictional illustrations created for this article; original project media is not reproduced. Single PAR and V1 were deployed; V4 and the final hybrid architecture are exploratory.</div>
+<div class="article-note"><strong>Single PAR → Agentic PAR V1 → Agentic PAR V4.</strong> Single PAR uses one trained answering model. V1 supplements that model with specialist tools through fixed routing. V4 binds individual rubrics to multiple tools and organizes their evidence through a workflow harness for rubric-level judgment. The progression expands a single model’s judgment into a coordinated <strong>reward system</strong>: from one evaluator to a broader set of capabilities, connected by task-specific checks and evidence-handling workflows. Single PAR and V1 were deployed; V4 is exploratory.</div>
 <figure class="results-overview"><img src="/assets/images/par/precision-overview.svg" alt="Bench2 precision: external ensemble 67.70%, Single PAR 65.61%, Agentic PAR V1 69.85%, and V4 72.94%."><figcaption>Agentic PAR V4 exceeds the <strong>Gemini-3-Pro-Preview + GPT-5.6-Sol</strong> external SOTA ensemble on precision by <strong>5.24 percentage points</strong> on Bench2.</figcaption></figure>
 <div class="metric-strip metric-strip-pair" aria-label="Selected project results">
-<div><strong>+5.24<span> pp</span></strong><span>Bench2 precision, V4 over the external SOTA ensemble</span></div>
-<div><strong>2.20<span>×</span></strong><span>Usable + tolerable data in a real synthesis pipeline: 31% → 68.06%</span></div>
+<div><strong>68.06<span>%</span></strong><span>Data usability, up from 31% (usable + tolerable)</span></div>
+<div><strong>2.2<span>×</span></strong><span>Estimated human review efficiency, based on usable-data yield</span></div>
 </div>
 
 <section id="design" class="article-section">
