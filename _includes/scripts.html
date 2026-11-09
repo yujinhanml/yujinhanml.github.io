@@ -1,4 +1,7 @@
 <script src="{{ base_path }}/assets/js/main.min.js"></script>
+{% if page.news_scroll %}
+<script src="{{ '/assets/js/news-scroll.js' | relative_url }}"></script>
+{% endif %}
 
 {% include analytics.html %}
 {% include /comments-providers/scripts.html %}
