@@ -23,7 +23,8 @@
 <text x="605" y="103" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
 <tspan x="605" dy="0">Crop / zoom inspection</tspan>
 </text>
-<defs><clipPath id="detail-crop"><rect x="582" y="120" width="486" height="290"/></clipPath></defs><g clip-path="url(#detail-crop)"><g transform="translate(825,340) scale(2.1)">
+<defs><clipPath id="detail-crop"><rect x="582" y="120" width="486" height="290"/></clipPath></defs><g clip-path="url(#detail-crop)">
+<g transform="translate(825,340) scale(2.1)">
 <rect x="-55" y="-50" width="110" height="95" rx="15" fill="#a8d6c9" stroke="#147d73"/>
 <circle cx="-23" cy="-10" r="8" fill="#193b45" stroke="none" stroke-width="1"/>
 <circle cx="23" cy="-10" r="8" fill="#193b45" stroke="none" stroke-width="1"/>

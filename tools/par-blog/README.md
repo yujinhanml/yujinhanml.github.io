@@ -1,22 +1,21 @@
-# PAR blog: public figures
+# PAR blog figures
 
-The article is `_pages/blogs/prompt-aware-rubrics.html`; its index automatically
-lists pages with `blog_article: true`.
+The article is `_pages/blogs/prompt-aware-rubrics.html`; the Blogs index lists
+pages with `blog_article: true`.
+
+Experimental values in `results.json` are reported at their original scales.
+Benchmark names remain anonymized as Bench1–Bench5. Production usability combines
+strictly usable and tolerable data, with both components shown separately.
+The external precision/recall comparison uses one version-comparison snapshot;
+unreported accuracy and F1 are left blank.
 
 All case artwork is original SVG schematic illustration. Instructions and example
-verdicts are fictional teaching examples. No original presentation, video crop,
-internal screenshot, raw score, confidence output, or original sample count is
-stored in this directory or required by the build.
+verdicts are fictional teaching examples. No original video frames, project
+screenshots, original case confidences, or private source PDF are included.
 
-All experimental result data in `normalized-results.json` is already normalized.
-Each comparison uses one common scale, preserving ratios and relative gains
-subject to rounding. No claim is made that indices are raw accuracy rates or that
-normalization preserves raw percentage-point differences. Comparison references
-are stated in the article and charts.
-
-`training-curves-normalized.csv` contains approximate digitized trends with both
-training progress and accuracy normalized. Within each panel, the first
-Augmentation V2 accuracy is the reference. The panels have separate scales.
+`training-curves-digitized.csv` approximates the original training plots through
+color-based digitization; it is not raw experiment logging. Accuracy is stored as
+a fraction and plotted as a percentage against the original step axis.
 
 Rebuild with Python, NumPy and Matplotlib:
 
@@ -24,7 +23,6 @@ Rebuild with Python, NumPy and Matplotlib:
 python tools/par-blog/build_assets.py --out assets/images/par
 ```
 
-The Gold-Rescue policy-shaping term is adapted from LUFFY
-(arXiv:2504.14945, Section 3.2). Internal training hyperparameters are expressed
-symbolically. The artifact-focused SP qualification is supplied by the author;
-its complete internal text is not published.
+Gold-Rescue policy shaping is adapted from LUFFY (arXiv:2504.14945, Section 3.2).
+The artifact-focused SP qualification is supplied by the author; its full internal
+text is not published.

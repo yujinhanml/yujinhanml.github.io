@@ -1,5 +1,5 @@
-"""Build public PAR figures using normalized indices and original schematic artwork.
-No source presentation, private images, raw metrics, or original sample counts are required.
+"""Build PAR figures using reported experimental values and original schematic artwork.
+Case artwork contains no source presentation images or original video frames.
 Usage: python tools/par-blog/build_assets.py --out assets/images/par
 """
 import argparse
@@ -56,7 +56,7 @@ class Diagram:
         self.text(30, 35, text, 14, TEAL, 600)
 
     def save(self, out, name):
-        (out / (name + ".svg")).write_text("\n".join(self.parts + ['</svg>']))
+        (out / (name + ".svg")).write_text("\n".join(self.parts + ['</svg>']) + '\n')
 
 
 def diagrams(out):
@@ -206,89 +206,89 @@ def save_chart(fig,out,name):
     target.write_text('\n'.join(line.rstrip() for line in target.read_text().splitlines()) + '\n')
 
 
-def index_bars(out,name,labels,values,title,reference,colors=None,horizontal=False):
+def metric_bars(out,name,labels,values,title,reference,colors=None,horizontal=False,ylabel='Accuracy (%)'):
     fig,ax=plt.subplots(figsize=(9.3,max(4.5,len(labels)*.56+1.4)))
     colors=colors or [TEAL]*len(values)
     if horizontal:
         ax.barh(range(len(labels)),values,color=colors,height=.5)
         ax.set_yticks(range(len(labels)),labels);ax.invert_yaxis()
-        ax.set_xlim(0,max(values)*1.18);ax.set_xlabel('Normalized index')
+        ax.set_xlim(0,100);ax.set_xlabel(ylabel)
         ax.xaxis.grid(True,color=LINE,alpha=.6)
-        for i,v in enumerate(values):ax.text(v+.018,i,f'{v:.3f}',va='center',fontweight='bold')
+        for i,v in enumerate(values):ax.text(v+1.2,i,f'{v:.2f}%',va='center',fontweight='bold')
     else:
         ax.bar(range(len(labels)),values,color=colors,width=.5)
-        ax.set_xticks(range(len(labels)),labels);ax.set_ylim(0,max(values)*1.25)
-        ax.set_ylabel('Normalized index');ax.yaxis.grid(True,color=LINE,alpha=.6)
-        for i,v in enumerate(values):ax.text(i,v+.025,f'{v:.3f}',ha='center',fontweight='bold',fontsize=15)
+        ax.set_xticks(range(len(labels)),labels);ax.set_ylim(0,100)
+        ax.set_ylabel(ylabel);ax.yaxis.grid(True,color=LINE,alpha=.6)
+        for i,v in enumerate(values):ax.text(i,v+1.7,f'{v:.2f}%',ha='center',fontweight='bold',fontsize=15)
     ax.set_axisbelow(True);ax.tick_params(axis='both',length=0,pad=10)
     ax.set_title(title,loc='left',fontsize=14,pad=44)
-    ax.text(0,1.055,'Normalized results · '+reference,transform=ax.transAxes,fontsize=10,color=MUTED)
+    ax.text(0,1.055,reference,transform=ax.transAxes,fontsize=10,color=MUTED)
     save_chart(fig,out,name)
 
 
 def charts(out):
     chart_style()
-    data=json.loads((Path(__file__).parent/'normalized-results.json').read_text())
+    data=json.loads((Path(__file__).parent/'results.json').read_text())
     labels=['Fixed\nrubrics','Expert-informed\nhandbook','Agent-refined\nhandbook']
     colors=['#bccbc7','#69aa9e',TEAL]
     for name in ['handbook-results','context-activation']:
-        index_bars(out,name,labels,data['handbook'],'Better context activates base-model capabilities',
-                   'Bench1 · fixed rubrics = 1.000 · +15.1% relative',colors)
-    index_bars(out,'training-results',['Baseline','Augmentation V1','Augmentation V2','V2 + Gold-Rescue'],
-               data['training'],'Learning to apply expert judgments','Bench1 · training baseline = 1.000',horizontal=True)
-    index_bars(out,'expert-alignment',['Comparison\nreference','Expert-aligned\ntraining'],
+        metric_bars(out,name,labels,data['handbook'],'Better context activates base-model capabilities',
+                   'Bench1 · context optimization · +9.6 pp',colors)
+    metric_bars(out,'training-results',['Baseline','Augmentation V1','Augmentation V2','V2 + Gold-Rescue'],
+               data['training'],'Learning to apply expert judgments','Bench1 · verifier training variants',horizontal=True)
+    metric_bars(out,'expert-alignment',['Before expert-aligned\ntraining','After expert-aligned\ntraining'],
                [data['training'][0],data['training'][2]],'Align the answering model with expert standards',
-               'Bench1 · comparison reference = 1.000 · +5.6% relative',['#bccbc7',TEAL])
-    index_bars(out,'relevance',['Content preservation','Visual editing','Editing quality','Cross-modal editing','Audio editing'],
-               data['relevance'],'Rubric relevance across categories','Content preservation = 1.000',horizontal=True)
+               'Bench1 · expert-aligned training · +4.3 pp',['#bccbc7',TEAL])
+    metric_bars(out,'relevance',['Content preservation','Visual editing','Editing quality','Cross-modal editing','Audio editing'],
+               data['relevance'],'Rubric relevance across categories','Human-reviewed questions',horizontal=True,ylabel='Fully relevant (%)')
     order=[3,0,1,2]
-    index_bars(out,'precision-overview',
+    metric_bars(out,'precision-overview',
                ['External SOTA ensemble\nGemini-3-Pro-Preview + GPT-5.6-Sol','Single PAR','Agentic PAR V1','Agentic PAR V4'],
                [data['precision'][i] for i in order], 'Bench2 · precision across PAR versions and external SOTA',
-               'External ensemble = 1.000 · V4: +7.7% relative',[CORAL,'#93b8ad','#4c9e8e',TEAL],True)
+               'V4 exceeds the external ensemble by 5.24 pp',[CORAL,'#93b8ad','#4c9e8e',TEAL],True,ylabel='Precision (%)')
     fig,axes=plt.subplots(1,2,figsize=(11.4,4.4))
     names=['Single PAR','Agentic V1','Agentic V4','External ensemble'];cs=['#93b8ad','#4c9e8e',TEAL,CORAL]
     for i,n in enumerate(names):
         axes[0].scatter(data['recall'][i],data['precision'][i],s=100,color=cs[i])
         axes[0].annotate(n,(data['recall'][i],data['precision'][i]),xytext=(7,-15 if i in [1,3] else 5),textcoords='offset points',fontsize=9)
-    axes[0].set(xlim=(.90,1.07),ylim=(.94,1.115),xlabel='Recall index · external = 1',ylabel='Precision index · external = 1')
-    axes[0].set_title('Normalized precision / recall',loc='left',fontsize=12);axes[0].grid(True,color=LINE,alpha=.6)
+    axes[0].set(xlim=(73,85),ylim=(64,76),xlabel='Recall (%)',ylabel='Precision (%)')
+    axes[0].set_title('Bench2 · precision / recall',loc='left',fontsize=12);axes[0].grid(True,color=LINE,alpha=.6)
     axes[1].barh(range(3),data['accuracy'],color=cs[:3],height=.5)
-    axes[1].set_yticks(range(3),names[:3]);axes[1].invert_yaxis();axes[1].set_xlim(0,1.15)
-    axes[1].set_xlabel('Accuracy index · Single PAR = 1')
-    axes[1].set_title('Normalized PAR accuracy',loc='left',fontsize=12)
-    for i,v in enumerate(data['accuracy']):axes[1].text(v+.015,i,f'{v:.3f}',va='center',fontweight='bold')
+    axes[1].set_yticks(range(3),names[:3]);axes[1].invert_yaxis();axes[1].set_xlim(0,90)
+    axes[1].set_xlabel('Accuracy (%)')
+    axes[1].set_title('Bench2 · PAR accuracy',loc='left',fontsize=12)
+    for i,v in enumerate(data['accuracy']):axes[1].text(v+1,i,f'{v:.2f}%',va='center',fontweight='bold')
     fig.tight_layout(w_pad=3);save_chart(fig,out,'versions')
     base,strict,tolerable=data['production'];total=strict+tolerable
     fig,ax=plt.subplots(figsize=(9.3,4.8))
     ax.bar(0,base,color='#bccbc7',width=.5)
     ax.bar(1,strict,color=TEAL,width=.5,label='Strictly usable')
     ax.bar(1,tolerable,bottom=strict,color='#b5934b',width=.5,label='Tolerable')
-    ax.set_xticks([0,1],['Baseline','Agentic PAR V1']);ax.set_xlim(-.7,1.9);ax.set_ylim(0,3.1)
-    ax.set_ylabel('Usable + tolerable share index')
+    ax.set_xticks([0,1],['Baseline','Agentic PAR V1']);ax.set_xlim(-.7,1.9);ax.set_ylim(0,100)
+    ax.set_ylabel('Usable + tolerable share (%)')
     ax.set_title('Real synthesis pipeline · 2.20× baseline usability',loc='left',pad=44)
-    ax.text(0,1.055,'Normalized results · baseline usable + tolerable share = 1.00',transform=ax.transAxes,fontsize=10,color=MUTED)
+    ax.text(0,1.055,'V1 · strictly usable and tolerable outcomes shown separately',transform=ax.transAxes,fontsize=10,color=MUTED)
     ax.yaxis.grid(True,color=LINE,alpha=.6);ax.set_axisbelow(True);ax.tick_params(axis='both',length=0,pad=10)
-    ax.text(0,base+.07,'1.00',ha='center',fontweight='bold',fontsize=15)
-    ax.text(1,total+.07,f'{total:.2f}',ha='center',fontweight='bold',fontsize=15)
-    ax.text(1,strict/2,f'{strict:.2f}',ha='center',va='center',color='white',fontweight='bold',fontsize=14)
-    ax.annotate(f'{tolerable:.2f}',xy=(1.26,strict+tolerable/2),xytext=(1.48,strict+tolerable/2),va='center',fontsize=11,arrowprops={'arrowstyle':'-','color':MUTED})
+    ax.text(0,base+2,'31.0%',ha='center',fontweight='bold',fontsize=15)
+    ax.text(1,total+2,f'{total:.2f}%',ha='center',fontweight='bold',fontsize=15)
+    ax.text(1,strict/2,f'{strict:.2f}%',ha='center',va='center',color='white',fontweight='bold',fontsize=14)
+    ax.annotate(f'{tolerable:.2f}%',xy=(1.26,strict+tolerable/2),xytext=(1.48,strict+tolerable/2),va='center',fontsize=11,arrowprops={'arrowstyle':'-','color':MUTED})
     ax.legend(frameon=False,loc='upper right',fontsize=10);save_chart(fig,out,'business')
-    index_bars(out,'failure-analysis',['Rubric missing','Tool / verifier judgment error','Evidence aggregation failure'],
-               data['failures'],'Where the remaining failures occur','Judgment error frequency = 1.000',horizontal=True)
-    index_bars(out,'artifact-cot',['5 FPS\nwithout CoT','5 FPS\nwith CoT + crop'],data['artifact_cot'],
-               'CoT + crop helps identify local quality artifacts','Bench5 · artifact-focused SP · no CoT = 1.000 · +11.2% relative',['#9ac5bb',TEAL])
-    index_bars(out,'artifact-frames',['Uniform 5 FPS\nwith CoT','Manually selected frames\nwith CoT'],data['artifact_frames'],
-               'Selected frames provide no additional gain','Bench5 · artifact-focused SP · uniform 5 FPS = 1.000 · selected: −5.0%',[TEAL,'#b5934b'])
-    rows=list(csv.DictReader((out/'training-curves-normalized.csv').open()))
+    metric_bars(out,'failure-analysis',['Rubric missing','Tool / verifier judgment error','Evidence aggregation failure'],
+               data['failures'],'Where the remaining failures occur','Analyzed failure subset',horizontal=True,ylabel='Share of analyzed failures (%)')
+    metric_bars(out,'artifact-cot',['5 FPS\nwithout CoT','5 FPS\nwith CoT + crop'],data['artifact_cot'],
+               'CoT + crop helps identify local quality artifacts','Bench5 · artifact-focused SP · +6.4 pp',['#9ac5bb',TEAL],ylabel='Artifact detection rate (%)')
+    metric_bars(out,'artifact-frames',['Uniform 5 FPS\nwith CoT','Manually selected frames\nwith CoT'],data['artifact_frames'],
+               'Selected frames provide no additional gain','Bench5 · artifact-focused SP · selected frames: −3.2 pp',[TEAL,'#b5934b'],ylabel='Artifact detection rate (%)')
+    rows=list(csv.DictReader((out/'training-curves-digitized.csv').open()))
     fig,axes=plt.subplots(1,2,figsize=(11.5,4.0))
     for ax,split in zip(axes,['Training','Validation']):
         for variant,color in [('Augmentation V2','#b5934b'),('Gold-Rescue',TEAL)]:
             pts=[r for r in rows if r['split']==split and r['variant']==variant]
-            ax.plot([float(r['progress_index']) for r in pts],[float(r['accuracy_index']) for r in pts],label=variant,color=color,linewidth=2)
-        ax.set_title(split+' · normalized accuracy',loc='left',fontsize=12)
-        ax.set_xlabel('Normalized training progress');ax.set_ylabel('Accuracy index')
-        ax.grid(True,color=LINE,alpha=.6);ax.set_xlim(0,1)
+            ax.plot([float(r['step']) for r in pts],[100*float(r['accuracy']) for r in pts],label=variant,color=color,linewidth=2)
+        ax.set_title(split+' · overall accuracy',loc='left',fontsize=12)
+        ax.set_xlabel('Training step');ax.set_ylabel('Accuracy (%)')
+        ax.grid(True,color=LINE,alpha=.6);ax.set_xlim(0,94)
     axes[0].legend(frameon=False,fontsize=9,loc='lower right');fig.tight_layout(w_pad=3);save_chart(fig,out,'training-curves')
 
 
@@ -388,7 +388,7 @@ def main():
     parser.add_argument('--out',default='assets/images/par')
     args=parser.parse_args();out=Path(args.out);out.mkdir(parents=True,exist_ok=True)
     diagrams(out);charts(out);illustrative_cases(out)
-    print('Rebuilt normalized figures and original schematic cases')
+    print('Rebuilt experiment figures and original schematic cases')
 
 
 if __name__=='__main__':main()
