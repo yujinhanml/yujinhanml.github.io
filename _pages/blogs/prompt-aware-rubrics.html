@@ -10,22 +10,21 @@ blog_styles: true
 ---
 <p class="lead">Better Context, Better Verifiers.</p>
 
-<p><strong>Prompt-Aware Rubrics (PAR)</strong> is a verifier (reward) framework for video generation, where success is often difficult to verify with fixed rules. It draws inspiration from the workflow of human evaluation experts: define the criteria, translate them into task-specific checks, and train evaluators to apply those checks consistently. PAR implements this workflow as a <strong>Rubric Handbook</strong>, a <strong>Rubric Generator</strong>, and a trained <strong>Rubric Verifier</strong>.</p>
+<p><strong>Prompt-Aware Rubrics (PAR)</strong> is a verifier (reward) framework for video generation, where success is often difficult to verify with fixed rules. It draws inspiration from the workflow of human evaluation experts: define the criteria, translate them into task-specific checks, and train evaluators to apply those checks consistently.</p>
 
-<p>The handbook and generator construct better context for the verifier, turning open-ended evaluation into explicit, task-grounded questions. This gives PAR a path to scale with the answering model: as the model’s underlying capabilities improve, targeted rubrics help elicit those capabilities.</p>
+<p><strong>PAR Components.</strong> PAR implements this workflow as a <strong>Rubric Handbook</strong>, a <strong>Rubric Generator</strong>, and a trained <strong>Rubric Verifier</strong>. The handbook and generator construct better context for the verifier, turning open-ended evaluation into explicit, task-grounded questions. This gives PAR a path to scale with the answering model: as the model’s underlying capabilities improve, targeted rubrics help elicit those capabilities.</p>
 
-<p>The longer-term direction is a hybrid verifier that combines <strong>System 1</strong> for fast, direct decisions with <strong>System 2</strong> for more elaborate chain-of-thought reasoning and tool-assisted inspection on selected rubric categories.</p>
-
-<div class="article-note">
-<p>PAR provides three versions: <strong>Single PAR → Agentic PAR V1 → Agentic PAR V4.</strong> All three share the same <strong>Rubric Handbook</strong> and <strong>Rubric Generator</strong>. The progression expands the <strong>Rubric Verifier</strong> from a single answering model into a <strong>reward system</strong> that combines multiple specialist tools and a workflow harness.</p>
+<p><strong>PAR Evolution.</strong> PAR provides three versions: <strong>Single PAR → Agentic PAR V1 → Agentic PAR V4.</strong> All three share the same <strong>Rubric Handbook</strong> and <strong>Rubric Generator</strong>. The progression expands the <strong>Rubric Verifier</strong> from a single answering model into a <strong>reward system</strong> that combines multiple specialist tools and a workflow harness.</p>
 <p><strong>Single PAR</strong> uses one trained answering model. <strong>Agentic PAR V1</strong> supplements that model with specialist tools through fixed routing. <strong>Agentic PAR V4</strong> binds individual rubrics to multiple tools and organizes their evidence through a workflow harness for rubric-level judgment.</p>
 <p>Across the three versions, the task-specific checks provide a shared interface, while the answering process gains additional capabilities and more structured evidence handling. Single PAR and V1 were deployed; V4 is exploratory.</p>
-</div>
 <figure class="results-overview"><img src="/assets/images/par/precision-overview.svg" alt="Bench2 precision: external ensemble 67.70%, Single PAR 65.61%, Agentic PAR V1 69.85%, and V4 72.94%."><figcaption>Agentic PAR V4 exceeds the <strong>Gemini-3-Pro-Preview + GPT-5.6-Sol</strong> external SOTA ensemble on precision by <strong>5.24 percentage points</strong> on Bench2.</figcaption></figure>
 <div class="metric-strip metric-strip-pair" aria-label="Selected project results">
 <div><strong>68.06<span>%</span></strong><span>Data usability, up from 31% (usable + tolerable)</span></div>
 <div><strong>2.2<span>×</span></strong><span>Estimated human review efficiency in a synthesis pipeline processing millions of samples, based on usable-data yield</span></div>
 </div>
+
+<p><strong>Future Direction.</strong> The longer-term direction is a hybrid verifier that combines <strong>System 1</strong> for fast, direct decisions with <strong>System 2</strong> for more elaborate chain-of-thought reasoning and tool-assisted inspection on selected rubric categories.</p>
+<p>For checks already within the base Rubric Verifier’s capabilities, the <strong>Rubric Handbook</strong> and <strong>Rubric Generator</strong> can elicit those capabilities through better context, while training aligns its decisions with evaluation experts. These checks can use <strong>System 1</strong> for fast verification. Harder tasks that remain beyond reliable direct judgment—such as recognizing a tiny malformed region—need a richer answering process. Here, <strong>System 2</strong> can combine CoT reasoning with <strong>crop and zoom tools</strong>, and inspect neighboring frames when needed, before producing a verdict.</p>
 
 <section id="design" class="article-section">
 <div class="section-label">01 / THE IDEA</div>
