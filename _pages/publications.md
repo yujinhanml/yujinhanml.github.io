@@ -17,6 +17,10 @@ Publications
 - Routing Matters in MoE: Scaling Diffusion Transformers with Explicit Routing Guidance.  [[PDF]](https://arxiv.org/abs/2510.24711)  
   Yujie Wei, Shiwei Zhang, Hangjie Yuan, **Yujin Han**, Zhekai Chen, Jiayu Wang, Difan Zou, Xihui Liu, Yingya Zhang, Yu Liu, Hongming Shan.  
   International Conference on Learning Representations (ICLR), 2026
+
+- Corruption-Aware Training of Latent Video Diffusion Models for Robust Text-to-Video Generation. [[PDF]](https://arxiv.org/abs/2505.21545) [[Code]](https://github.com/chikap421/catlvdm)  
+  Chika Maduabuchi, Hao Chen, **Yujin Han**, Jindong Wang.  
+  ICLR 2026 Workshop (ReALM-GEN).
   
 **2025** 
 - Can Diffusion Models Learn Hidden Inter-Feature Rules Behind Images? [[PDF]](https://www.arxiv.org/abs/2502.04725)  
@@ -33,31 +37,39 @@ Publications
   **Yujin Han**, Lei Xu, Sirui Chen, Difan Zou, Chaochao Lu.   
   International Conference on Learning Representations (ICLR), 2025  
   
-**2024**  
-- Slight Corruption in Pre-training Data Makes Better Diffusion Models. [[PDF]](https://arxiv.org/abs/2405.20494)  
-  Hao Chen, **Yujin Han**, Diganta Misra, Xiang Li, Kai Hu, Difan Zou, Masashi Sugiyama, Jindong Wang, Bhiksha Raj.  
-  Conference on Advances in Neural Information Processing Systems (NeurIPS), 2024 (**Spotlight**)
-  
-- Improving Group Robustness on Spurious Correlation Requires Preciser Group Inference. [[PDF]](https://arxiv.org/pdf/2404.13815) [[Code]](https://github.com/yujinhan98/GIC) [[Slide]](https://github.com/yujinhanml/yujinhanml.github.io/blob/master/slides/GIC_pre.pdf)  
-  **Yujin Han**, Difan Zou.   
-  International Conference on Machine Learning (ICML), 2024
-
-- Conformalized semi-supervised random forest for classification and abnormality detection. [[PDF]](https://arxiv.org/abs/2302.02237) [[Code]](https://github.com/yujinhan98/CSForest)  
-  **Yujin Han<sup>*</sup>**, Mingwenchan Xu<sup>*</sup>, Leying Guan.  
-  International Conference on Artificial Intelligence and Statistics (AISTATS), 2024
-
 Preprints
 ------
 
-- MSAVBench: Towards Comprehensive and Reliable Evaluation of Multi-Shot Audio-Video Generation. [[ArXiv]](https://huggingface.co/papers/2605.20183)  
-  Yujie Wei*, **Yujin Han<sup>*</sup>**, Zhekai Chen, Yongming Li, Kaixun Jiang, Zhihang Liu, Quanhao Li, Zhiwu Qing, Xiang Wang, Zhen Xing, Ruihang Chu, Lingyi Hong, Yefei He, Junjie Zhou, Junqiu Yu, Yang Shi, Difan Zou, Kai Zhu, Shiwei Zhang, Yingya Zhang, Yu Liu, Xihui Liu, Hongming Shan  
+**2026**
 
-- AesRM: Improving Video Aesthetics with Expert-Level Feedback.  [[HomePage]](https://yujinhanml.github.io/aesrm-projectpage/)  [[ArXiv]](https://arxiv.org/pdf/2604.28078v1)  
-  **Yujin Han<sup>*</sup>**, Yujie Wei<sup>*</sup>, Yefei He, Xinyu Liu, Tianle Li, Zichao Yu, Andi Han, Shiwei Zhang, Tingyu Weng, Difan Zou  
+- CoRe: Co-Evolving Reward Models for Mitigating Latent Reward Hacking in Video Diffusion Models. [[ArXiv]](https://arxiv.org/abs/2609.36245)  
+  Zhaolong Su, **Yujin Han**, Feng Wang, Jameson Dong, Hins Hu, Difan Zou.
+
+- SkillRubric: Co-Evolving Actor Guidance and Evaluator Rubrics for Multimodal Agents. [[ArXiv]](https://arxiv.org/abs/2609.34557)  
+  Bingqing Jiang, Guoxi Zhang, Jasper Wang, Auric Wang, Bingning Wang, Tianyi Lin, Zichao Yu, **Yujin Han**, Ziye Ma, Difan Zou.
+
+- From Static to Dynamic: On-Policy Distillation from Image to Video Diffusion Models. [[ArXiv]](https://arxiv.org/abs/2609.34371)  
+  Bingqing Jiang, Li Luo, Zichao Yu, **Yujin Han**, Zhaolong Su, Difan Zou.
+
+- Mismatch Matters: On-Policy Distillation Beyond Token Agreement. [[ArXiv]](https://arxiv.org/abs/2608.09836)  
+  Zichao Yu, Chengzhi Yu, Shengze Xu, **Yujin Han**, Bingqing Jiang, Xu Wang, Difan Zou.
+
+- ReBind: Multi-Reference Video Editing via Structured Instructions with Explicit Reference Relationships. [[ArXiv]](https://arxiv.org/abs/2607.14681) [[Project]](https://rebind-mrv2v.github.io/)  
+  Xinyu Liu, Shihao Li, Weihong Lin, Xinlong Chen, Yang Shi, **Yujin Han**, Yiyang Cai, Yanghao Wang, Ruibin Yuan, Yuanxing Zhang, Pengfei Wan, Wenhan Luo, Yike Guo.
+
+- MSAVBench: Towards Comprehensive and Reliable Evaluation of Multi-Shot Audio-Video Generation. [[ArXiv]](https://arxiv.org/abs/2605.20183)  
+  Yujie Wei<sup>*</sup>, **Yujin Han<sup>*</sup>**, Zhekai Chen, Yongming Li, Kaixun Jiang, Zhihang Liu, Quanhao Li, Zhiwu Qing, Xiang Wang, Zhen Xing, Ruihang Chu, Lingyi Hong, Yefei He, Junjie Zhou, Junqiu Yu, Yang Shi, Difan Zou, Kai Zhu, Shiwei Zhang, Yingya Zhang, Yu Liu, Xihui Liu, Hongming Shan.
+
+- AesRM: Improving Video Aesthetics with Expert-Level Feedback. [[HomePage]](https://yujinhanml.github.io/aesrm-projectpage/) [[ArXiv]](https://arxiv.org/abs/2604.28078)  
+  **Yujin Han<sup>*</sup>**, Yujie Wei<sup>*</sup>, Yefei He, Xinyu Liu, Tianle Li, Zichao Yu, Andi Han, Shiwei Zhang, Tingyu Weng, Difan Zou.
+
+**2025**
+
+- Towards Reason-Informed Video Editing in Unified Models with Self-Reflective Learning. [[ArXiv]](https://arxiv.org/abs/2512.09924)  
+  Xinyu Liu, Hangjie Yuan, Yujie Wei, Jiazheng Xing, **Yujin Han**, Jiahao Pan, Yanbiao Ma, Chi-Min Chan, Kang Zhao, Shiwei Zhang, Wenhan Luo, Yike Guo.
+
+- Exploiting Discriminative Codebook Prior for Autoregressive Image Generation. [[ArXiv]](https://arxiv.org/abs/2508.10719)  
+  Longxiang Tang, Ruihang Chu, Xiang Wang, **Yujin Han**, Pingyu Wu, Chunming He, Yingya Zhang, Shiwei Zhang, Jiaya Jia.
   
-- Theory of Autoregressive Diffusion Model: Inference Efficiency and Conditional Dependency Learning. [[ArXiv]](https://arxiv.org/abs/2504.21314)  
-  Xunpeng Huang*, **Yujin Han<sup>*</sup>**, Difan Zou, Yian Ma, Tong Zhang  
-   
-- On the Discrepancy and Connection between Memorization and Generation in Diffusion Models. [[PDF]](https://openreview.net/pdf?id=ZqG5lo18tq)  
-  Hanyu Wang, **Yujin Han**, Difan Zou.  
-  ICML 2024 Workshop on Foundation Models in the Wild, 2024  
+- Capturing Conditional Dependence via Auto-regressive Diffusion Models. [[ArXiv]](https://arxiv.org/abs/2504.21314)  
+  Xunpeng Huang<sup>*</sup>, **Yujin Han<sup>*</sup>**, Difan Zou, Yian Ma, Tong Zhang.
