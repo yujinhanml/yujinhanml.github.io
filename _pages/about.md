@@ -17,7 +17,7 @@ I’m deeply curious about challenging problems in generative modeling, especial
 
 News
 ======
-- [2026-11] <em style="color: #c62828; font-weight: 400;">New!</em> Exploring how to build verifiers and reward models for video generation in real-world production settings. [Blog]({{ '/blogs/prompt-aware-rubrics/' | relative_url }}) · [PDF]({{ '/assets/slides/par.pdf' | relative_url }}).
+- [2026-11] <em style="color: #c62828; font-weight: 400;">New!</em> Exploring how to build verifiers (rewards) for video generation in real-world production settings. [Prompt-Aware Rubrics for Video Generation: A Verifier (Reward) Framework Inspired by Human Evaluation]({{ '/blogs/prompt-aware-rubrics/' | relative_url }}). [Slides (PDF)]({{ '/assets/slides/par.pdf' | relative_url }}).
 - [2026-01] Two papers on [Self-Improvement of unified MLLM](https://arxiv.org/abs/2507.16663) and [Vision MoE](https://arxiv.org/abs/2510.24711) are accepted to ICLR'26.  
 - [2025-05] Two papers on diffusion models-[inter-feature rules](https://arxiv.org/abs/2502.04725) and [MAETok](https://arxiv.org/abs/2502.03444) (spotlight)-are accepted to ICML'25.  
 - [2025-02] One paper on [efficient autoregressive generation](https://arxiv.org/abs/2412.15119), is accepted to CVPR'25 as a highlight. 
