@@ -59,7 +59,49 @@ class Diagram:
         (out / (name + ".svg")).write_text("\n".join(self.parts + ['</svg>']) + '\n')
 
 
+def rubric_pool_example(out):
+    d = Diagram(1100, 1080, "A two-level rubric pool: selected English examples",
+                "Five categories distilled from production evaluation experience, with selected subcategories and abbreviated criteria. Select relevant entries and ground them in the editing instruction.")
+    d.label("RUBRIC POOL / SELECTED, ABBREVIATED ENTRIES")
+    d.text(30, 76, "Select applicable categories and subcategories; ground each check in the task.", 22, weight=600)
+    d.text(30, 108, "Use the existing top-level categories. Do not ask every question for every video.", 19, MUTED)
+    groups = [
+        ("Visual Editing", [
+            ("Element Addition", "Required objects, counts, positions, and appearances"),
+            ("Attribute Changes", "Color, shape, facial features, clothing, and props"),
+            ("Actions and Timing", "Actions, event order, pacing, and duration")]),
+        ("Audio Editing", [
+            ("Dialogue Content", "Requested speech, narration, or lyrics"),
+            ("Voice and Delivery", "Voice identity, tone, emotion, and speaking rate"),
+            ("Music and Sound Effects", "Background music, ambient sound, and event sounds")]),
+        ("Cross-Modal Editing", [
+            ("Lip Synchronization", "Alignment of speech and visible mouth movements"),
+            ("Audio–Visual Alignment", "Agreement between audible and visible events"),
+            ("Cross-Modal Timing", "Timing of related edits across audio and video")]),
+        ("Content Preservation", [
+            ("Subject Identity", "Identity and appearance outside the requested changes"),
+            ("Unedited Scene Content", "Background, props, and other unedited elements"),
+            ("Camera and Timing", "Original camera motion, pacing, and duration")]),
+        ("Editing Quality", [
+            ("Overall Visual Quality", "Overall appearance and visual quality of the result"),
+            ("Temporal Stability", "Flicker, transient deformation, and frame consistency"),
+            ("Edit Integration", "Seams, residual content, and local blending")])]
+    for i, (category, entries) in enumerate(groups):
+        y = 143 + i * 178
+        d.rect(30, y, 1040, 162, SAND if i % 2 else LIGHT)
+        d.text(52, y + 35, f"0{i + 1} / CATEGORY", 13, TEAL, 600)
+        d.text(52, y + 70, category, 22, weight=600)
+        d.parts.append(f'<path d="M 310,{y+20} V {y+142}" stroke="{LINE}" stroke-width="2"/>')
+        for j, (subcategory, criterion) in enumerate(entries):
+            yy = y + 29 + j * 45
+            d.text(335, yy, subcategory, 18, weight=600)
+            d.text(335, yy + 20, criterion, 16, MUTED)
+    d.text(550, 1061, "Category → Subcategory → Task-specific rubric", 18, TEAL, 600, anchor="middle")
+    d.save(out, "rubric-pool-example")
+
+
 def diagrams(out):
+    rubric_pool_example(out)
     d = Diagram(1100, 340, "Same model, different context", "A generic question leaves the model to choose its checks; targeted rubrics specify the object and edit to inspect.")
     d.label("CONTEXT IS PART OF THE VERIFIER")
     d.box(30, 65, 480, 150, "General question", "Does the edited video satisfy the instruction?", SAND, 23)

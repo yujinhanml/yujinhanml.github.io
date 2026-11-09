@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1080" role="img" aria-labelledby="title desc">
+<title id="title">A two-level rubric pool: selected English examples</title><desc id="desc">Five categories distilled from production evaluation experience, with selected subcategories and abbreviated criteria. Select relevant entries and ground them in the editing instruction.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1100" height="1080" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">RUBRIC POOL / SELECTED, ABBREVIATED ENTRIES</tspan>
+</text>
+<text x="30" y="76" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">Select applicable categories and subcategories; ground each check in the task.</tspan>
+</text>
+<text x="30" y="108" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start">
+<tspan x="30" dy="0">Use the existing top-level categories. Do not ask every question for every video.</tspan>
+</text>
+<rect x="30" y="143" width="1040" height="162" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="52" y="178" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" text-anchor="start">
+<tspan x="52" dy="0">01 / CATEGORY</tspan>
+</text>
+<text x="52" y="213" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="52" dy="0">Visual Editing</tspan>
+</text>
+<path d="M 310,163 V 285" stroke="#dce5e4" stroke-width="2"/>
+<text x="335" y="172" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Element Addition</tspan>
+</text>
+<text x="335" y="192" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Required objects, counts, positions, and appearances</tspan>
+</text>
+<text x="335" y="217" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Attribute Changes</tspan>
+</text>
+<text x="335" y="237" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Color, shape, facial features, clothing, and props</tspan>
+</text>
+<text x="335" y="262" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Actions and Timing</tspan>
+</text>
+<text x="335" y="282" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Actions, event order, pacing, and duration</tspan>
+</text>
+<rect x="30" y="321" width="1040" height="162" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="52" y="356" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" text-anchor="start">
+<tspan x="52" dy="0">02 / CATEGORY</tspan>
+</text>
+<text x="52" y="391" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="52" dy="0">Audio Editing</tspan>
+</text>
+<path d="M 310,341 V 463" stroke="#dce5e4" stroke-width="2"/>
+<text x="335" y="350" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Dialogue Content</tspan>
+</text>
+<text x="335" y="370" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Requested speech, narration, or lyrics</tspan>
+</text>
+<text x="335" y="395" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Voice and Delivery</tspan>
+</text>
+<text x="335" y="415" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Voice identity, tone, emotion, and speaking rate</tspan>
+</text>
+<text x="335" y="440" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Music and Sound Effects</tspan>
+</text>
+<text x="335" y="460" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Background music, ambient sound, and event sounds</tspan>
+</text>
+<rect x="30" y="499" width="1040" height="162" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="52" y="534" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" text-anchor="start">
+<tspan x="52" dy="0">03 / CATEGORY</tspan>
+</text>
+<text x="52" y="569" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="52" dy="0">Cross-Modal Editing</tspan>
+</text>
+<path d="M 310,519 V 641" stroke="#dce5e4" stroke-width="2"/>
+<text x="335" y="528" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Lip Synchronization</tspan>
+</text>
+<text x="335" y="548" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Alignment of speech and visible mouth movements</tspan>
+</text>
+<text x="335" y="573" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Audio–Visual Alignment</tspan>
+</text>
+<text x="335" y="593" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Agreement between audible and visible events</tspan>
+</text>
+<text x="335" y="618" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Cross-Modal Timing</tspan>
+</text>
+<text x="335" y="638" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Timing of related edits across audio and video</tspan>
+</text>
+<rect x="30" y="677" width="1040" height="162" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="52" y="712" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" text-anchor="start">
+<tspan x="52" dy="0">04 / CATEGORY</tspan>
+</text>
+<text x="52" y="747" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="52" dy="0">Content Preservation</tspan>
+</text>
+<path d="M 310,697 V 819" stroke="#dce5e4" stroke-width="2"/>
+<text x="335" y="706" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Subject Identity</tspan>
+</text>
+<text x="335" y="726" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Identity and appearance outside the requested changes</tspan>
+</text>
+<text x="335" y="751" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Unedited Scene Content</tspan>
+</text>
+<text x="335" y="771" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Background, props, and other unedited elements</tspan>
+</text>
+<text x="335" y="796" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Camera and Timing</tspan>
+</text>
+<text x="335" y="816" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Original camera motion, pacing, and duration</tspan>
+</text>
+<rect x="30" y="855" width="1040" height="162" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="52" y="890" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" text-anchor="start">
+<tspan x="52" dy="0">05 / CATEGORY</tspan>
+</text>
+<text x="52" y="925" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" text-anchor="start">
+<tspan x="52" dy="0">Editing Quality</tspan>
+</text>
+<path d="M 310,875 V 997" stroke="#dce5e4" stroke-width="2"/>
+<text x="335" y="884" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Overall Visual Quality</tspan>
+</text>
+<text x="335" y="904" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Overall appearance and visual quality of the result</tspan>
+</text>
+<text x="335" y="929" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Temporal Stability</tspan>
+</text>
+<text x="335" y="949" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Flicker, transient deformation, and frame consistency</tspan>
+</text>
+<text x="335" y="974" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="335" dy="0">Edit Integration</tspan>
+</text>
+<text x="335" y="994" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" text-anchor="start">
+<tspan x="335" dy="0">Seams, residual content, and local blending</tspan>
+</text>
+<text x="550" y="1061" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="550" dy="0">Category → Subcategory → Task-specific rubric</tspan>
+</text>
+</svg>
