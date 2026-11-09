@@ -17,9 +17,9 @@ blog_styles: true
 <p>The longer-term direction is a hybrid verifier that combines <strong>System 1</strong> for fast, direct decisions with <strong>System 2</strong> for more elaborate chain-of-thought reasoning and tool-assisted inspection on selected rubric categories.</p>
 
 <div class="article-note">
-<p><strong>Single PAR → Agentic PAR V1 → Agentic PAR V4.</strong></p>
-<p>Single PAR uses one trained answering model. V1 supplements that model with specialist tools through fixed routing. V4 binds individual rubrics to multiple tools and organizes their evidence through a workflow harness for rubric-level judgment.</p>
-<p>The progression expands a single model’s judgment into a coordinated <strong>reward system</strong>: from one evaluator to a broader set of capabilities, connected by task-specific checks and evidence-handling workflows. Single PAR and V1 were deployed; V4 is exploratory.</p>
+<p>PAR provides three versions: <strong>Single PAR → Agentic PAR V1 → Agentic PAR V4.</strong> All three share the same <strong>Rubric Handbook</strong> and <strong>Rubric Generator</strong>. The progression expands the <strong>Rubric Verifier</strong> from a single answering model into a <strong>reward system</strong> that combines multiple specialist tools and a workflow harness.</p>
+<p><strong>Single PAR</strong> uses one trained answering model. <strong>Agentic PAR V1</strong> supplements that model with specialist tools through fixed routing. <strong>Agentic PAR V4</strong> binds individual rubrics to multiple tools and organizes their evidence through a workflow harness for rubric-level judgment.</p>
+<p>Across the three versions, the task-specific checks provide a shared interface, while the answering process gains additional capabilities and more structured evidence handling. Single PAR and V1 were deployed; V4 is exploratory.</p>
 </div>
 <figure class="results-overview"><img src="/assets/images/par/precision-overview.svg" alt="Bench2 precision: external ensemble 67.70%, Single PAR 65.61%, Agentic PAR V1 69.85%, and V4 72.94%."><figcaption>Agentic PAR V4 exceeds the <strong>Gemini-3-Pro-Preview + GPT-5.6-Sol</strong> external SOTA ensemble on precision by <strong>5.24 percentage points</strong> on Bench2.</figcaption></figure>
 <div class="metric-strip metric-strip-pair" aria-label="Selected project results">
