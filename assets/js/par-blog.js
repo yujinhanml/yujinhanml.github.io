@@ -1,17 +1,23 @@
 // Progressive enhancement: the article and all figures work without JavaScript.
 (() => {
+  const chinese = document.documentElement.lang.startsWith('zh');
+  document.querySelectorAll('.par-language-switch a').forEach(link => {
+    link.addEventListener('click', () => { link.hash = window.location.hash; });
+  });
   const images = Array.from(document.querySelectorAll('.par-article figure > img, .par-article .case-media img'));
   if (typeof HTMLDialogElement !== 'undefined' && images.length) {
     const dialog = document.createElement('dialog');
     dialog.className = 'par-lightbox';
-    dialog.setAttribute('aria-label', 'Enlarged article figure');
-    dialog.innerHTML = '<form method="dialog"><span>Figure detail</span><button type="submit" aria-label="Close enlarged figure">Close ×</button></form><div class="lightbox-scroll"><img alt=""></div>';
+    dialog.setAttribute('aria-label', chinese ? '文章图片放大预览' : 'Enlarged article figure');
+    dialog.innerHTML = chinese
+      ? '<form method="dialog"><span>图片详情</span><button type="submit" aria-label="关闭放大图片">关闭 ×</button></form><div class="lightbox-scroll"><img alt=""></div>'
+      : '<form method="dialog"><span>Figure detail</span><button type="submit" aria-label="Close enlarged figure">Close ×</button></form><div class="lightbox-scroll"><img alt=""></div>';
     document.body.appendChild(dialog);
     const large = dialog.querySelector('img');
     images.forEach(image => {
       image.tabIndex = 0;
       image.setAttribute('role', 'button');
-      image.setAttribute('aria-label', `Enlarge figure: ${image.alt}`);
+      image.setAttribute('aria-label', `${chinese ? '放大图片' : 'Enlarge figure'}: ${image.alt}`);
       image.classList.add('zoomable');
       const open = () => {
         large.src = image.currentSrc || image.src;

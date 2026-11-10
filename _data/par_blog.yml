@@ -1,0 +1,42 @@
+en:
+  skip: Skip to article
+  back: ← All blogs
+  eyebrow: RESEARCH NOTES / VIDEO GENERATION
+  title: Prompt-Aware Rubrics
+  title_second: for Video Generation
+  toc: IN THIS ARTICLE
+  toc_label: Table of contents
+  tags: [Video Verification, Reward Modeling, Agentic Systems]
+  sections:
+    - 'Motivation: better context from human evaluation'
+    - 'PAR: a single verifier'
+    - 'Agentic PAR: multi-tool integration and harness design'
+    - Why PAR is a better choice
+    - 'The future of PAR: System 1 and System 2'
+  appendix: 'Appendix: RLCD and calibration'
+  references: References
+  blogs: ← Blogs
+  footer_back: ← Back to blogs
+  top: Back to top ↑
+  language: Article language
+zh:
+  skip: 跳到正文
+  back: ← 全部博客
+  eyebrow: 研究笔记 / 视频生成
+  title: Prompt-Aware Rubrics
+  title_second: 面向视频生成的验证与奖励框架
+  toc: 本文目录
+  toc_label: 文章目录
+  tags: [视频验证, 奖励模型, 智能体系统]
+  sections:
+    - 动机：从人类评测中构造更好的 context
+    - PAR：单一验证模型
+    - Agentic PAR：多工具融合与 Harness 设计
+    - 为什么 PAR 是更好的选择
+    - 未来的 PAR：System 1 与 System 2 混合系统
+  appendix: 附录：RLCD 与概率校准
+  references: 参考文献
+  blogs: ← 博客目录
+  footer_back: ← 返回博客目录
+  top: 回到顶部 ↑
+  language: 文章语言

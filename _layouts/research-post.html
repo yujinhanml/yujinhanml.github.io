@@ -1,24 +1,32 @@
 ---
 layout: default
 ---
-<a class="par-skip" href="#article-body">Skip to article</a>
+{% assign article_lang = page.lang | default: 'en' %}
+{% assign ui = site.data.par_blog[article_lang] %}
+<a class="par-skip" href="#article-body">{{ ui.skip }}</a>
 <main class="par-page" id="top">
   <header class="par-hero">
-    <a class="back-link" href="{{ '/blogs/' | relative_url }}">← All blogs</a>
-    <div class="eyebrow">RESEARCH NOTES / VIDEO GENERATION</div>
-    <h1>Prompt-Aware Rubrics <span>for Video Generation</span></h1>
+    <div class="par-hero-toolbar">
+      <a class="back-link" href="{{ '/blogs/' | relative_url }}">{{ ui.back }}</a>
+      <nav class="par-language-switch" aria-label="{{ ui.language }}">
+        <a href="{{ page.english_url | relative_url }}" lang="en" hreflang="en"{% if article_lang == 'en' %} aria-current="page"{% endif %}>English</a>
+        <a href="{{ page.chinese_url | relative_url }}" lang="zh-CN" hreflang="zh-CN"{% if article_lang == 'zh' %} aria-current="page"{% endif %}>中文</a>
+      </nav>
+    </div>
+    <div class="eyebrow">{{ ui.eyebrow }}</div>
+    <h1>{{ ui.title }} <span>{{ ui.title_second }}</span></h1>
     <p class="hero-subtitle">{{ page.subtitle }}</p>
-    <div class="article-meta"><span>{{ page.author | default: 'Yujin Han' }}</span><span aria-hidden="true">·</span><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%B %-d, %Y' }}</time><span aria-hidden="true">·</span><span>{{ content | number_of_words | divided_by: 220 | plus: 1 }} min read</span></div>
-    <div class="article-tags"><span>Video Verification</span><span>Reward Modeling</span><span>Agentic Systems</span></div>
+    <div class="article-meta"><span>{{ page.author | default: 'Yujin Han' }}</span><span aria-hidden="true">·</span><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{% if article_lang == 'zh' %}{{ page.date | date: '%Y 年 %-m 月 %-d 日' }}{% else %}{{ page.date | date: '%B %-d, %Y' }}{% endif %}</time><span aria-hidden="true">·</span><span>{% if article_lang == 'zh' %}约 {{ content | strip_html | size | divided_by: 450 | plus: 1 }} 分钟阅读{% else %}{{ content | number_of_words | divided_by: 220 | plus: 1 }} min read{% endif %}</span></div>
+    <div class="article-tags">{% for tag in ui.tags %}<span>{{ tag }}</span>{% endfor %}</div>
   </header>
   <div class="par-reading-layout">
-    <aside class="par-toc" aria-label="Table of contents">
-      <span class="toc-title">IN THIS ARTICLE</span>
-      <nav><a href="#design"><span>01</span> Motivation: better context from human evaluation</a><a href="#single-verifier"><span>02</span> PAR: a single verifier</a><a href="#agentic"><span>03</span> Agentic PAR: multi-tool integration and harness design</a><a href="#why-it-works"><span>04</span> Why PAR is a better choice</a><a href="#hybrid"><span>05</span> The future of PAR: System 1 and System 2</a><a href="#calibration-appendix" class="toc-notes">Appendix: RLCD and calibration</a><a href="#evaluation-notes" class="toc-notes">References</a></nav>
-      <a class="toc-back" href="{{ '/blogs/' | relative_url }}">← Blogs</a>
+    <aside class="par-toc" aria-label="{{ ui.toc_label }}">
+      <span class="toc-title">{{ ui.toc }}</span>
+      <nav><a href="#design"><span>01</span> {{ ui.sections[0] }}</a><a href="#single-verifier"><span>02</span> {{ ui.sections[1] }}</a><a href="#agentic"><span>03</span> {{ ui.sections[2] }}</a><a href="#why-it-works"><span>04</span> {{ ui.sections[3] }}</a><a href="#hybrid"><span>05</span> {{ ui.sections[4] }}</a><a href="#calibration-appendix" class="toc-notes">{{ ui.appendix }}</a><a href="#evaluation-notes" class="toc-notes">{{ ui.references }}</a></nav>
+      <a class="toc-back" href="{{ '/blogs/' | relative_url }}">{{ ui.blogs }}</a>
     </aside>
     <article id="article-body" class="par-article">{{ content }}</article>
   </div>
-  <footer class="par-article-footer"><a href="{{ '/blogs/' | relative_url }}">← Back to blogs</a><a href="#top">Back to top ↑</a></footer>
+  <footer class="par-article-footer"><a href="{{ '/blogs/' | relative_url }}">{{ ui.footer_back }}</a><a href="#top">{{ ui.top }}</a></footer>
 </main>
-<script src="{{ '/assets/js/par-blog.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/par-blog.js' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}" defer></script>

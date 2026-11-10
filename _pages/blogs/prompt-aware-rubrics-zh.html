@@ -1,0 +1,293 @@
+---
+layout: research-post
+title: "Prompt-Aware Rubrics：面向视频生成的验证与奖励框架"
+subtitle: "从人类评测专家工作流程出发，构建 Verifier（Reward）框架"
+permalink: /blogs/prompt-aware-rubrics/zh/
+date: 2026-11-08
+excerpt: "从人类评测经验构造任务相关的 rubric，训练验证模型，并逐步扩展为多工具协作的视频生成奖励系统。"
+blog_styles: true
+lang: zh
+english_url: /blogs/prompt-aware-rubrics/
+chinese_url: /blogs/prompt-aware-rubrics/zh/
+---
+<p class="lead">更好的 context，更好的 verifier。</p>
+
+<p><strong>Prompt-Aware Rubrics（PAR）</strong> 是一个面向视频生成的 verifier（reward）框架。在视频生成中，结果是否满足要求往往难以用固定规则验证。PAR 的灵感来自人类评测专家的工作流程：定义标准，将标准转化为针对具体任务的检查项，再培训评估人员，使其以一致的口径应用这些检查项。</p>
+
+<p><strong>PAR 组件。</strong> PAR 将上述流程实现为<strong>评价标准手册（Rubric Handbook）</strong>、<strong>出题模型（Rubric Generator）</strong>和经过训练的<strong>答题模型（Rubric Verifier）</strong>。手册和出题模型为 verifier 构造更好的 context，将开放式评测转化为明确、与任务绑定的问题。这也让 PAR 能够伴随答题模型的能力提升而扩展：基座能力越强，有针对性的 rubric 就越有机会激发这些能力。</p>
+
+<p><strong>PAR 迭代。</strong> PAR 提供三个版本：<strong>Single PAR → Agentic PAR V1 → Agentic PAR V4。</strong>三者共享相同的 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong>，逐步将 <strong>Rubric Verifier</strong> 从单一答题模型扩展为融合多种专家工具、结合 workflow harness 的 <strong>reward system</strong>。</p>
+<p><strong>Single PAR</strong> 使用一个经过训练的答题模型；<strong>Agentic PAR V1</strong> 通过固定路由引入专家工具，补强模型能力；<strong>Agentic PAR V4</strong> 将每条 rubric 与多种工具绑定，通过 workflow harness 组织证据并逐 rubric 做出判断。</p>
+<p>三个版本都以任务相关的检查项作为统一接口，逐步扩展答题能力，并让证据处理更加有序。Single PAR 和 V1 已上线，V4 仍处于探索阶段。</p>
+<figure class="results-overview"><img src="/assets/images/par/precision-overview.svg" alt="Bench2 精确率：外部集成 67.70%，Single PAR 65.61%，V1 69.85%，V4 72.94%。"><figcaption>在 Bench2 上，Agentic PAR V4 的 precision 比外部 SOTA 集成 <strong>Gemini-3-Pro-Preview + GPT-5.6-Sol</strong> 高出 <strong>5.24 个百分点</strong>。</figcaption></figure>
+<div class="metric-strip metric-strip-pair" aria-label="项目主要结果">
+<div><strong>68.06<span>%</span></strong><span>数据可用率，从 31% 提升至此（严格可用 + 可容忍）</span></div>
+<div><strong>2.2<span>×</span></strong><span>百万量级数据合成管线中的预计人工审核效率提升，按可用数据产出率估算</span></div>
+</div>
+
+<p><strong>PAR 的未来形态。</strong> 长期方向是混合式 verifier：用 <strong>System 1</strong> 快速、直接地决策；对特定 rubric 类别启用 <strong>System 2</strong>，结合更复杂的思维链推理与工具检查。</p>
+<p>对于基座 Rubric Verifier 已经覆盖的能力，可以通过 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong> 构造更好的 context 来激发，并通过训练让判断口径与评测专家对齐，使用 <strong>System 1</strong> 快速评估。对于直接判断仍不可靠的困难任务，例如识别细小区域的崩坏，则需要更丰富的答题过程：让 <strong>System 2</strong> 结合 CoT、<strong>crop 与 zoom 工具</strong>，必要时检查相邻帧，再输出判断。</p>
+
+<section id="design" class="article-section">
+<div class="section-label">01 / 设计动机</div>
+<h2>动机：从人类评测中构造更好的 context</h2>
+
+<h3 id="context">同一个模型，不同的 context</h3>
+<p>考虑一条包含多项要求的编辑指令：</p>
+<blockquote>将庭院中所有红色送货推车改成蓝色，在大门附近添加两棵树，并保持原有的镜头运动、节奏和时长。</blockquote>
+<p>固定、通用的评测提示可能只会问：“编辑后的视频是否满足用户指令？”模型需要自行拆解要求、决定看哪里、比较相关区域，再将所有发现压缩成一个判断。当注意力集中在整体场景时，它可能漏掉仍然是红色的推车。</p>
+<p>换成一个具体问题：“庭院中所有红色送货推车是否都已变成蓝色？”视频没有改变，verifier 也没有改变，但 context 明确指定了对象、属性与目标变化。模型在通用问题下漏判，并不必然意味着它无法识别颜色；也可能是相关能力没有被有效激发。</p>
+<figure><img src="/assets/images/par/context.svg" alt="同一 verifier 分别接收通用问题和明确指定红色推车变蓝的任务相关问题。" width="1100" height="340"><figcaption><span>图 1.</span> 不同评测 context 的概念对比，并非受控的成对预测实验。</figcaption></figure>
+<p>由此得到一个实际的研究问题：<strong>如何系统地构造 context，让 verifier 更好地使用它已经具备的能力？</strong></p>
+
+<h3 id="human-workflow">借鉴人类评测专家的工作流程</h3>
+<p>人类评测在打分前就已开始：专家先确定哪些方面重要，区分失败类型，并形成标准文档，再培训评估人员以一致的方式应用标准。直接要求模型“判断这个视频”，往往跳过了其中大量工作。</p>
+<figure><img src="/assets/images/par/human-to-par.svg" alt="人类定义标准、构造任务检查项和培训评估人员的流程，映射为 PAR 的手册、出题模型与答题模型。" loading="lazy" width="1100" height="430"><figcaption><span>图 2.</span> 将专家工作流程转化为架构：明确标准、针对任务实例化检查项，并学习如何应用标准。</figcaption></figure>
+<p>PAR 有三个组件：<strong>Rubric Handbook</strong> 以出题模型 system prompt 的形式存储专家经验；<strong>Rubric Generator</strong> 将用户指令转化为具体检查项；<strong>Rubric Verifier</strong> 根据视频证据，按照与专家对齐的判断标准回答这些问题。</p>
+
+<h3 id="rubric-example">一条 prompt-aware rubric 是什么样的</h3>
+<p>Rubric pool 采用<strong>大类（category）与子类（subcategory）两级结构</strong>。生成的问题会将选中的准则绑定到具体任务。以下虚拟示例展示这种结构，不复现完整内部 rubric 清单；图中文字和 rubric 示例保留英文。</p>
+<figure class="case-card">
+<div class="case-prompt"><strong>虚拟编辑指令</strong><p>Change every red delivery cart in the courtyard to blue, add two trees near the gate, and preserve the camera motion, pacing, and duration.</p></div>
+<img src="/assets/images/par/courtyard-example.svg" alt="虚拟庭院编辑前后对比：添加了两棵树，但编辑后仍有一辆红色推车。" loading="lazy">
+<figcaption><span>图 3.</span> 虚拟编辑指令与重新绘制的前后对比图。针对颜色的检查可以发现编辑不完整：一辆推车仍为红色。静态示意图只展示视觉变化，不能据此判断镜头运动、节奏和时长是否被保持。</figcaption>
+</figure>
+<div class="table-scroll" role="region" tabindex="0" aria-label="两级 rubric 示例"><table class="rubric-table">
+<thead><tr><th>Category</th><th>Subcategory</th><th>Task-specific rubric</th></tr></thead>
+<tbody>
+<tr><td>Visual Editing</td><td>Attribute Changes</td><td>Have all red delivery carts in the courtyard been changed to blue?</td></tr>
+<tr><td>Visual Editing</td><td>Element Addition</td><td>Have two trees been added near the gate?</td></tr>
+<tr><td>Content Preservation</td><td>Background and Props</td><td>Are the original gate and other unedited courtyard elements preserved?</td></tr>
+<tr><td>Content Preservation</td><td>Camera and Motion Continuity</td><td>Is the original camera motion preserved?</td></tr>
+<tr><td>Editing Quality</td><td>Edit Integration</td><td>Is the cart recoloring temporally stable, without residual red areas or deformation?</td></tr>
+<tr><td>Editing Quality</td><td>Edit Integration</td><td>Do the added trees blend into the courtyard without visible seams?</td></tr>
+</tbody></table></div>
+<p>五个顶层类别——<em>Visual Editing、Audio Editing、Cross-Modal Editing、Content Preservation</em> 和 <em>Editing Quality</em>——来自真实业务中视频编辑任务与专家评测的实践经验，覆盖反复出现的编辑要求和失败类型。纯视觉编辑任务只需选择相关检查项，无需从每个类别中都出题。</p>
+<p>推理时的流程是：<strong>手册 + 编辑指令 → rubrics → 视频验证 → 逐 rubric 判断与聚合分数</strong>。每个检查项回答“1”的概率可以作为聚合所用的软分数。同一种表示能够支持可解释评测、数据筛选，以及后训练的奖励构造。</p>
+</section>
+
+<section id="single-verifier" class="article-section">
+<div class="section-label">02 / 单一验证模型</div>
+<h2>PAR：单一验证模型</h2>
+
+<h3 id="handbook">Handbook 本质上是出题模型的 system prompt</h3>
+<p>Handbook 以文本形式写入<strong>出题模型的 system prompt</strong>，由两部分组成：固定的出题要求，以及结构化的 rubric pool。</p>
+<p>固定要求包括：追求原子化、在题目预算内优先覆盖重要要求、统一判断极性、避免矛盾和重复。回答“是”始终代表该要求被满足；回答“否”则代表未满足、完成不充分，或缺少足够证据支持。</p>
+<p>Rubric pool 提供可选择的两级类别与准则，包含较大的评测维度及更细的标准，并在迭代中扩展覆盖率。给定用户 prompt 或编辑指令，出题模型从 pool 中选择适用条目，再结合具体对象、属性、动作和保留约束构造问题。</p>
+<figure class="handbook-figure"><img src="/assets/images/par/handbook.svg" alt="手册由固定出题要求和两级 rubric pool 构成，选中准则后结合任务构造问题。" loading="lazy" width="1100" height="450">
+<img src="/assets/images/par/rubric-pool-example.svg" alt="英文 rubric pool 简例：展示视觉、音频、跨模态、内容保持和编辑质量五大类，以及每类三个子类。" loading="lazy" width="1100" height="1080">
+<figcaption><span>图 4.</span> Handbook 结构与精简的英文两级 rubric pool 示例。这里只展示部分子类和简化准则。出题模型选出适用条目后，将其转为任务相关问题；pool 提供构造问题的锚点，而非对每个视频照搬的固定问卷。</figcaption></figure>
+<p>手册构建分为三步。首先，从专家经验形成初始规则与 pool；其次，从推理错误和 RL 反馈中发现尚未覆盖的任务要求与失败类型。<strong>这一步的目的是增加 rubric pool 对真实数据和训练场景的覆盖率。</strong>最后，通过自动化搜索提出新增、删除、拆分和合并操作。</p>
+<p>搜索循环先评估初始手册，再从当前或历史版本中选择优化起点并分配编辑预算。随后分析判断错误或打平的样本，提出 pool 修改，检查补丁的范围与格式，重新生成 rubrics，并用 verifier 评估候选版本。只有同时通过生成成功率门槛、并取得效果提升的版本，才会替代当前最优版本。</p>
+<figure class="tall-diagram"><a href="/assets/images/par/pool-search.svg" aria-label="打开完整 rubric pool 优化流程图"><img src="/assets/images/par/pool-search.svg" alt="Rubric pool 黑盒搜索流程：选择起点、分析错误、修改及验证补丁、重新出题、评估并保留最优版本。" loading="lazy" width="1100" height="1240"></a><figcaption><span>图 5.</span> 对 rubric pool 进行黑盒文本搜索。评估器提供反馈，优化过程不对 system prompt 求导。点击可放大。</figcaption></figure>
+<p>手册迭代同时改变了出题模型“能问什么”和“能问多细”。相较之前的版本，三处变化尤其具体：</p>
+<blockquote class="handbook-changes">
+<p><strong>Rubric Handbook 的三处变化</strong></p>
+<ol>
+<li><strong>每条 case 的 rubric 数量上限从 12 → 14。</strong>增加题目预算，为重要要求留出独立、原子化的检查空间。</li>
+<li><strong>进一步细分属性、动作、文字和音频等准则。</strong>例如五官、服装、道具、动作顺序与节奏、文字布局及独立音频要求，减少将不同错误混在一道题中的情况。</li>
+<li><strong>新增 rubric：[Editing Quality][Overall Visual Quality]。</strong>除检查指定编辑和局部缺陷外，显式检查编辑结果的整体画面质感。</li>
+</ol>
+</blockquote>
+<p>手册迭代在 Bench1 上的结果如下：</p>
+<figure><img src="/assets/images/par/handbook-results.svg" alt="Bench1 准确率从固定 rubric 的 63.6%，提升至专家手册的 71.2% 和自动优化手册的 73.2%。" loading="lazy"><figcaption><span>图 6.</span> Bench1 上的手册迭代：从固定准则到自动优化准则，context 优化带来 9.6 个百分点的准确率提升。这项实验与答题模型训练实验独立。</figcaption></figure>
+
+<h3 id="generator">好的手册降低对出题模型强弱的敏感性</h3>
+<p>训练更好的答题模型前，需要先检查生成的问题是否有用。对 <strong>1,000 个样本、9,728 条 rubric</strong> 的人工审核发现，约 <strong>94%</strong> 的 rubric 与任务完全相关。不同类别存在差异，其中音频编辑仍是相对薄弱的部分。</p>
+<figure><img src="/assets/images/par/relevance.svg" alt="完全相关 rubric 占比：内容保持 97.1%，视觉编辑 96.4%，编辑质量 92.3%，跨模态编辑 87.0%，音频编辑 74.2%。" loading="lazy"><figcaption><span>图 7.</span> 各类别中与任务完全相关的问题比例。相关性高不等于已经覆盖每一项重要要求。</figcaption></figure>
+<p>接着，在使用相同详细手册的条件下，对比强外部出题模型与轻量内部出题模型。在这项实验中，两者带来的下游 Bench1 准确率相同。</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="出题模型对比"><table><thead><tr><th>出题模型</th><th>Bench1 准确率</th></tr></thead><tbody><tr><td>强外部模型</td><td>77.1%</td></tr><tr><td>轻量内部模型</td><td>77.1%</td></tr></tbody></table></div>
+<p>约 <strong>80%</strong> 的样本，其 rubric 重合率超过 <strong>60%</strong>；同类别问题中约 <strong>85%</strong> 的语义一致。94% 相关性来自前述人工审核集合，并非对两个出题模型各自单独测得的结果。</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Rubric 语义等价示例"><table><thead><tr><th>表述 A</th><th>表述 B</th></tr></thead><tbody><tr><td>Have all red delivery carts in the courtyard been changed to blue?</td><td>Are all delivery carts that were red in the original courtyard now blue?</td></tr></tbody></table></div>
+<p class="small-note">这是一组用于说明语义等价的虚拟表述，并非出题模型对比实验的逐字输出。</p>
+<p><strong>足够明确的手册，可以降低 PAR 效果对出题模型强弱的敏感性。</strong>上述对比中，强外部模型与轻量内部模型生成了语义接近的问题，并达到相同的下游准确率。因此，优化出题手册也体现为优化出题模型的输出：将任务知识与覆盖要求写入指令，再由模型针对每个编辑任务实例化。</p>
+
+<h3 id="verifier-training">直接 GRPO、专家标签与捷径学习</h3>
+<p>对于一个视频对和 <em>N</em> 条 rubric，答题模型输出长度为 <em>N</em> 的 01 字符串，每一位回答一个检查项。之所以跳过 SFT，是因为<strong>训练数据有限，而且基座已经掌握输出格式</strong>：给定 <em>N</em> 道题，输出 <em>N</em> 个二分类答案。因此可以直接用 GRPO 优化判断质量。</p>
+<figure><img src="/assets/images/par/verifier-training.svg" alt="输入视频对和 N 条 rubric，答题模型输出 N 位二分类答案，使用格式和准确率奖励进行 GRPO 训练。" loading="lazy" width="1100" height="440"><figcaption><span>图 8.</span> 输出形式很紧凑，但每一位背后的判断都需要符合专家标准。</figcaption></figure>
+<p>Reward 检查输出长度、二进制格式和逐 rubric 正确性。长度错误会使整个序列无效，非法字符会受到惩罚。对于 rollout <em>i</em> 和 rubric <em>j</em>，与准确性相关的奖励项为：</p>
+<div class="equation">\[R_{i,j}=0.1+0.9\,h_{i,j}\,p_{\mathrm{old}}(y_{i,j}),\qquad h_{i,j}\in\{-1,+1\}.\]</div>
+<p>其中，判断正确时 <em>h</em> 为正，错误时为负；<em>p</em> 是输出 token 的概率。该 verifier 设置中，格式与准确性部分的权重重点为 1:9，各条 rubric 等权。</p>
+<p>数据设计与 loss 同样重要。初始训练集约有 11k 个样本，以通过与未通过混合的序列为主。全对样本仅约 5%，全错样本约 0.4%。模型可能学到捷径：题目越多，就越可能有一道不通过。</p>
+<p>第一版增强从部分样本中删除未通过的检查项，保留一部分通过项，并打乱顺序。后续版本进一步平衡全对、混合和全错样本，减少 rubric 数量与标签之间的相关性。</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="答题模型训练结果"><table><thead><tr><th>训练版本</th><th>约计样本数</th><th>数据变化</th><th>Bench1 准确率</th></tr></thead><tbody>
+<tr><td>训练基线</td><td>11k</td><td>初始分布</td><td>77.1%</td></tr>
+<tr><td>数据增强 V1</td><td>15k</td><td>增加全对样本</td><td>80.7%</td></tr>
+<tr><td>数据增强 V2</td><td>22k</td><td>全对 / 混合 / 全错 ≈ 30 / 50 / 20</td><td>81.4%</td></tr>
+<tr><td>V2 + Gold-Rescue</td><td>未新增源样本</td><td>针对所有 rollout 都答错的 rubric</td><td><strong>82.7%</strong></td></tr>
+</tbody></table></div>
+<p class="small-note">这些是不同实验配置，并非只隔离数据因素的消融；V1 还关闭了 thinking。77.1% 是未做数据增强的训练基线，不是未训练模型的结果。</p>
+
+<h3 id="gold-rescue">Gold-Rescue：为整组答错的 rubric 提供学习信号</h3>
+<p>普通 GRPO 对每个 prompt 采样八个 rollout（<em>K</em> = 8），逐 rubric 计算组内相对优势。困难 rubric 可能在 <em>K</em> 个 rollout 中全部答错。<strong>Gold-Rescue 的触发单位是这条 rubric</strong>：当所有采样答案都错误时，向组中注入一个 gold answer，提供正向目标。</p>
+<figure><img src="/assets/images/par/gold-rescue.svg" alt="逐 rubric 检查 K 个 rollout，若全部错误则注入 gold answer，并使用经过 policy shaping 的离策略 loss。" loading="lazy" width="1100" height="610"><figcaption><span>图 9.</span> Rescue 触发条件针对本项目设计；经过变换的离策略目标借鉴 LUFFY。</figcaption></figure>
+<p>以二元正确性为例，在 <em>K</em> 个错误答案中加入一个正确答案，使用总体标准差归一化后，错误答案的优势为 \(-1/\sqrt{K}\)，gold answer 的优势为 \(\sqrt{K}\)。这说明 rescue 如何为原本组内完全一致的结果恢复学习信号。</p>
+<p>普通 rollout token 仍采用 PPO clipped loss。记概率比为 \(\rho_t=\pi_\theta(y_t\mid x,y_{&lt;t})/\pi_{\mathrm{old}}(y_t\mid x,y_{&lt;t})\)，则逐 token loss 为：</p>
+<div class="equation">\[\mathcal L_{\mathrm{on},t}=\max\!\left(-A_t\rho_t,\;-A_t\operatorname{clip}(\rho_t,0.8,1.28)\right).\]</div>
+<p>Gold token 在 gold prefix 下计算概率。借鉴 <a href="https://arxiv.org/abs/2504.14945">LUFFY: Learning to Reason under Off-Policy Guidance</a> 中的 policy-shaping 函数，使用 \(f(p)=p/(p+\gamma)\)。将 gold teacher 概率视为 1，对应 loss 项为：</p>
+<div class="equation">\[p_t=\pi_\theta(y_t^*\mid x,y_{&lt;t}^*),\qquad\mathcal L_{\mathrm{gold},t}=-A_t^{\mathrm{gold}}\frac{p_t}{p_t+\gamma},\quad\gamma=0.1.\]</div>
+<p>当 gold advantage 为正时，最小化该 loss 会提高正确 token 的概率。这个具有饱和特性的变换会重塑离策略更新，并非通常的负对数似然目标。Gold-Rescue 将这一机制用于特定的逐 rubric 触发场景，没有复现完整 LUFFY 训练流程。</p>
+<figure><img src="/assets/images/par/training-curves.svg" alt="数据增强 V2 与 Gold-Rescue 的训练和验证准确率曲线，横轴为训练步数。" loading="lazy"><figcaption><span>图 10.</span> 根据原实验图近似数字化重绘，并非原始日志。验证曲线的指标与独立 Bench1 结果不同。</figcaption></figure>
+<p>在 Bench1 上，Gold-Rescue 将 V2 verifier 从 <strong>81.4% 提升至 82.7%</strong>，增加 1.3 个百分点，且无需额外收集源训练样本。</p>
+
+<h3 id="single-results">泛化、诊断与 PAR for RL</h3>
+<p>在保留的编辑评测集 Bench3 上，最大提升来自指令遵循，质量方面的变化较小，为后续失败分析提供了线索。</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Bench3 评测分数"><table><thead><tr><th>方法</th><th>整体</th><th>指令遵循</th><th>一致性</th><th>质量</th></tr></thead><tbody>
+<tr><td>固定提示基线</td><td>0.474</td><td>0.630</td><td>0.747</td><td>0.727</td></tr>
+<tr><td>Single PAR</td><td><strong>0.747</strong></td><td><strong>0.857</strong></td><td><strong>0.805</strong></td><td>0.734</td></tr>
+<tr><td>外部 SOTA 模型</td><td>0.630</td><td>0.662</td><td>0.792</td><td><strong>0.792</strong></td></tr>
+</tbody></table></div>
+<p class="small-note">Bench3 使用 0–1 范围的原始评测分数，与 Bench1 准确率不同。在关注音频的 Bench4 上，准确率由固定提示基线的 67.2% 提升至训练后 PAR 的 73.2%。</p>
+<p><strong>PAR for RL。</strong>一个好的 verifier 也可以作为视频生成后训练的 reward model，以<strong>统一标准串联数据合成、RL 训练和评测</strong>。PAR 使用同一套任务相关检查项筛选合成数据、构造训练奖励，并评估生成结果。</p>
+<p>本地实验表明，相比传统 reward model，PAR 具有更高的判断准确率，而这种提升可以传递为<strong>下游更好的生成响应与编辑指令遵循</strong>。目前，这一结论局限于策略梯度贡献按 reward 或 advantage 成正比缩放的 RL 方法，尚不能推广到所有 RL 算法。</p>
+<p>不同类别的 rubric 权重还提供了额外控制：提高指令遵循、内容保持或质量的权重，可以调整奖励重点，进而引导生成模型的优化方向。</p>
+<p>下面的虚拟对话案例展示原子化检查如何让错误更易解释。它专为本文构造，不对应原项目样本或实测模型输出。</p>
+<figure class="case-card">
+<div class="case-kicker">虚拟案例 / 对话编辑</div>
+<div class="case-prompt"><strong>虚拟编辑指令</strong><p>Change the first speaker’s line from “Meet me at noon” to “Meet me at dusk,” and the second speaker’s reply from “I’ll bring lunch” to “I’ll bring a lantern.” Keep the lip movements synchronized and preserve the unedited dialogue.</p></div>
+<div class="case-human"><strong>示意性人工评测解释</strong><p>新台词正确，但两位说话者的口型仍然没有与新语音同步。</p></div>
+<img src="/assets/images/par/dialogue-example.svg" alt="虚拟对话编辑：台词改变，但口型时间保持不变，导致音画不同步。" loading="lazy">
+<div class="case-output-summary"><span><strong>示意 verifier 输出</strong> <code>11001</code></span><span>用于说明的判断，并非实测输出</span></div>
+<div class="table-scroll" role="region" tabindex="0" aria-label="虚拟对话 rubric"><table class="rubric-table"><thead><tr><th>Category</th><th>Subcategory</th><th>Example rubric</th><th>示意答案</th></tr></thead><tbody>
+<tr><td>Audio Editing</td><td>Dialogue Content</td><td>Does the first speaker now say “Meet me at dusk”?</td><td><span class="pass">1 · 通过</span></td></tr>
+<tr><td>Audio Editing</td><td>Dialogue Content</td><td>Does the reply now say “I’ll bring a lantern”?</td><td><span class="pass">1 · 通过</span></td></tr>
+<tr class="case-failed-row"><td>Cross-Modal Editing</td><td>Lip Synchronization</td><td>Are the first speaker’s lip movements synchronized with the new speech?</td><td><span class="fail">0 · 未通过</span></td></tr>
+<tr class="case-failed-row"><td>Cross-Modal Editing</td><td>Lip Synchronization</td><td>Are the second speaker’s lip movements synchronized with the new reply?</td><td><span class="fail">0 · 未通过</span></td></tr>
+<tr><td>Content Preservation</td><td>Audio Preservation</td><td>Is dialogue outside the edited exchange preserved?</td><td><span class="pass">1 · 通过</span></td></tr>
+</tbody></table></div>
+<figcaption><span>图 11.</span> 虚拟教学案例：台词内容检查通过，口型同步检查不通过。图像、指令和判断均为示意，不复现原视频、置信度或内部模型输出。</figcaption>
+</figure>
+</section>
+
+<section id="agentic" class="article-section">
+<div class="section-label">03 / 从单一模型到系统</div>
+<h2>Agentic PAR：多工具融合与 Harness 设计</h2>
+
+<h3 id="audio-case">上线数据暴露了新的失败类型</h3>
+<p>更明确的问题可以激发已有能力，但不能保证能力本身足够强。上线后，新数据暴露出答题模型在音频保持与编辑质量方面的弱点。</p>
+<p>一种典型模式是：用户只要求替换画面中的物体，视频却连原有音轨也发生了变化。聚焦于视觉指令的 verifier 可能接受这一结果，忽略音频保持失败。对应的定点补强方式，就是为需要保持原音频的任务加入音频一致性专家算子。</p>
+<figure><img src="/assets/images/par/audio-example.svg" alt="虚拟编辑前后对比：视觉对象按要求变化，但本应保持的音频也发生变化。" loading="lazy"><figcaption><span>图 12.</span> 重新绘制的失败示意：视觉编辑完成了，但本应保持的音频发生变化。</figcaption></figure>
+
+<h3 id="sandbox-v1">从业务错误定位需要补强的专家能力</h3>
+<p>在真实业务中，专家评测解释告诉我们编辑<em>为什么失败</em>，任务相关的 rubric 则指出答题模型漏判了<em>哪项要求</em>。两者结合，可以准确定位当前模型的能力缺口，例如仅要求视觉编辑时，无法识别背景音被改变。</p>
+<p>一种快速上线的思路是引入专家算子补强薄弱能力：运行当前 verifier，分析业务解释与错误 case，定位相关 rubric，引入专家工具并调整路由，再评估更新后的系统。这样就从单一答题模型扩展为答题模型与多工具池的组合。</p>
+<figure><img src="/assets/images/par/capability-extension.svg" alt="四步能力补强流程：当前模型推理、业务解释与错误分析、引入算子及调整路由、更新后模型推理。" loading="lazy" width="1100" height="540"><figcaption><span>图 13a.</span> 引入专家算子补强答题模型。业务解释与逐 rubric 错误共同定位需要补充的能力。</figcaption></figure>
+<p><strong>展开 Step 3：算子发现与验证。</strong>通过本地沙箱实验寻找适用工具。针对性的验证集包含 <strong>50 个异常 case 和 50 个正常 case</strong>，由强模型提出并执行候选算子，同时评估<strong>错误识别率</strong>与<strong>误杀率</strong>。只有既能识别目标错误、又能保留正常样本的算子，才被选入固定路由流程。</p>
+<figure><img src="/assets/images/par/sandbox.svg" alt="算子发现与验证：构建 50 异常加 50 正常样本集，强模型在本地沙箱执行候选工具，双指标验证后纳入固定路由。" loading="lazy" width="1100" height="760"><figcaption><span>图 13b.</span> 本地沙箱发现与验证流程。异常和正常样本共同检验工具是否真正增加了区分能力。</figcaption></figure>
+<p>以 <strong><code>visual_only</code> 任务的音频一致性</strong>为例，沙箱实验找到了互补的信号级检查，配置阈值如下：</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="纯视觉编辑任务的音频一致性算子阈值"><table><thead><tr><th>信号级检查</th><th>阈值</th></tr></thead><tbody>
+<tr><td>波形相关（Waveform correlation）</td><td>≥ 0.15</td></tr>
+<tr><td>频谱余弦（Spectral cosine similarity）</td><td>≥ 0.65</td></tr>
+<tr><td>平均相干（Mean coherence）</td><td>≥ 0.15</td></tr>
+<tr><td>残差信噪比（Residual SNR）</td><td>≥ 0 dB</td></tr>
+</tbody></table></div>
+<p>这些数值是该音频保持场景下的配置，仅在编辑要求保持原音频时适用。如果任务明确要求修改台词或音乐，就应使用匹配该要求的检查。同样的发现流程可以引入用于同步问题的 <strong>Lip-Sync Verifier</strong>，以及用于视觉缺陷的 <strong>Visual Quality Specialist</strong>。</p>
+
+<h3 id="v1">Agentic PAR V1：固定工作流中的专家工具</h3>
+<p><strong>Agentic PAR V1</strong> 将上述能力放入固定工作流：先执行适用的内容保持预检查，再运行 PAR，并将相关 rubric 类型路由到专家工具。任务条件十分关键：不能因为用户明确要求改变音频，就让音频保持检查直接拒绝样本。</p>
+<figure><img src="/assets/images/par/agentic-v1.svg" alt="V1 根据任务进行音频预检查，再运行 PAR，并通过固定 rubric 路由使用口型与质量专家。" loading="lazy" width="1100" height="650"><figcaption><span>图 14.</span> 已上线的 V1：通过固定路由，让专家能力补强训练后的 verifier。</figcaption></figure>
+
+<h3 id="v4">Agentic PAR V4：基于证据的 Harness</h3>
+<p>V4 探索如何更有效地使用更大的工具池，harness 分为三个阶段：<strong>Rubric 回扫（gap review）</strong>检查遗漏并补充任务相关的 synthetic rubrics；<strong>多工具编排</strong>将检查项绑定到工具，为每条 rubric 收集 evidence bundle；<strong>基于证据的判断</strong>逐 rubric 决策，证据冲突时由独立裁决器处理。</p>
+<figure><img src="/assets/images/par/agentic-v4.svg" alt="V4 的三阶段 harness：补充遗漏 rubric、编排多工具取证、逐 rubric 判断并独立处理冲突。" loading="lazy" width="1100" height="655"><figcaption><span>图 15.</span> 探索中的 V4：工具池决定可获得哪些证据，harness 决定这些证据如何影响判断。</figcaption></figure>
+<div class="article-note">
+<p><strong>PAR 架构的两个优势</strong></p>
+<p><strong>1. 定位并补强具体弱点。</strong>业务评测解释与任务相关 rubric 结合，可以定位当前答题模型处理不好的要求，再用专家工具定向补全，使系统更容易随着新错误类型出现而扩展。</p>
+<p><strong>2. 通过显式 rubric-to-tool 绑定构建编排。</strong>每条 rubric 可以提前绑定多个相关工具，绑定关系及相应规则定义证据如何被收集和处理。我们没有先收集昂贵的 tool-calling 训练数据，再训练通用自主工具调用策略。系统的灵活性来自可扩展工具、任务相关检查与证据处理，扩展系统不需要先经过上述工具调用训练阶段。</p>
+</div>
+
+<h3 id="comparison">与外部 SOTA 集成比较</h3>
+<p>Bench2 是来自真实编辑分布的筛选评测。这里<strong>正类代表可用样本</strong>：precision 衡量接受样本中的可用比例，recall 衡量所有可用样本中被保留下来的比例。这与第 5 节以崩坏为正类的诊断实验不同。</p>
+<figure><img src="/assets/images/par/versions.svg" alt="Bench2 上 Single PAR、V1、V4 与外部集成的 precision、recall 和 accuracy 对比。" loading="lazy"><figcaption><span>图 16a.</span> 同一组版本对比结果。外部集成的 recall 更高；该组记录未提供其 accuracy 与 F1。</figcaption></figure>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Bench2 版本对比"><table><thead><tr><th>方法</th><th>Precision</th><th>Recall</th><th>Accuracy</th><th>F1</th></tr></thead><tbody>
+<tr><td>Single PAR</td><td>65.61%</td><td>79.17%</td><td>76.96%</td><td>71.76%</td></tr>
+<tr><td>Agentic PAR V1</td><td>69.85%</td><td>74.40%</td><td>78.20%</td><td>72.06%</td></tr>
+<tr class="highlight-row"><td>Agentic PAR V4</td><td><strong>72.94%</strong></td><td>74.56%</td><td><strong>79.60%</strong></td><td><strong>73.74%</strong></td></tr>
+<tr><td>外部 SOTA 集成<br><small>Gemini-3-Pro-Preview + GPT-5.6-Sol</small></td><td>67.70%</td><td><strong>80.30%</strong></td><td>—</td><td>—</td></tr>
+</tbody></table></div>
+<p><strong>Agentic PAR V4 的 precision 超过 Gemini-3-Pro-Preview + GPT-5.6-Sol 外部 SOTA 集成：72.94% 对比 67.70%，提升 5.24 个百分点。</strong>从 Single PAR 到 V4，accuracy 从 76.96% 提升至 79.60%，增加 2.64 个百分点。外部集成保留了更高的 recall，因此 precision 提升也反映了筛选中的取舍。</p>
+<p>错误复盘进一步解释了版本提升来源。<strong>Single PAR → V1</strong> 中，音频一致性算子识别出 <strong>35</strong> 个音频不一致 case，质量专家识别出 <strong>24</strong> 个低质量 case。<strong>V1 → V4</strong> 中，workflow harness 与扩展工具池都有贡献：逐 rubric 判断、补漏、冲突裁决、本地算子和外部 VLM 专家各自修正了一些判断，同时也引入了新错误。</p>
+<figure><img src="/assets/images/par/version-gain-sources.svg" alt="Single 到 V1：音频算子识别 35 个、质量专家识别 24 个错误；V4 各组件修对与改错数量分别为 40/10、20/14、18/10、33/11、25/14。" loading="lazy"><figcaption><span>图 16b.</span> 三版本提升来自哪里。V4 的诊断同时展示各组件修对的决策数与引入的新错误。这些是组件级错误复盘统计，不能作为彼此独立的收益相加来计算总体准确率变化。</figcaption></figure>
+
+<h3 id="production">真实业务效果：可用与可容忍数据达到 2.20 倍</h3>
+<p>在真实数据合成管线中，已上线的 Agentic PAR V1 将<strong>严格可用 + 可容忍</strong>数据占比从 <strong>31.0% 提升至 68.06%</strong>，其中 <strong>60.92% 严格可用</strong>、<strong>7.14% 可容忍</strong>。图中可容忍部分堆叠在严格可用部分之上。</p>
+<figure><img src="/assets/images/par/business.svg" alt="真实管线可用加可容忍数据占比从 31% 提升至 68.06%，其中严格可用 60.92%，可容忍 7.14%。" loading="lazy"><figcaption><span>图 17.</span> V1 在真实数据合成管线中的结果：提升 37.06 个百分点，约为基线的 2.20 倍（68.06 ÷ 31）。该批数据与 Bench2 离线对比相互独立。</figcaption></figure>
+<p>总占比包含可容忍数据，这项业务结果本身不直接量化端到端成本节省。</p>
+</section>
+
+<section id="why-it-works" class="article-section">
+<div class="section-label">04 / 理解提升机制</div>
+<h2>为什么 PAR 是更好的选择</h2>
+
+<h3 id="better-context">更好的 context 激发基座原子能力</h3>
+<p>第一类提升来自明确的任务 context。Rubric 指定要检查什么：目标物体、颜色变化、需保持的背景或同步要求。出题模型提供结合专家经验的 hints，使 verifier 无需自己发现所有相关测试。</p>
+<p>手册实验中的 <strong>63.6% → 71.2% → 73.2%</strong> 与这一机制一致，说明评测问题的构造方式仍有优化空间，但不代表所有剩余错误都能通过提示词解决。</p>
+<figure><img src="/assets/images/par/context-activation.svg" alt="通过 context 优化，Bench1 准确率从 63.6% 经 71.2% 提升至 73.2%。" loading="lazy"><figcaption><span>图 18a.</span> 优化 context 激发基座能力：准确率从 63.6% 提升至 73.2%，增加 9.6 个百分点。</figcaption></figure>
+
+<h3 id="expert-alignment">训练答题模型，与评测专家对齐</h3>
+<p>第二类提升来自判断标准的对齐。即使问对了问题，模型和专家仍可能对“编辑是否足够完整”“某个缺陷是否应导致拒绝”持不同口径。专家标签提供决策边界，平衡数据抑制捷径学习，rescue 则为困难检查项提供监督。</p>
+<figure><img src="/assets/images/par/expert-alignment.svg" alt="专家对齐训练将 Bench1 答题模型准确率从 77.1% 提升至 81.4%。" loading="lazy"><figcaption><span>图 18b.</span> 优化答题模型，使判断与专家标准对齐：准确率从 77.1% 提升至 81.4%，增加 4.3 个百分点。</figcaption></figure>
+<p>这组训练对比反映完整的专家对齐配置，包括数据设计和优化。Gold-Rescue 进一步将 V2 verifier 从 <strong>81.4% 提升至 82.7%</strong>。两类结果共同说明：PAR 同时优化了“问题怎么问”和“答案怎么判”。</p>
+<p>这也解释了它的上限：明确的问题无法让不可见的细节自动变得可见，与专家对齐的决策规则也无法可靠使用模型感知不到的证据。此时需要增强答题过程本身。</p>
+</section>
+
+<section id="hybrid" class="article-section">
+<div class="section-label">05 / 局限与优化方向</div>
+<h2>未来的 PAR：System 1 与 System 2 混合系统</h2>
+
+<h3 id="failure-analysis">Rubric 已经存在，但答案仍然错误</h3>
+<p>对 <strong>186 个剩余失败样本</strong> 的分析显示：15 个缺少 rubric，162 个已存在相关 rubric 但工具或 verifier 判断错误，9 个与证据聚合有关。在这个子集中，仅增加问题覆盖率无法解决主要瓶颈。</p>
+<figure><img src="/assets/images/par/failure-analysis.svg" alt="失败归因：缺少 rubric 8.1%，工具或模型判断错误 87.1%，证据聚合错误 4.8%。" loading="lazy"><figcaption><span>图 19.</span> 所分析失败子集内的归因，不代表所有生产样本的分布。</figcaption></figure>
+
+<h3 id="artifact-cases">以质量崩坏为例：局部细节与瞬时缺陷</h3>
+<p>质量崩坏体现了直接二分类验证难以覆盖的一类能力，主要有两种模式。<strong>空间局部缺陷</strong>可以隐藏在整体正常的画面中：全局场景合理，但小范围的人脸、手、道具或物体部件发生变形。<strong>瞬时缺陷</strong>可能只在某帧出现，随后立刻恢复，需要比较局部区域随时间的变化才能识别。</p>
+<p>这两类问题都需要更细致的答题过程：定位可疑区域，crop 或 zoom，必要时观察相邻帧，再判断是否存在真实崩坏。以下两个虚拟示例分别展示这两类问题。</p>
+<figure><img src="/assets/images/par/spatial-example.svg" alt="虚拟机器人天线存在细小变形，对比全局视图与局部裁剪。" loading="lazy"><figcaption><span>图 20.</span> 重新绘制的局部崩坏示意。Crop 使细小变形更容易检查；该图并非实验样本。</figcaption></figure>
+<figure><img src="/assets/images/par/temporal-example.svg" alt="三个虚拟连续帧中，中间帧短暂出现形状异常，下一帧恢复。" loading="lazy"><figcaption><span>图 21.</span> 重新绘制的瞬时崩坏示意。中间帧出现变化后恢复，不包含原视频帧或内部帧编号。</figcaption></figure>
+
+<h3 id="cot-experiment">工具辅助推理的诊断实验</h3>
+<p>随后在 Bench5 的 <strong>63 个确认存在编辑崩坏的样本</strong>上比较识别效果。直接二分类验证识别出 14.3%，质量专家为 42.9%，基础崩坏检测器为 41.3%。由此提出两个问题：<strong>模型是看到了证据却识别不出细小缺陷，还是找不到包含缺陷的关键帧？</strong></p>
+<div class="article-note"><strong>针对性的 system prompt（SP）。</strong>下面三种检查配置——5 FPS 无 CoT、5 FPS 有 CoT、人工选帧有 CoT——都使用针对质量崩坏识别专门优化的 SP。CoT 配置还加入显式推理和 crop 检查，因此对比针对的是这套崩坏专项检查设置。</div>
+<figure><img src="/assets/images/par/artifact-cot.svg" alt="5 FPS 下，崩坏识别率从无 CoT 的 57.1% 提升至 CoT 加 crop 的 63.5%。" loading="lazy"><figcaption><span>图 22a.</span> CoT 结合 crop 有助于识别崩坏：同为 5 FPS，57.1% → 63.5%，提升 6.4 个百分点。两组均使用崩坏专项 SP。</figcaption></figure>
+<p>相同 5 FPS 采样率下，CoT 与 crop 检查帮助模型审视局部证据、识别更多缺陷，说明 rubric 已经指明检查内容后，增强答题过程仍然有效。</p>
+<figure><img src="/assets/images/par/artifact-frames.svg" alt="使用 CoT 时，均匀 5 FPS 的崩坏识别率为 63.5%，人工选帧为 60.3%。" loading="lazy"><figcaption><span>图 22b.</span> 这项实验中，针对性选帧没有额外收益：均匀 5 FPS 为 63.5%，人工选帧为 60.3%。两组均使用 CoT 和崩坏专项 SP。</figcaption></figure>
+<p>人工选帧加 CoT 比均匀 5 FPS <strong>低 3.2 个百分点</strong>。这组诊断中，选帧没有增加收益，CoT 加 crop 却提高了识别率。结果指向<strong>局部细节识别是主要瓶颈，而非找不到关键帧</strong>：<strong>5 FPS 对本次比较已经足够</strong>。更有价值的是细看已经提供的证据。</p>
+
+<h3 id="proposed-architecture">PAR 定义检查项，答题过程按能力调整</h3>
+<p>我们提出根据<strong>答题基座已经具备的能力</strong>组织混合系统。对于基座覆盖的 rubric 类别，可以通过专家对齐训练学习可靠的判断规则，用 <strong>System 1</strong> 快速进行直接二分类验证。</p>
+<p>对于基座仍难处理的类别，例如细小局部区域的崩坏识别，则启用 <strong>System 2</strong>：结合更复杂的思维链和 crop、zoom、相邻帧检查。Rubric 定义任务要求，答题路径负责获得足以验证的证据。时间不一致或证据冲突也可以使用这种更细致的过程。</p>
+<figure><img src="/assets/images/par/hybrid.svg" alt="拟议混合架构：基座覆盖的检查经专家对齐后使用快速 System 1，困难局部和时序检查使用 System 2 推理与工具。" loading="lazy" width="1100" height="710"><figcaption><span>图 23.</span> 基于能力的拟议分工：基座能覆盖的检查使用专家对齐的 System 1；直接判断仍较弱的类别，引入 System 2 检查。</figcaption></figure>
+<p>两条路径最后都可以输出相同的二分类判断，差别在于<em>获得证据的过程</em>，而非结果是 0 还是 1。PAR 提供统一接口：任务相关问题、回答所需证据，以及能用于评测、筛选或奖励构造的结果。</p>
+</section>
+
+<section id="calibration-appendix" class="article-section">
+<div class="section-label">附录 / 答题模型概率校准</div>
+<h2>类 Jev 的 RLCD：缓解 rubric 分数的过度自信</h2>
+
+<h3 id="calibration-motivation">从二分类判断到可用的奖励概率</h3>
+<p>与类 Jev verifier 类似，PAR 答题模型既可以输出二分类结论，也可以提供 rubric 被满足的概率。当这些概率被聚合用于筛选，或直接作为 RL 奖励时，概率本身就很重要。如果模型对不确定甚至错误的判断也给出接近 1.0 的分数，即使输出格式和决策规则正确，仍可能产生虚高奖励。</p>
+<p>我们探索了<strong>受 RLCD 启发的答题模型训练校准变体</strong>，在 GRPO 设置中加入基于 Brier 的概率纠正。实验采用 Brier 思路的实现；由于实验记录中没有可用的 Jev 官方 RLCD 训练方案，因此不是对其官方配方的复现。</p>
+
+<h3 id="brier-correction">基于 Brier 的纠正减少对极端置信度的推动</h3>
+<p>对于二元 rubric 标签 \(y\in\{0,1\}\) 和预测满足概率 \(p\)，Brier loss 为：</p>
+<div class="equation">\[\mathcal L_{\mathrm{Brier}}=(p-y)^2,\qquad -\tfrac12\frac{\partial\mathcal L_{\mathrm{Brier}}}{\partial p}=y-p.\]</div>
+<p>实验将概率纠正信号概括为 <strong>\(y-p\)</strong>，它是与 Brier loss 对应的纠正方向。正类已经获得高概率时，继续向上推的幅度变小；负类被赋予高概率时，负向纠正较强。其目的在于减少过度自信，尤其是高置信的假阳性。</p>
+<p>从总体分布看，若 \(q=P(Y=1\mid x)\)，则 \(\mathbb E[y-p\mid x]=q-p\)，稳定点在 \(p=q\)。这解释了校准目标，但本身不能保证完整神经网络训练过程收敛。</p>
+
+<h3 id="calibration-results">答题模型效果与置信度变化</h3>
+<p>在 Bench2 的独立校准实验中，GRPO-RLCD 变体提高了 precision 和 accuracy，recall 则与标准 GRPO 接近：</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Bench2 独立校准实验"><table><thead><tr><th>指标</th><th>标准 GRPO</th><th>GRPO-RLCD</th><th>变化</th></tr></thead><tbody>
+<tr><td>Precision</td><td>68.91%</td><td><strong>71.56%</strong></td><td>+2.65 pp</td></tr>
+<tr><td>Recall</td><td>75.04%</td><td>74.40%</td><td>−0.64 pp</td></tr>
+<tr><td>F1</td><td>71.84%</td><td><strong>72.95%</strong></td><td>+1.11 pp</td></tr>
+<tr><td>Accuracy</td><td>75.33%</td><td><strong>76.87%</strong></td><td>+1.54 pp</td></tr>
+</tbody></table></div>
+<p>Rubric 概率也不再那么极端：平均分从 <strong>0.803 降至 0.775</strong>，分数落在 <strong>[0.95, 1.00]</strong> 的比例从 <strong>75% 降至 67%</strong>，接近 0.999 的虚高预测有所减少。</p>
+<figure><img src="/assets/images/par/calibration-confidence.svg" alt="校准实验中，rubric 平均概率从 0.803 降至 0.775，高置信区间 0.95 到 1.00 的比例从 75% 降至 67%。" loading="lazy"><figcaption><span>图 A1.</span> 基于 Brier 的 GRPO-RLCD 变体所带来的置信度变化。统计说明极端分数减少，但不是 reliability diagram，也不直接估计校准误差。</figcaption></figure>
+<p>实际目标是让 rubric 概率成为更有用的奖励信号。这条训练方向与主架构互补：专家对齐优化判断规则，System 2 增强困难检查，概率纠正则针对过度自信的分数。</p>
+</section>
+
+<aside class="article-methods" id="evaluation-notes">
+<h2>参考文献</h2>
+<ol class="references"><li><a href="https://arxiv.org/abs/2504.14945">Jianhao Yan et al. Learning to Reason under Off-Policy Guidance（LUFFY）.</a> 采用 policy shaping <span class="inline-code">f(p) = p / (p + γ)</span>，本文将其用于 gold-token 监督。</li><li><a href="https://arxiv.org/abs/2402.03300">Zhihong Shao et al. DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models.</a> 提出 GRPO。</li><li><a href="https://arxiv.org/abs/1707.06347">John Schulman et al. Proximal Policy Optimization Algorithms.</a> 提出带裁剪的 on-policy 目标。</li></ol>
+</aside>

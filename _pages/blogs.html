@@ -16,7 +16,7 @@ blog_styles: true
   {% assign current_year = post_year %}
   {% endif %}
   <article class="blog-entry">
-    <div><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%B %-d, %Y' }}</time><h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2><p>{{ post.excerpt }}</p><a class="read-link" href="{{ post.url | relative_url }}">Read the article →</a></div>
+    <div><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%B %-d, %Y' }}</time><h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2><p>{{ post.excerpt }}</p><div class="blog-read-links"><a class="read-link" href="{{ post.url | relative_url }}" lang="en">Read in English →</a>{% if post.chinese_url %}<a class="read-link" href="{{ post.chinese_url | relative_url }}" lang="zh-CN">阅读中文版 →</a>{% endif %}</div></div>
     <a class="blog-thumb" href="{{ post.url | relative_url }}" aria-label="Read Prompt-Aware Rubrics for Video Generation"><div class="thumb-label">VIDEO GENERATION / VERIFICATION</div><div class="thumb-title">PAR</div><div class="thumb-caption">From human evaluation<br>to task-aware verification.</div><div class="thumb-flow"><span>Handbook</span><b>→</b><span>Generator</span><b>→</b><span>Verifier</span></div></a>
   </article>
   {% endfor %}
