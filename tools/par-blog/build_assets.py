@@ -288,7 +288,7 @@ def save_chart(fig,out,name):
     target.write_text('\n'.join(line.rstrip() for line in target.read_text().splitlines()) + '\n')
 
 
-def metric_bars(out,name,labels,values,title,reference,colors=None,horizontal=False,ylabel='Accuracy (%)'):
+def metric_bars(out,name,labels,values,title,reference,colors=None,horizontal=False,ylabel='Accuracy (%)',reference_line=None):
     fig,ax=plt.subplots(figsize=(9.3,max(4.5,len(labels)*.56+1.4)))
     colors=colors or [TEAL]*len(values)
     if horizontal:
@@ -296,7 +296,12 @@ def metric_bars(out,name,labels,values,title,reference,colors=None,horizontal=Fa
         ax.set_yticks(range(len(labels)),labels);ax.invert_yaxis()
         ax.set_xlim(0,100);ax.set_xlabel(ylabel)
         ax.xaxis.grid(True,color=LINE,alpha=.6)
-        for i,v in enumerate(values):ax.text(v+1.2,i,f'{v:.2f}%',va='center',fontweight='bold')
+        if reference_line is not None:
+            ax.vlines(reference_line, 0, len(labels)-.5, color=CORAL,
+                      linestyles=(0,(5,4)), linewidth=1.7, zorder=3)
+        for i,v in enumerate(values):
+            label_x=max(v,reference_line)+1.2 if reference_line is not None else v+1.2
+            ax.text(label_x,i,f'{v:.2f}%',va='center',fontweight='bold')
     else:
         ax.bar(range(len(labels)),values,color=colors,width=.5)
         ax.set_xticks(range(len(labels)),labels);ax.set_ylim(0,100)
@@ -380,7 +385,7 @@ def charts(out):
     metric_bars(out,'precision-overview',
                ['External SOTA ensemble\nGemini-3-Pro-Preview + GPT-5.6-Sol','Single PAR','Agentic PAR V1','Agentic PAR V4'],
                [data['precision'][i] for i in order], 'Bench2 · precision across PAR versions and external SOTA',
-               'V4 exceeds the external ensemble by 5.24 pp',[CORAL,'#93b8ad','#4c9e8e',TEAL],True,ylabel='Precision (%)')
+               'V4 exceeds the external ensemble by 5.24 pp',[CORAL,'#93b8ad','#4c9e8e',TEAL],True,ylabel='Precision (%)',reference_line=data['precision'][3])
     fig,axes=plt.subplots(1,2,figsize=(11.4,4.4))
     names=['Single PAR','Agentic V1','Agentic V4','External ensemble'];cs=['#93b8ad','#4c9e8e',TEAL,CORAL]
     for i,n in enumerate(names):
@@ -518,11 +523,97 @@ def illustrative_cases(out):
     d.save(out,'temporal-example')
 
 
+def par_at_a_glance(out):
+    """Original fictional case; every answer and probability is illustrative."""
+    d = Diagram(1200, 1640, "PAR at a glance: from expert criteria to interpretable rewards",
+                "A fictional dialogue edit demonstrates the handbook as a system prompt, "
+                "task-specific atomic questions, ordered binary answers, normalized token "
+                "probabilities, and agreement with an illustrative human diagnosis. "
+                "All images, answers, and probabilities are illustrative, not experiment outputs.")
+    d.label("PAR AT A GLANCE / ONE TASK, EXPLICIT CHECKS, EXPLAINABLE FEEDBACK")
+    d.text(30, 79, "Define what matters. Ask precisely. Verify each requirement.", 30, weight=600)
+    d.text(30, 111, "Fictional dialogue edit · newly drawn media · illustrative answers and probabilities", 19, MUTED)
+    cards = [
+        (30, "1  Rubric Handbook", "System prompt for the generator\nAtomic, task-grounded questions\nCategory / subcategory pool"),
+        (425, "2  Rubric Generator", "Handbook + editing instruction\nSelect applicable criteria\nGenerate checks Q1–Q5"),
+        (820, "3  Rubric Verifier", "Original + edited video + rubrics\nAnswer Q1–Q5 in order\nReturn bits and rubric scores")]
+    for x, title, body in cards:
+        d.rect(x, 139, 350, 165, LIGHT if x != 820 else '#eef2f6')
+        d.text(x+20, 176, title, 24, weight=600)
+        d.text(x+20, 212, body, 19, MUTED, line=1.6)
+    d.arrow(384, 219, 418, 219)
+    d.arrow(779, 219, 813, 219)
+    d.rect(30, 326, 1140, 94, '#f1f4f7')
+    d.text(50, 355, "EDITING INSTRUCTION", 15, TEAL, 600)
+    d.text(50, 383, 'Change “Meet me at noon” to “Meet me at dusk,” and “I’ll bring lunch” to “I’ll bring a lantern.”', 20)
+    d.text(50, 409, 'Keep both speakers’ lips synchronized and preserve dialogue outside this exchange.', 20)
+
+    for x, title, lines, edited in [
+            (30, "Original video", ['Meet me at noon', 'I’ll bring lunch'], False),
+            (615, "Edited video", ['Meet me at dusk', 'I’ll bring a lantern'], True)]:
+        d.rect(x, 442, 555, 300, SAND if not edited else LIGHT)
+        d.text(x+20, 476, title, 23, weight=600)
+        d.rect(x+20, 494, 515, 161, '#f4f6f3', radius=6)
+        d.rect(x+220, 501, 92, 90, '#e1e9e4', '#d1ded9', 2)
+        for j, words in enumerate(lines):
+            cx = x+143+j*268
+            circle(d, cx, 533, 25, '#bed6dd' if j==0 else '#d9c6ad')
+            for ex in [-8,8]:circle(d, cx+ex, 529, 2, INK)
+            d.parts.append(f'<path d="M {cx-6},544 L {cx+6},544" stroke="{INK}" stroke-width="3"/>')
+            d.rect(cx-28, 563, 56, 49, '#9dbbb3' if j==0 else '#b8a2aa', radius=8)
+            d.rect(cx-119, 617, 238, 30, 'white', LINE, 5)
+            d.text(cx, 639, words, 18, anchor='middle')
+        for j, label in enumerate(['Speech timing', 'Lip timing']):
+            yy = 680+j*34
+            d.text(x+20, yy, label, 17, MUTED)
+            d.parts.append(f'<path d="M {x+165},{yy-6} H {x+524}" stroke="{LINE}" stroke-width="9"/>')
+            start=x+180+(40 if edited and j==0 else 0)
+            for offset in [0,150]:d.rect(start+offset, yy-14, 112, 16, TEAL if j==0 else '#b5934b', radius=3)
+        if edited:
+            d.parts.append(f'<path d="M {x+180},727 H {x+220}" stroke="{CORAL}" stroke-width="3"/>')
+
+    d.text(30, 782, "Atomic questions, grounded in the instruction", 24, weight=600)
+    d.text(30, 813, "s = p(1) / [p(1) + p(0)]  ·  p(1), p(0): next-token probabilities at each answer position", 19, MUTED)
+    d.text(30, 841, "1 = requirement satisfied; 0 = not satisfied  ·  Human column: illustrative expert labels", 18, MUTED)
+    # Fixed column positions keep the rubric text and numerical outputs separate.
+    d.rect(30, 862, 1140, 52, '#edf2f0', radius=5)
+    d.text(48, 895, "Generated rubric / category → subcategory", 18, weight=600)
+    for xx, name in [(745,'Bit'),(837,'p(1)'),(930,'p(0)'),(1024,'s'),(1120,'Human')]:
+        d.text(xx, 895, name, 18, weight=600, anchor='middle')
+    rows = [
+        ('Q1', 'Audio Editing → Dialogue Content', 'Does the first speaker now say “Meet me at dusk”?', '1', .81, .09, .90),
+        ('Q2', 'Audio Editing → Dialogue Content', 'Does the reply now say “I’ll bring a lantern”?', '1', .72, .08, .90),
+        ('Q3', 'Cross-Modal Editing → Lip Synchronization', 'Are the first speaker’s lips synchronized with the new speech?', '0', .09, .81, .10),
+        ('Q4', 'Cross-Modal Editing → Lip Synchronization', 'Are the second speaker’s lips synchronized with the new reply?', '0', .18, .72, .20),
+        ('Q5', 'Content Preservation → Audio Preservation', 'Is dialogue outside the edited exchange preserved?', '1', .81, .09, .90)]
+    for i, (qid, path, question, bit, p1, p0, score) in enumerate(rows):
+        y=914+i*96
+        fill='#fff0eb' if bit=='0' else ('#fbfcfb' if i%2==0 else 'white')
+        d.rect(30,y,1140,96,fill,LINE,0)
+        d.text(48,y+28,qid+'  '+path,16,TEAL,600)
+        d.text(48,y+58,question,20,wrap=60,line=1.25)
+        circle(d,745,y+48,18, '#f9ded3' if bit=='0' else '#d9ece3')
+        d.text(745,y+55,bit,21,CORAL if bit=='0' else TEAL,700,'middle')
+        for xx,value in [(837,p1),(930,p0),(1024,score)]:
+            d.text(xx,y+55,f'{value:.2f}',20,weight=600 if xx==1024 else 400,anchor='middle')
+        d.text(1120,y+55,bit,21,CORAL if bit=='0' else TEAL,600,'middle')
+    d.rect(30, 1416, 555, 83, '#eef2f6')
+    d.text(50, 1446, "ORDERED BINARY OUTPUT", 15, MUTED, 600)
+    d.text(50, 1479, "11001  ·  3 / 5 checks pass", 27, weight=600)
+    d.rect(605, 1416, 565, 83, '#eef2f6')
+    d.text(625, 1446, "ILLUSTRATIVE AGGREGATE REWARD", 15, MUTED, 600)
+    d.text(625, 1479, "Mean(s) = 0.60  ·  equal weights", 27, weight=600)
+    d.rect(30, 1520, 1140, 90, LIGHT)
+    d.text(50, 1553, "MODEL + HUMAN DIAGNOSIS (ILLUSTRATIVE)", 15, TEAL, 600)
+    d.text(50, 1586, "Dialogue: correct. Lip synchronization: wrong. The failing requirements are explicit.", 23, weight=600)
+    d.save(out, 'par-at-a-glance')
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--out',default='assets/images/par')
     args=parser.parse_args();out=Path(args.out);out.mkdir(parents=True,exist_ok=True)
-    diagrams(out);charts(out);illustrative_cases(out)
+    diagrams(out);charts(out);illustrative_cases(out);par_at_a_glance(out)
     print('Rebuilt experiment figures and original schematic cases')
 
 

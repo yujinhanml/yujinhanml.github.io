@@ -1,0 +1,292 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1640" role="img" aria-labelledby="title desc">
+<title id="title">PAR at a glance: from expert criteria to interpretable rewards</title><desc id="desc">A fictional dialogue edit demonstrates the handbook as a system prompt, task-specific atomic questions, ordered binary answers, normalized token probabilities, and agreement with an illustrative human diagnosis. All images, answers, and probabilities are illustrative, not experiment outputs.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d969b"/></marker></defs>
+<rect width="1200" height="1640" rx="20" fill="white"/>
+<text x="30" y="35" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">PAR AT A GLANCE / ONE TASK, EXPLICIT CHECKS, EXPLAINABLE FEEDBACK</tspan>
+</text>
+<text x="30" y="79" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">Define what matters. Ask precisely. Verify each requirement.</tspan>
+</text>
+<text x="30" y="111" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start">
+<tspan x="30" dy="0">Fictional dialogue edit · newly drawn media · illustrative answers and probabilities</tspan>
+</text>
+<rect x="30" y="139" width="350" height="165" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="50" y="176" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" text-anchor="start">
+<tspan x="50" dy="0">1  Rubric Handbook</tspan>
+</text>
+<text x="50" y="212" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start">
+<tspan x="50" dy="0">System prompt for the generator</tspan>
+<tspan x="50" dy="30.400000000000002">Atomic, task-grounded questions</tspan>
+<tspan x="50" dy="30.400000000000002">Category / subcategory pool</tspan>
+</text>
+<rect x="425" y="139" width="350" height="165" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="445" y="176" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" text-anchor="start">
+<tspan x="445" dy="0">2  Rubric Generator</tspan>
+</text>
+<text x="445" y="212" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start">
+<tspan x="445" dy="0">Handbook + editing instruction</tspan>
+<tspan x="445" dy="30.400000000000002">Select applicable criteria</tspan>
+<tspan x="445" dy="30.400000000000002">Generate checks Q1–Q5</tspan>
+</text>
+<rect x="820" y="139" width="350" height="165" rx="12" fill="#eef2f6" stroke="#dce5e4"/>
+<text x="840" y="176" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" text-anchor="start">
+<tspan x="840" dy="0">3  Rubric Verifier</tspan>
+</text>
+<text x="840" y="212" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start">
+<tspan x="840" dy="0">Original + edited video + rubrics</tspan>
+<tspan x="840" dy="30.400000000000002">Answer Q1–Q5 in order</tspan>
+<tspan x="840" dy="30.400000000000002">Return bits and rubric scores</tspan>
+</text>
+<polyline points="384,219 418,219" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<polyline points="779,219 813,219" fill="none" stroke="#7d969b" stroke-width="2"  marker-end="url(#arrow)"/>
+<rect x="30" y="326" width="1140" height="94" rx="12" fill="#f1f4f7" stroke="#dce5e4"/>
+<text x="50" y="355" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="600" text-anchor="start">
+<tspan x="50" dy="0">EDITING INSTRUCTION</tspan>
+</text>
+<text x="50" y="383" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start">
+<tspan x="50" dy="0">Change “Meet me at noon” to “Meet me at dusk,” and “I’ll bring lunch” to “I’ll bring a lantern.”</tspan>
+</text>
+<text x="50" y="409" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start">
+<tspan x="50" dy="0">Keep both speakers’ lips synchronized and preserve dialogue outside this exchange.</tspan>
+</text>
+<rect x="30" y="442" width="555" height="300" rx="12" fill="#f8f5ee" stroke="#dce5e4"/>
+<text x="50" y="476" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600" text-anchor="start">
+<tspan x="50" dy="0">Original video</tspan>
+</text>
+<rect x="50" y="494" width="515" height="161" rx="6" fill="#f4f6f3" stroke="#dce5e4"/>
+<rect x="250" y="501" width="92" height="90" rx="2" fill="#e1e9e4" stroke="#d1ded9"/>
+<circle cx="173" cy="533" r="25" fill="#bed6dd" stroke="none" stroke-width="1"/>
+<circle cx="165" cy="529" r="2" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="181" cy="529" r="2" fill="#193b45" stroke="none" stroke-width="1"/>
+<path d="M 167,544 L 179,544" stroke="#193b45" stroke-width="3"/>
+<rect x="145" y="563" width="56" height="49" rx="8" fill="#9dbbb3" stroke="#dce5e4"/>
+<rect x="54" y="617" width="238" height="30" rx="5" fill="white" stroke="#dce5e4"/>
+<text x="173" y="639" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="middle">
+<tspan x="173" dy="0">Meet me at noon</tspan>
+</text>
+<circle cx="441" cy="533" r="25" fill="#d9c6ad" stroke="none" stroke-width="1"/>
+<circle cx="433" cy="529" r="2" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="449" cy="529" r="2" fill="#193b45" stroke="none" stroke-width="1"/>
+<path d="M 435,544 L 447,544" stroke="#193b45" stroke-width="3"/>
+<rect x="413" y="563" width="56" height="49" rx="8" fill="#b8a2aa" stroke="#dce5e4"/>
+<rect x="322" y="617" width="238" height="30" rx="5" fill="white" stroke="#dce5e4"/>
+<text x="441" y="639" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="middle">
+<tspan x="441" dy="0">I’ll bring lunch</tspan>
+</text>
+<text x="50" y="680" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" text-anchor="start">
+<tspan x="50" dy="0">Speech timing</tspan>
+</text>
+<path d="M 195,674 H 554" stroke="#dce5e4" stroke-width="9"/>
+<rect x="210" y="666" width="112" height="16" rx="3" fill="#147d73" stroke="#dce5e4"/>
+<rect x="360" y="666" width="112" height="16" rx="3" fill="#147d73" stroke="#dce5e4"/>
+<text x="50" y="714" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" text-anchor="start">
+<tspan x="50" dy="0">Lip timing</tspan>
+</text>
+<path d="M 195,708 H 554" stroke="#dce5e4" stroke-width="9"/>
+<rect x="210" y="700" width="112" height="16" rx="3" fill="#b5934b" stroke="#dce5e4"/>
+<rect x="360" y="700" width="112" height="16" rx="3" fill="#b5934b" stroke="#dce5e4"/>
+<rect x="615" y="442" width="555" height="300" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="635" y="476" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600" text-anchor="start">
+<tspan x="635" dy="0">Edited video</tspan>
+</text>
+<rect x="635" y="494" width="515" height="161" rx="6" fill="#f4f6f3" stroke="#dce5e4"/>
+<rect x="835" y="501" width="92" height="90" rx="2" fill="#e1e9e4" stroke="#d1ded9"/>
+<circle cx="758" cy="533" r="25" fill="#bed6dd" stroke="none" stroke-width="1"/>
+<circle cx="750" cy="529" r="2" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="766" cy="529" r="2" fill="#193b45" stroke="none" stroke-width="1"/>
+<path d="M 752,544 L 764,544" stroke="#193b45" stroke-width="3"/>
+<rect x="730" y="563" width="56" height="49" rx="8" fill="#9dbbb3" stroke="#dce5e4"/>
+<rect x="639" y="617" width="238" height="30" rx="5" fill="white" stroke="#dce5e4"/>
+<text x="758" y="639" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="middle">
+<tspan x="758" dy="0">Meet me at dusk</tspan>
+</text>
+<circle cx="1026" cy="533" r="25" fill="#d9c6ad" stroke="none" stroke-width="1"/>
+<circle cx="1018" cy="529" r="2" fill="#193b45" stroke="none" stroke-width="1"/>
+<circle cx="1034" cy="529" r="2" fill="#193b45" stroke="none" stroke-width="1"/>
+<path d="M 1020,544 L 1032,544" stroke="#193b45" stroke-width="3"/>
+<rect x="998" y="563" width="56" height="49" rx="8" fill="#b8a2aa" stroke="#dce5e4"/>
+<rect x="907" y="617" width="238" height="30" rx="5" fill="white" stroke="#dce5e4"/>
+<text x="1026" y="639" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="middle">
+<tspan x="1026" dy="0">I’ll bring a lantern</tspan>
+</text>
+<text x="635" y="680" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" text-anchor="start">
+<tspan x="635" dy="0">Speech timing</tspan>
+</text>
+<path d="M 780,674 H 1139" stroke="#dce5e4" stroke-width="9"/>
+<rect x="835" y="666" width="112" height="16" rx="3" fill="#147d73" stroke="#dce5e4"/>
+<rect x="985" y="666" width="112" height="16" rx="3" fill="#147d73" stroke="#dce5e4"/>
+<text x="635" y="714" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" text-anchor="start">
+<tspan x="635" dy="0">Lip timing</tspan>
+</text>
+<path d="M 780,708 H 1139" stroke="#dce5e4" stroke-width="9"/>
+<rect x="795" y="700" width="112" height="16" rx="3" fill="#b5934b" stroke="#dce5e4"/>
+<rect x="945" y="700" width="112" height="16" rx="3" fill="#b5934b" stroke="#dce5e4"/>
+<path d="M 795,727 H 835" stroke="#c76243" stroke-width="3"/>
+<text x="30" y="782" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" text-anchor="start">
+<tspan x="30" dy="0">Atomic questions, grounded in the instruction</tspan>
+</text>
+<text x="30" y="813" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" text-anchor="start">
+<tspan x="30" dy="0">s = p(1) / [p(1) + p(0)]  ·  p(1), p(0): next-token probabilities at each answer position</tspan>
+</text>
+<text x="30" y="841" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" text-anchor="start">
+<tspan x="30" dy="0">1 = requirement satisfied; 0 = not satisfied  ·  Human column: illustrative expert labels</tspan>
+</text>
+<rect x="30" y="862" width="1140" height="52" rx="5" fill="#edf2f0" stroke="#dce5e4"/>
+<text x="48" y="895" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="start">
+<tspan x="48" dy="0">Generated rubric / category → subcategory</tspan>
+</text>
+<text x="745" y="895" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="745" dy="0">Bit</tspan>
+</text>
+<text x="837" y="895" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="837" dy="0">p(1)</tspan>
+</text>
+<text x="930" y="895" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="930" dy="0">p(0)</tspan>
+</text>
+<text x="1024" y="895" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="1024" dy="0">s</tspan>
+</text>
+<text x="1120" y="895" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+<tspan x="1120" dy="0">Human</tspan>
+</text>
+<rect x="30" y="914" width="1140" height="96" rx="0" fill="#fbfcfb" stroke="#dce5e4"/>
+<text x="48" y="942" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" text-anchor="start">
+<tspan x="48" dy="0">Q1  Audio Editing → Dialogue Content</tspan>
+</text>
+<text x="48" y="972" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start">
+<tspan x="48" dy="0">Does the first speaker now say “Meet me at dusk”?</tspan>
+</text>
+<circle cx="745" cy="962" r="18" fill="#d9ece3" stroke="none" stroke-width="1"/>
+<text x="745" y="969" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" text-anchor="middle">
+<tspan x="745" dy="0">1</tspan>
+</text>
+<text x="837" y="969" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="837" dy="0">0.81</tspan>
+</text>
+<text x="930" y="969" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="930" dy="0">0.09</tspan>
+</text>
+<text x="1024" y="969" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+<tspan x="1024" dy="0">0.90</tspan>
+</text>
+<text x="1120" y="969" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" text-anchor="middle">
+<tspan x="1120" dy="0">1</tspan>
+</text>
+<rect x="30" y="1010" width="1140" height="96" rx="0" fill="white" stroke="#dce5e4"/>
+<text x="48" y="1038" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" text-anchor="start">
+<tspan x="48" dy="0">Q2  Audio Editing → Dialogue Content</tspan>
+</text>
+<text x="48" y="1068" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start">
+<tspan x="48" dy="0">Does the reply now say “I’ll bring a lantern”?</tspan>
+</text>
+<circle cx="745" cy="1058" r="18" fill="#d9ece3" stroke="none" stroke-width="1"/>
+<text x="745" y="1065" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" text-anchor="middle">
+<tspan x="745" dy="0">1</tspan>
+</text>
+<text x="837" y="1065" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="837" dy="0">0.72</tspan>
+</text>
+<text x="930" y="1065" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="930" dy="0">0.08</tspan>
+</text>
+<text x="1024" y="1065" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+<tspan x="1024" dy="0">0.90</tspan>
+</text>
+<text x="1120" y="1065" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" text-anchor="middle">
+<tspan x="1120" dy="0">1</tspan>
+</text>
+<rect x="30" y="1106" width="1140" height="96" rx="0" fill="#fff0eb" stroke="#dce5e4"/>
+<text x="48" y="1134" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" text-anchor="start">
+<tspan x="48" dy="0">Q3  Cross-Modal Editing → Lip Synchronization</tspan>
+</text>
+<text x="48" y="1164" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start">
+<tspan x="48" dy="0">Are the first speaker’s lips synchronized with the new</tspan>
+<tspan x="48" dy="25.0">speech?</tspan>
+</text>
+<circle cx="745" cy="1154" r="18" fill="#f9ded3" stroke="none" stroke-width="1"/>
+<text x="745" y="1161" fill="#c76243" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" text-anchor="middle">
+<tspan x="745" dy="0">0</tspan>
+</text>
+<text x="837" y="1161" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="837" dy="0">0.09</tspan>
+</text>
+<text x="930" y="1161" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="930" dy="0">0.81</tspan>
+</text>
+<text x="1024" y="1161" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+<tspan x="1024" dy="0">0.10</tspan>
+</text>
+<text x="1120" y="1161" fill="#c76243" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" text-anchor="middle">
+<tspan x="1120" dy="0">0</tspan>
+</text>
+<rect x="30" y="1202" width="1140" height="96" rx="0" fill="#fff0eb" stroke="#dce5e4"/>
+<text x="48" y="1230" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" text-anchor="start">
+<tspan x="48" dy="0">Q4  Cross-Modal Editing → Lip Synchronization</tspan>
+</text>
+<text x="48" y="1260" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start">
+<tspan x="48" dy="0">Are the second speaker’s lips synchronized with the new</tspan>
+<tspan x="48" dy="25.0">reply?</tspan>
+</text>
+<circle cx="745" cy="1250" r="18" fill="#f9ded3" stroke="none" stroke-width="1"/>
+<text x="745" y="1257" fill="#c76243" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" text-anchor="middle">
+<tspan x="745" dy="0">0</tspan>
+</text>
+<text x="837" y="1257" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="837" dy="0">0.18</tspan>
+</text>
+<text x="930" y="1257" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="930" dy="0">0.72</tspan>
+</text>
+<text x="1024" y="1257" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+<tspan x="1024" dy="0">0.20</tspan>
+</text>
+<text x="1120" y="1257" fill="#c76243" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" text-anchor="middle">
+<tspan x="1120" dy="0">0</tspan>
+</text>
+<rect x="30" y="1298" width="1140" height="96" rx="0" fill="#fbfcfb" stroke="#dce5e4"/>
+<text x="48" y="1326" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" text-anchor="start">
+<tspan x="48" dy="0">Q5  Content Preservation → Audio Preservation</tspan>
+</text>
+<text x="48" y="1356" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start">
+<tspan x="48" dy="0">Is dialogue outside the edited exchange preserved?</tspan>
+</text>
+<circle cx="745" cy="1346" r="18" fill="#d9ece3" stroke="none" stroke-width="1"/>
+<text x="745" y="1353" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" text-anchor="middle">
+<tspan x="745" dy="0">1</tspan>
+</text>
+<text x="837" y="1353" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="837" dy="0">0.81</tspan>
+</text>
+<text x="930" y="1353" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="middle">
+<tspan x="930" dy="0">0.09</tspan>
+</text>
+<text x="1024" y="1353" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+<tspan x="1024" dy="0">0.90</tspan>
+</text>
+<text x="1120" y="1353" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="600" text-anchor="middle">
+<tspan x="1120" dy="0">1</tspan>
+</text>
+<rect x="30" y="1416" width="555" height="83" rx="12" fill="#eef2f6" stroke="#dce5e4"/>
+<text x="50" y="1446" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="600" text-anchor="start">
+<tspan x="50" dy="0">ORDERED BINARY OUTPUT</tspan>
+</text>
+<text x="50" y="1479" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="600" text-anchor="start">
+<tspan x="50" dy="0">11001  ·  3 / 5 checks pass</tspan>
+</text>
+<rect x="605" y="1416" width="565" height="83" rx="12" fill="#eef2f6" stroke="#dce5e4"/>
+<text x="625" y="1446" fill="#60747a" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="600" text-anchor="start">
+<tspan x="625" dy="0">ILLUSTRATIVE AGGREGATE REWARD</tspan>
+</text>
+<text x="625" y="1479" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="600" text-anchor="start">
+<tspan x="625" dy="0">Mean(s) = 0.60  ·  equal weights</tspan>
+</text>
+<rect x="30" y="1520" width="1140" height="90" rx="12" fill="#eaf5f1" stroke="#dce5e4"/>
+<text x="50" y="1553" fill="#147d73" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="600" text-anchor="start">
+<tspan x="50" dy="0">MODEL + HUMAN DIAGNOSIS (ILLUSTRATIVE)</tspan>
+</text>
+<text x="50" y="1586" fill="#193b45" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600" text-anchor="start">
+<tspan x="50" dy="0">Dialogue: correct. Lip synchronization: wrong. The failing requirements are explicit.</tspan>
+</text>
+</svg>
