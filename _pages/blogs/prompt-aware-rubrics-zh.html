@@ -12,7 +12,9 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 ---
 <p class="lead">更好的 context，更好的 verifier。</p>
 
-<p><strong>Prompt-Aware Rubrics（PAR）</strong> 是一个面向视频生成的 verifier（reward）框架。在视频生成中，结果是否满足要求往往难以用固定规则验证。PAR 的灵感来自人类评测专家的工作流程：定义标准，将标准转化为针对具体任务的检查项，再培训评估人员，使其以一致的口径应用这些检查项。</p>
+<p>与数学和代码任务相比，视频生成面临两重挑战：一方面，“什么是好视频”往往缺乏清晰的定义，例如美学质量与偏好<sup id="cite-aesrm"><a href="https://arxiv.org/abs/2604.28078" aria-label="参考文献 1：AesRM">[1]</a></sup>；另一方面，<strong>难以获得明确、可解释的奖励信号</strong>——同样得到 3 分的视频，可能一个画面精美但没有完成编辑指令，另一个完成了指令却存在局部崩坏。相同的分数背后，对应着不同的问题与优化方向。因此，理想的视频生成 verifier / reward model 应当结合<strong>具体任务要求与业务评测标准</strong>，提供准确、可解释的判断与奖励，并明确指出哪些要求得到了满足、哪些问题仍需改进。</p>
+
+<p>为此，我们提出 <strong>Prompt-Aware Rubrics（PAR）</strong>，一个面向视频生成的 verifier（reward）框架。<strong>PAR 首先将问题定义清楚</strong>：通过 <strong>Rubric Handbook</strong> 明确业务关注的任务维度，再构造任务相关的 <strong>rubrics</strong>，将模糊的整体质量判断拆解为<strong>标准明确、原因可解释、可依据视频证据逐项核验的二分类问题</strong>，让奖励信号对应到具体要求。这一设计借鉴了真实人类评测专家的工作流程：定义当前任务中“好”的标准，将标准转化为具体检查项，再培训评估人员，使其以一致的口径应用这些检查项。</p>
 
 <p><strong>PAR 组件。</strong> PAR 将上述流程实现为<strong>评价标准手册（Rubric Handbook）</strong>、<strong>出题模型（Rubric Generator）</strong>和经过训练的<strong>答题模型（Rubric Verifier）</strong>。手册和出题模型为 verifier 构造更好的 context，将开放式评测转化为明确、与任务绑定的问题。这也让 PAR 能够伴随答题模型的能力提升而扩展：基座能力越强，有针对性的 rubric 就越有机会激发这些能力。</p>
 
@@ -289,5 +291,5 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 
 <aside class="article-methods" id="evaluation-notes">
 <h2>参考文献</h2>
-<ol class="references"><li><a href="https://arxiv.org/abs/2504.14945">Jianhao Yan et al. Learning to Reason under Off-Policy Guidance（LUFFY）.</a> 采用 policy shaping <span class="inline-code">f(p) = p / (p + γ)</span>，本文将其用于 gold-token 监督。</li><li><a href="https://arxiv.org/abs/2402.03300">Zhihong Shao et al. DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models.</a> 提出 GRPO。</li><li><a href="https://arxiv.org/abs/1707.06347">John Schulman et al. Proximal Policy Optimization Algorithms.</a> 提出带裁剪的 on-policy 目标。</li></ol>
+<ol class="references"><li id="ref-aesrm"><a href="https://arxiv.org/abs/2604.28078">Yujin Han et al. AesRM: Improving Video Aesthetics with Expert-Level Feedback.</a> arXiv:2604.28078, 2026.</li><li><a href="https://arxiv.org/abs/2504.14945">Jianhao Yan et al. Learning to Reason under Off-Policy Guidance（LUFFY）.</a> 采用 policy shaping <span class="inline-code">f(p) = p / (p + γ)</span>，本文将其用于 gold-token 监督。</li><li><a href="https://arxiv.org/abs/2402.03300">Zhihong Shao et al. DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models.</a> 提出 GRPO。</li><li><a href="https://arxiv.org/abs/1707.06347">John Schulman et al. Proximal Policy Optimization Algorithms.</a> 提出带裁剪的 on-policy 目标。</li></ol>
 </aside>
