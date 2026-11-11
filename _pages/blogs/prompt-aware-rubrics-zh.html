@@ -21,7 +21,7 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 
 <figure class="par-overview-case" id="par-at-a-glance"><img src="/assets/images/par/par-at-a-glance.svg" alt="PAR 三组件完整示例：手册作为出题模型的 system prompt；出题模型生成五条两级分类的原子问题；答题模型输出 11001，分别判断台词、口型和音频保持。示意概率归一化后为 0.90、0.90、0.10、0.20、0.90，等权均值为 0.60。示意人工标签同样为 11001，归因为台词正确、口型错误。" width="1200" height="1640" loading="lazy"><figcaption><span>PAR 一图读懂。</span><strong>出题模型类别细致、问题原子化；答题模型逐项回答，并准确定位错误点：台词对、口型错。</strong>手册以 system prompt 指导出题，答题模型结合原视频与编辑结果，依次输出 0/1 和归一化得分 \(s_j=p_j(1)/(p_j(1)+p_j(0))\)。图中两条台词检查通过、两条口型检查失败，未编辑台词保持检查通过；输出 <code>11001</code>，示意等权平均分为 <strong>0.60</strong>，与示意人工判断一致。图像、指令、答案、概率和人工标签均为新绘制的虚拟示例，用于说明输出与归因方式。点击可放大。</figcaption></figure>
 
-<p><strong>PAR 迭代。</strong> PAR 提供三个版本：<strong>Single PAR → Agentic PAR V1 → Agentic PAR V4。</strong>三者共享相同的 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong>，逐步将 <strong>Rubric Verifier</strong> 从单一答题模型扩展为融合多种专家工具、结合 workflow harness 的 <strong>reward system</strong>。</p>
+<p><strong>PAR 迭代。</strong> PAR 提供三个版本：<strong>Single PAR → Agentic PAR V1 → Agentic PAR V4。</strong>三者共享相同的 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong>，并逐步将 <strong>Rubric Verifier</strong> 从单一答题模型扩展为融合多种专家工具、结合 workflow harness 的 <strong>reward system</strong>。</p>
 <aside class="par-version-highlight" aria-label="PAR 三个版本"><ul>
 <li><strong>Single PAR</strong> 使用一个经过训练的答题模型，逐 rubric 做快速二分类判断。</li>
 <li><strong>Agentic PAR V1</strong> 将答题模型与多个专家工具混合使用，输出多种证据，提升 PAR 的准确性。</li>
@@ -34,8 +34,8 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 <div><strong>2.2<span>×</span></strong><span>百万量级数据合成管线中的人工审核效率加速倍数</span></div>
 </div>
 
-<p><strong>PAR 的缺陷和优化方向。</strong>当前 PAR 答题模型输出 0/1 二分类判断，采用 <strong>System 1</strong> 快速评估。对于基座 <strong>Rubric Verifier</strong> 已经覆盖的能力，通过 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong> 构造更好的 context 来激发，并通过训练让判断口径与评测专家对齐后，System 1 的评估准确性得到明显提升。但对于基座仍欠缺的能力，例如识别细小区域的崩坏，仅靠直接二分类判断仍然不够，需要更复杂的答题推理过程，比如结合 <strong>crop 等工具的 CoT</strong> 做出判断（<strong>System 2</strong>）。</p>
-<p>因此，长期方向是混合式 verifier：用 <strong>System 1</strong> 快速、直接地决策；对特定 rubric 类别启用 <strong>System 2</strong>，结合更复杂的思维链推理与工具检查。</p>
+<p><strong>PAR 优化方向。</strong>当前 PAR 答题模型输出 0/1 二分类判断，采用 <strong>System 1</strong> 快速评估。对于基座 <strong>Rubric Verifier</strong> 已经覆盖的能力，通过 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong> 构造更好的 context 来激发，并通过训练让判断口径与评测专家对齐后，System 1 的评估准确性得到提升。但对于基座仍欠缺的能力，例如识别细小区域的崩坏，仅靠直接二分类判断仍不可靠，需要更复杂的答题推理过程，比如结合 <strong>crop 等工具的 CoT</strong> 做出判断（<strong>System 2</strong>）。</p>
+<p>因此，PAR 未来的优化方向是混合式 verifier：对于基座能力已经覆盖的 rubric，使用 <strong>System 1</strong> 快速、直接地决策；对困难的 rubric 类别启用 <strong>System 2</strong>，结合更复杂的思维链推理与工具检查。</p>
 
 <section id="design" class="article-section">
 <div class="section-label">01 / 设计动机</div>
@@ -44,18 +44,18 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 <h3 id="context">同一个模型，不同的 context</h3>
 <p>考虑一条包含多项要求的编辑指令：</p>
 <blockquote>将庭院中所有红色送货推车改成蓝色，在大门附近添加两棵树，并保持原有的镜头运动、节奏和时长。</blockquote>
-<p>固定、通用的评测提示可能只会问：“编辑后的视频是否满足用户指令？”模型需要自行拆解要求、决定看哪里、比较相关区域，再将所有发现压缩成一个判断。当注意力集中在整体场景时，它可能忽略推车颜色是否已按要求修改。</p>
-<p>换成一个具体问题：“庭院中所有红色送货推车是否都已变成蓝色？”视频没有改变，verifier 也没有改变，但 context 明确指定了对象、属性与目标变化，在这个示例中，模型就能识别出漏编辑的物体。这一观察启发我们：通用评测范式下 verifier 的漏判，并不必然意味着它不具备颜色识别等基础原子能力；也可能是相关能力没有被有效激发。</p>
+<p>固定、通用的评测提示可能只会问：“编辑后的视频是否满足用户指令？”模型需要自行拆解要求、决定看哪里、比较相关区域，再将所有发现压缩成一个判断。当注意力集中在整体场景时，它可能忽略推车颜色是否已按要求修改等细节。</p>
+<p>如果换成一个具体问题：“庭院中所有红色送货推车是否都已变成蓝色？”视频没有改变，verifier 也没有改变，但 context 明确指定了对象、属性与目标变化。在这个示例中，模型就能识别出漏编辑的物体。这一观察启发我们：verifier 的漏判并不必然意味着它不具备颜色识别等基础原子能力；也可能是相关能力没有被有效激发，而优化 context 是激发这些能力的一种途径。</p>
 <figure><img src="/assets/images/par/context.svg" alt="同一 verifier 分别接收通用问题和明确指定红色推车变蓝的任务相关问题。" width="1100" height="340"><figcaption><span>图 1.</span> 不同评测 context 的概念对比，并非受控的成对预测实验。</figcaption></figure>
-<p>由此得到一个实际的研究问题：<strong>如何系统地构造 context，让 verifier 更好地使用它已经具备的能力？</strong></p>
+<p>上述观察将 verifier 的优化转化为一个更明确的问题：<strong>如何将业务知识融入评测 context，更好地激发 verifier 的原子能力？</strong></p>
 
 <h3 id="human-workflow">借鉴人类评测专家的工作流程</h3>
-<p>人类评测在打分前就已开始：专家先确定哪些方面重要，区分失败类型，并形成标准文档，再培训评估人员以一致的方式应用标准。直接要求模型“判断这个视频”，往往跳过了其中大量工作。</p>
+<p>让我们先回顾人类评测专家如何对生成的视频评分：专家先确定给定生成任务中哪些维度重要，并形成标准文档，再培训评估人员参照文档，以一致的口径应用标准。通用地要求模型“判断这个视频”，往往跳过了真实人类评测中的大量工作。</p>
 <figure><img src="/assets/images/par/human-to-par.svg" alt="人类定义标准、构造任务检查项和培训评估人员的流程，映射为 PAR 的手册、出题模型与答题模型。" loading="lazy" width="1100" height="430"><figcaption><span>图 2.</span> 将专家工作流程转化为架构：明确标准、针对任务实例化检查项，并学习如何应用标准。</figcaption></figure>
-<p>PAR 有三个组件：<strong>Rubric Handbook</strong> 以出题模型 system prompt 的形式存储专家经验；<strong>Rubric Generator</strong> 将用户指令转化为具体检查项；<strong>Rubric Verifier</strong> 根据视频证据，按照与专家对齐的判断标准回答这些问题。</p>
+<p>上述人类评测流程启发我们设计了 Prompt-Aware Rubrics 这一框架。具体而言，PAR 有三个组件：<strong>Rubric Handbook（出题手册）</strong>以出题模型 system prompt 的形式存储专家经验；<strong>Rubric Generator（出题模型）</strong>将用户指令转化为具体检查项，每个检查项都应是原子化、可二分类作答的问题；<strong>Rubric Verifier（答题模型）</strong>根据视频证据，按照与专家对齐的判断标准回答这些问题。</p>
 
 <h3 id="rubric-example">一条 prompt-aware rubric 是什么样的</h3>
-<p>Rubric pool 采用<strong>大类（category）与子类（subcategory）两级结构</strong>。生成的问题会将选中的准则绑定到具体任务。以下虚拟示例展示这种结构，不复现完整内部 rubric 清单；图中文字和 rubric 示例保留英文。</p>
+<p>在 Rubric Handbook 中，我们引入 rubric pool：Rubric Generator 需要从中挑选与当前任务密切相关的维度，并结合 user prompt 构造 rubrics。Rubric pool 采用<strong>大类（category）与子类（subcategory）两级结构</strong>。以下虚拟示例展示这种结构；图中文字和 rubric 示例保留英文。</p>
 <figure class="case-card">
 <div class="case-prompt"><strong>虚拟编辑指令</strong><p>Change every red delivery cart in the courtyard to blue, add two trees near the gate, and preserve the camera motion, pacing, and duration.</p></div>
 <img src="/assets/images/par/courtyard-example.svg" alt="虚拟庭院编辑前后对比：添加了两棵树，但编辑后仍有一辆红色推车。" loading="lazy">
@@ -71,50 +71,52 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 <tr><td>Editing Quality</td><td>Edit Integration</td><td>Is the cart recoloring temporally stable, without residual red areas or deformation?</td></tr>
 <tr><td>Editing Quality</td><td>Edit Integration</td><td>Do the added trees blend into the courtyard without visible seams?</td></tr>
 </tbody></table></div>
-<p>五个顶层类别——<em>Visual Editing、Audio Editing、Cross-Modal Editing、Content Preservation</em> 和 <em>Editing Quality</em>——来自真实业务中视频编辑任务与专家评测的实践经验，覆盖反复出现的编辑要求和失败类型。纯视觉编辑任务只需选择相关检查项，无需从每个类别中都出题。</p>
-<p>推理时的流程是：<strong>手册 + 编辑指令 → rubrics → 视频验证 → 逐 rubric 判断与聚合分数</strong>。每个检查项回答“1”的概率可以作为聚合所用的软分数。同一种表示能够支持可解释评测、数据筛选，以及后训练的奖励构造。</p>
+<p>结合业务评测经验，我们归纳出五个大类：<em>Visual Editing、Audio Editing、Cross-Modal Editing、Content Preservation</em> 和 <em>Editing Quality</em>，每个大类下包含更细的子类。上表展示了其中与当前任务相关的部分。Rubric Generator 从大类及其子类中选择适用准则，再结合具体任务构造问题，无需从每个类别中都出题。</p>
+<p>PAR 推理的流程是：<strong>（出题手册 + 编辑指令）→ 出题模型 → rubrics → 答题模型 → 逐 rubric 判断与聚合分数</strong>。答题模型结合视频证据作答；实践中，我们计算每个检查项回答“1”的归一化概率，并取平均作为最终分数。也可以根据具体需求对不同类别的 rubric 加权，例如提高一致性类 rubric 的权重。</p>
 </section>
 
 <section id="single-verifier" class="article-section">
-<div class="section-label">02 / 单一验证模型</div>
-<h2>PAR：单一验证模型</h2>
+<div class="section-label">02 / 单一答题模型</div>
+<h2>PAR：单一答题模型</h2>
 
-<h3 id="handbook">Handbook 本质上是出题模型的 system prompt</h3>
-<p>Handbook 以文本形式写入<strong>出题模型的 system prompt</strong>，由两部分组成：固定的出题要求，以及结构化的 rubric pool。</p>
-<p>固定要求包括：追求原子化、在题目预算内优先覆盖重要要求、统一判断极性、避免矛盾和重复。回答“是”始终代表该要求被满足；回答“否”则代表未满足、完成不充分，或缺少足够证据支持。</p>
-<p>Rubric pool 提供可选择的两级类别与准则，包含较大的评测维度及更细的标准，并在迭代中扩展覆盖率。给定用户 prompt 或编辑指令，出题模型从 pool 中选择适用条目，再结合具体对象、属性、动作和保留约束构造问题。</p>
+<h3 id="handbook">出题手册的三步优化</h3>
+<p><strong>出题手册</strong>是融合业务评测标准的<strong>出题模型 system prompt</strong>，由两部分组成：固定的出题要求，以及结构化的 rubric pool。</p>
+<p>固定要求包括：追求原子化、在题目预算内优先覆盖重要要求、统一判断极性，以及避免矛盾和重复。统一极性意味着每条 rubric 的分数越高，越代表相应任务要求得到满足。在我们的设置中，rubric 采用二分类标签：回答“是”代表该要求被满足；回答“否”则代表未满足、完成不充分，或缺少足够证据支持。</p>
+<p>Rubric pool 提供可选择的两级类别与准则，既包含较大的评测维度，也包含更细的标准。第 01 节展示了任务相关问题的例子；下面进一步展示手册结构与 pool 的精简示例。</p>
 <figure class="handbook-figure"><img src="/assets/images/par/handbook.svg" alt="手册由固定出题要求和两级 rubric pool 构成，选中准则后结合任务构造问题。" loading="lazy" width="1100" height="450">
 <img src="/assets/images/par/rubric-pool-example.svg" alt="英文 rubric pool 简例：展示视觉、音频、跨模态、内容保持和编辑质量五大类，以及每类三个子类。" loading="lazy" width="1100" height="1080">
 <figcaption><span>图 4.</span> Handbook 结构与精简的英文两级 rubric pool 示例。这里只展示部分子类和简化准则。出题模型选出适用条目后，将其转为任务相关问题；pool 提供构造问题的锚点，而非对每个视频照搬的固定问卷。</figcaption></figure>
-<p>手册构建分为三步。首先，从专家经验形成初始规则与 pool；其次，从推理错误和 RL 反馈中发现尚未覆盖的任务要求与失败类型。<strong>这一步的目的是增加 rubric pool 对真实数据和训练场景的覆盖率。</strong>最后，通过自动化搜索提出新增、删除、拆分和合并操作。</p>
-<p>搜索循环先评估初始手册，再从当前或历史版本中选择优化起点并分配编辑预算。随后分析判断错误或打平的样本，提出 pool 修改，检查补丁的范围与格式，重新生成 rubrics，并用 verifier 评估候选版本。只有同时通过生成成功率门槛、并取得效果提升的版本，才会替代当前最优版本。</p>
-<figure class="tall-diagram"><a href="/assets/images/par/pool-search.svg" aria-label="打开完整 rubric pool 优化流程图"><img src="/assets/images/par/pool-search.svg" alt="Rubric pool 黑盒搜索流程：选择起点、分析错误、修改及验证补丁、重新出题、评估并保留最优版本。" loading="lazy" width="1100" height="1240"></a><figcaption><span>图 5.</span> 对 rubric pool 进行黑盒文本搜索。评估器提供反馈，优化过程不对 system prompt 求导。点击可放大。</figcaption></figure>
-<p>手册迭代同时改变了出题模型“能问什么”和“能问多细”。相较之前的版本，三处变化尤其具体：</p>
+<p>我们分三步构建出题手册。首先，基于上述框架，将评测专家经验整理为初始规则与 rubric pool。其次，将初版手册用于 RL 训练等其他场景，从 RL 评分反馈中发现评测场景尚未覆盖的任务要求与失败类型，例如几何结构相关的维度。<strong>这一步旨在增加 rubric pool 对评测和 RL 等多种场景的覆盖率。</strong>最后，引入外部强模型自动优化 rubric pool，为出题模型提供足够准确的指导。</p>
+<p>我们重点讨论第三步：如何构建自动优化出题手册的 Agent 框架。我们将 rubric pool 的迭代设计为一种借鉴 SGD 思路的文本优化过程：由外部强模型根据业务数据分析错误、提出离散文本修改，再通过实际推理结果验证更新效果。每轮允许修改的 rubric 数量，作为类似“步长”的控制量；这一过程不对文本求梯度，也不更新模型参数。</p>
+<p>具体而言，我们准备 training benchmark、验证集和 OOD 数据集，其中 training benchmark 附有业务评测解释，说明每个样本为什么被赋予当前标签。每轮迭代中，先使用当前手册，让出题模型在 training benchmark 上生成任务相关的 rubrics，再由答题模型逐项判断。外部强模型对照预测结果、专家标签与业务解释，定位当前 rubric pool 中的问题，并执行四类操作：<strong>Add</strong>，补充遗漏的维度或准则；<strong>Remove</strong>，删除不重要或不适用的条目；<strong>Merge</strong>，合并语义重复的条目；<strong>Split</strong>，将过于宽泛的准则拆成更细、可独立判断的原子检查项。</p>
+<p>修改预算控制每轮更新幅度。例如，初始每轮最多修改 5 条 rubric；如果连续 5 轮都没有带来目标指标的提升，则将预算扩大到 10 条、15 条，探索幅度更大的更新。每个候选手册都需要重新经过“出题—答题—评估”的完整流程，并检查生成成功率。强模型始终根据 training benchmark 上的错误及业务解释调整 rubric pool，优化目标则是让这些修改能够推广到验证集和 OOD 数据，例如提高两者的<strong>平均准确率</strong>，而不仅仅改善 training benchmark 上的表现。</p>
+<figure class="tall-diagram"><a href="/assets/images/par/pool-search.svg" aria-label="打开完整 rubric pool 优化流程图"><img src="/assets/images/par/pool-search.svg" alt="借鉴 SGD 的 rubric pool 文本优化：强模型分析 training 错误与专家解释，以自适应预算修改手册，重新出题、答题，评估 training、验证集和 OOD 表现，全程不更新模型参数。" loading="lazy" width="1100" height="1240"></a><figcaption><span>图 5.</span> 我们借鉴 SGD 的迭代思路，让外部强模型根据 training benchmark 上的错误与业务解释，以自适应修改预算对 rubric pool 执行增、删、合并与拆分，目标是提升出题—答题流程在验证集和 OOD 数据上的平均准确率。</figcaption></figure>
+<p>引入第三步自动优化后，相较之前的版本，出题手册出现了三处主要变化：</p>
 <blockquote class="handbook-changes">
 <p><strong>Rubric Handbook 的三处变化</strong></p>
 <ol>
 <li><strong>每条 case 的 rubric 数量上限从 12 → 14。</strong>增加题目预算，为重要要求留出独立、原子化的检查空间。</li>
-<li><strong>进一步细分属性、动作、文字和音频等准则。</strong>例如五官、服装、道具、动作顺序与节奏、文字布局及独立音频要求，减少将不同错误混在一道题中的情况。</li>
+<li><strong>进一步细分属性、动作、文字和音频等准则。</strong>例如将人物属性细分为五官、服装等准则，将动作要求细分为动作顺序与节奏等准则，使每条 rubric 尽可能原子化，避免混合不同要求。</li>
 <li><strong>新增 rubric：[Editing Quality][Overall Visual Quality]。</strong>除检查指定编辑和局部缺陷外，显式检查编辑结果的整体画面质感。</li>
 </ol>
 </blockquote>
-<p>手册迭代在 Bench1 上的结果如下：</p>
-<figure><img src="/assets/images/par/handbook-results.svg" alt="Bench1 准确率从固定 rubric 的 63.6%，提升至专家手册的 71.2% 和自动优化手册的 73.2%。" loading="lazy"><figcaption><span>图 6.</span> Bench1 上的手册迭代：从固定准则到自动优化准则，context 优化带来 9.6 个百分点的准确率提升。这项实验与答题模型训练实验独立。</figcaption></figure>
+<p>在不训练任何模型的前提下，将通用、固定的评测 context 改为 PAR context，再进一步自动优化出题手册，同一个 zero-shot verifier 在 Bench1 上的准确率从 <strong>63.6% 提升至 71.2%，再提升至 73.2%</strong>：</p>
+<figure><img src="/assets/images/par/handbook-results.svg" alt="Bench1 准确率从固定 rubric 的 63.6%，提升至专家手册的 71.2% 和自动优化手册的 73.2%。" loading="lazy"><figcaption><span>图 6.</span> 无需训练任何模型，仅优化评测 context，同一个 zero-shot verifier 的表现就得到显著提升。从左到右依次为：使用通用固定 context；使用专家手册与出题模型构造的 PAR context（完成手册构建的前两步）；使用 Agent 自动优化手册后生成的 PAR context。</figcaption></figure>
 
-<h3 id="generator">好的手册降低对出题模型强弱的敏感性</h3>
-<p>训练更好的答题模型前，需要先检查生成的问题是否有用。对 <strong>1,000 个样本、9,728 条 rubric</strong> 的人工审核发现，约 <strong>94%</strong> 的 rubric 与任务完全相关。不同类别存在差异，其中音频编辑仍是相对薄弱的部分。</p>
+<h3 id="generator">好的出题手册使得出题模型表现稳健</h3>
+<p>我们进一步检查出题模型的表现：针对 <strong>1,000 个样本、9,000 多条 rubric</strong>，邀请人工评测专家将 rubric 与任务的相关性标为完全相关、部分相关或完全不相关。审核发现，约 <strong>94%</strong> 的 rubric 与任务完全相关。不同类别之间存在差异，其中音频编辑是相对薄弱的部分。</p>
 <figure><img src="/assets/images/par/relevance.svg" alt="完全相关 rubric 占比：内容保持 97.1%，视觉编辑 96.4%，编辑质量 92.3%，跨模态编辑 87.0%，音频编辑 74.2%。" loading="lazy"><figcaption><span>图 7.</span> 各类别中与任务完全相关的问题比例。相关性高不等于已经覆盖每一项重要要求。</figcaption></figure>
-<p>接着，在使用相同详细手册的条件下，对比强外部出题模型与轻量内部出题模型。在这项实验中，两者带来的下游 Bench1 准确率相同。</p>
+<p>接着，在使用相同详细手册的条件下，我们对比了强外部出题模型与较弱的轻量内部出题模型。给定优化好的手册，两者带来的下游 Bench1 准确率相同。</p>
 <div class="table-scroll" role="region" tabindex="0" aria-label="出题模型对比"><table><thead><tr><th>出题模型</th><th>Bench1 准确率</th></tr></thead><tbody><tr><td>强外部模型</td><td>77.1%</td></tr><tr><td>轻量内部模型</td><td>77.1%</td></tr></tbody></table></div>
-<p>约 <strong>80%</strong> 的样本，其 rubric 重合率超过 <strong>60%</strong>；同类别问题中约 <strong>85%</strong> 的语义一致。94% 相关性来自前述人工审核集合，并非对两个出题模型各自单独测得的结果。</p>
+<p>进一步比较两个出题模型生成的问题发现，约 <strong>80%</strong> 的样本，其 rubric 类别重合率超过 <strong>60%</strong>；同类别问题中约 <strong>85%</strong> 的语义一致。</p>
 <div class="table-scroll" role="region" tabindex="0" aria-label="Rubric 语义等价示例"><table><thead><tr><th>表述 A</th><th>表述 B</th></tr></thead><tbody><tr><td>Have all red delivery carts in the courtyard been changed to blue?</td><td>Are all delivery carts that were red in the original courtyard now blue?</td></tr></tbody></table></div>
 <p class="small-note">这是一组用于说明语义等价的虚拟表述，并非出题模型对比实验的逐字输出。</p>
-<p><strong>足够明确的手册，可以降低 PAR 效果对出题模型强弱的敏感性。</strong>上述对比中，强外部模型与轻量内部模型生成了语义接近的问题，并达到相同的下游准确率。因此，优化出题手册也体现为优化出题模型的输出：将任务知识与覆盖要求写入指令，再由模型针对每个编辑任务实例化。</p>
+<p><strong>这说明，足够明确的手册可以降低 PAR 效果对出题模型强弱的敏感性。</strong></p>
 
 <h3 id="verifier-training">直接 GRPO、专家标签与捷径学习</h3>
-<p>对于一个视频对和 <em>N</em> 条 rubric，答题模型输出长度为 <em>N</em> 的 01 字符串，每一位回答一个检查项。之所以跳过 SFT，是因为<strong>训练数据有限，而且基座已经掌握输出格式</strong>：给定 <em>N</em> 道题，输出 <em>N</em> 个二分类答案。因此可以直接用 GRPO 优化判断质量。</p>
+<p>答题模型的输入包括用户指令、原视频与编辑后的视频，以及 <em>N</em> 条 rubric；模型直接输出长度为 <em>N</em> 的 01 字符串，每一位对应一条 rubric 的答案。我们跳过 SFT，直接使用 GRPO 训练，主要原因是<strong>训练数据有限，需要降低过拟合风险，而且测试发现基座已经掌握所需输出格式</strong>。因此，GRPO 可以直接优化判断质量。</p>
 <figure><img src="/assets/images/par/verifier-training.svg" alt="输入视频对和 N 条 rubric，答题模型输出 N 位二分类答案，使用格式和准确率奖励进行 GRPO 训练。" loading="lazy" width="1100" height="440"><figcaption><span>图 8.</span> 输出形式很紧凑，但每一位背后的判断都需要符合专家标准。</figcaption></figure>
-<p>Reward 检查输出长度、二进制格式和逐 rubric 正确性。长度错误会使整个序列无效，非法字符会受到惩罚。对于 rollout <em>i</em> 和 rubric <em>j</em>，与准确性相关的奖励项为：</p>
+<p>我们设计了两类奖励。格式奖励约束输出字符串的长度与 rubric 数量一致，且每个位置只能是 0 或 1，分别表示不满足和满足。另一类是准确率奖励。对于 rollout <em>i</em> 和 rubric <em>j</em>，与准确性相关的奖励项为：</p>
 <div class="equation">\[R_{i,j}=0.1+0.9\,h_{i,j}\,p_{\mathrm{old}}(y_{i,j}),\qquad h_{i,j}\in\{-1,+1\}.\]</div>
 <p>其中，判断正确时 <em>h</em> 为正，错误时为负；<em>p</em> 是输出 token 的概率。该 verifier 设置中，格式与准确性部分的权重重点为 1:9，各条 rubric 等权。</p>
 <p>数据设计与 loss 同样重要。初始训练集约有 11k 个样本，以通过与未通过混合的序列为主。全对样本仅约 5%，全错样本约 0.4%。模型可能学到捷径：题目越多，就越可能有一道不通过。</p>
@@ -140,17 +142,17 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 <p>在 Bench1 上，Gold-Rescue 将 V2 verifier 从 <strong>81.4% 提升至 82.7%</strong>，增加 1.3 个百分点，且无需额外收集源训练样本。</p>
 
 <h3 id="single-results">泛化、诊断与 PAR for RL</h3>
-<p>在保留的编辑评测集 Bench3 上，最大提升来自指令遵循，质量方面的变化较小，为后续失败分析提供了线索。</p>
+<p>完成出题手册与答题模型的优化后，我们在 Bench3 上进行 OOD 评测，考察模型对编辑要求的二分类判断能力。Single PAR 的整体、指令遵循与一致性分数均高于固定提示基线和外部 SOTA 模型；质量分数较固定提示基线略有提升，但仍低于外部模型，为后续的薄弱能力分析提供了线索。</p>
 <div class="table-scroll" role="region" tabindex="0" aria-label="Bench3 评测分数"><table><thead><tr><th>方法</th><th>整体</th><th>指令遵循</th><th>一致性</th><th>质量</th></tr></thead><tbody>
 <tr><td>固定提示基线</td><td>0.474</td><td>0.630</td><td>0.747</td><td>0.727</td></tr>
 <tr><td>Single PAR</td><td><strong>0.747</strong></td><td><strong>0.857</strong></td><td><strong>0.805</strong></td><td>0.734</td></tr>
-<tr><td>外部 SOTA 模型</td><td>0.630</td><td>0.662</td><td>0.792</td><td><strong>0.792</strong></td></tr>
+<tr><td>外部 SOTA 模型 Gemini-3-Pro-Preview</td><td>0.630</td><td>0.662</td><td>0.792</td><td><strong>0.792</strong></td></tr>
 </tbody></table></div>
 <p class="small-note">Bench3 使用 0–1 范围的原始评测分数，与 Bench1 准确率不同。在关注音频的 Bench4 上，准确率由固定提示基线的 67.2% 提升至训练后 PAR 的 73.2%。</p>
-<p><strong>PAR for RL。</strong>一个好的 verifier 也可以作为视频生成后训练的 reward model，以<strong>统一标准串联数据合成、RL 训练和评测</strong>。PAR 使用同一套任务相关检查项筛选合成数据、构造训练奖励，并评估生成结果。</p>
+<p><strong>PAR for RL。</strong>一个好的 verifier 也可以作为视频生成后训练的 reward model。PAR 使用同一套任务相关检查项筛选合成数据、构造训练奖励，并评估生成结果，从而以<strong>统一标准串联数据合成、RL 训练和评测</strong>。</p>
 <p>本地实验表明，相比传统 reward model，PAR 具有更高的判断准确率，而这种提升可以传递为<strong>下游更好的生成响应与编辑指令遵循</strong>。目前，这一结论局限于策略梯度贡献按 reward 或 advantage 成正比缩放的 RL 方法，尚不能推广到所有 RL 算法。</p>
-<p>不同类别的 rubric 权重还提供了额外控制：提高指令遵循、内容保持或质量的权重，可以调整奖励重点，进而引导生成模型的优化方向。</p>
-<p>下面的虚拟对话案例展示原子化检查如何让错误更易解释。它专为本文构造，不对应原项目样本或实测模型输出。</p>
+<p>此外，我们还可以通过调控不同类别的 rubric 权重，例如提高指令遵循、内容保持或质量的权重，来调整奖励重点，进而引导生成模型的优化方向，并调整评测时各维度的权重。</p>
+<p>下面的虚拟案例展示 PAR 的输入输出，以及原子化提问和逐 rubric 评分如何支持精细评分与错误归因。案例专为本文构造，不对应原项目样本或实测模型输出。</p>
 <figure class="case-card">
 <div class="case-kicker">虚拟案例 / 对话编辑</div>
 <div class="case-prompt"><strong>虚拟编辑指令</strong><p>Change the first speaker’s line from “Meet me at noon” to “Meet me at dusk,” and the second speaker’s reply from “I’ll bring lunch” to “I’ll bring a lantern.” Keep the lip movements synchronized and preserve the unedited dialogue.</p></div>

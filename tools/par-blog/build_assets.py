@@ -195,12 +195,12 @@ def diagrams(out):
     d.text(550, 412, "The pool is a set of anchors, not a questionnaire to copy into every task.", 19, MUTED, anchor="middle")
     d.save(out, "handbook")
 
-    d = Diagram(1100, 1240, "Black-box rubric pool optimization loop", "Initialize, evaluate, select an anchor, analyze errors, edit the rubric pool, validate the patch, regenerate rubrics, evaluate, retain the best and repeat.")
-    d.label("TEXT SEARCH WITH EVALUATION AND BEST-CANDIDATE RETENTION")
-    nodes=[(70,"Initialize","Handbook, train pairs, optional OOD data, verifier and metrics"),
-           (185,"Measure the baseline","Freeze the initial prompt; collect wrong and tied cases"),
-           (300,"Select anchor + edit budget","Prefer the current best; also consider historical candidates"),
-           (415,"Analyze failure patterns","Instructions, generated rubrics, verdicts and human explanations"),
+    d = Diagram(1100, 1240, "SGD-inspired rubric pool text optimization", "A strong external model uses training errors and expert explanations to edit the rubric pool with an adaptive budget. Regenerate rubrics and verify, evaluate training, validation and OOD results, and retain improvements without updating model parameters.")
+    d.label("CONTEXT OPTIMIZATION / FIXED GENERATOR AND VERIFIER")
+    nodes=[(70,"Initialize","Handbook, train + explanations, validation / OOD, models"),
+           (185,"Measure the baseline","Run generation and verification; inspect training errors"),
+           (300,"Select anchor + edit budget","Start with 5 edits; expand after 5 rounds without improvement"),
+           (415,"Analyze failure patterns","Strong model compares train verdicts, labels and explanations"),
            (530,"Edit rubric pool entries","Add / Remove / Split / Merge; keep the protocol and output format"),
            (645,"Validate the patch","Check scope, format and edit count against budget L"),
            (760,"Regenerate rubrics","Track generation success and evaluate with the verifier")]
@@ -209,12 +209,12 @@ def diagrams(out):
         if y>70:d.arrow(550,y-27,550,y-4)
     d.arrow(210,689,210,574,points=[(210,689),(118,689),(118,574),(205,574)])
     d.text(105,620,"Invalid",15,CORAL,anchor="middle")
-    for x,t,b in [(30,"Train pairwise","Against human labels"),(405,"OOD pairwise","Optional"),(780,"OOD pointwise","Optional")]:
+    for x,t,b in [(30,"Training evaluation","Labels + explanations"),(405,"Validation evaluation","Measure generalization"),(780,"OOD evaluation","Measure transfer")]:
         d.box(x,885,290,85,t,b,SAND,17)
         d.arrow(550,848,x+145,881,points=[(550,848),(550,866),(x+145,866),(x+145,881)])
         d.arrow(x+145,970,550,1004,points=[(x+145,970),(x+145,990),(550,990),(550,1004)])
-    d.box(210,1008,680,85,"Aggregate scores + generation success gate","Accept only a candidate that improves on the current best",SAND)
-    d.box(30,1130,460,78,"No improvement: retain best", "Record the round", SAND,17)
+    d.box(210,1008,680,85,"Compare metrics + generation success gate","Goal: improve mean validation / OOD accuracy",SAND)
+    d.box(30,1130,460,78,"No improvement: retain best", "After 5 stagnant rounds: 5 → 10 → 15 edits", SAND,17)
     d.box(610,1130,460,78,"Improvement: save new best", "Return to anchor selection while budget remains", LIGHT,17)
     d.arrow(550,1093,260,1126,points=[(550,1093),(550,1110),(260,1110),(260,1126)])
     d.arrow(550,1093,840,1126,points=[(550,1093),(550,1110),(840,1110),(840,1126)])
