@@ -23,11 +23,11 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 
 <p><strong>PAR 迭代。</strong> PAR 提供三个版本：<strong>Single PAR → Agentic PAR V1 → Agentic PAR V4。</strong>三者共享相同的 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong>，逐步将 <strong>Rubric Verifier</strong> 从单一答题模型扩展为融合多种专家工具、结合 workflow harness 的 <strong>reward system</strong>。</p>
 <aside class="par-version-highlight" aria-label="PAR 三个版本"><ul>
-<li><strong>Single PAR</strong> 使用一个经过训练的答题模型。</li>
-<li><strong>Agentic PAR V1</strong> 通过固定路由引入专家工具，补强模型能力。</li>
+<li><strong>Single PAR</strong> 使用一个经过训练的答题模型，逐 rubric 做快速二分类判断。</li>
+<li><strong>Agentic PAR V1</strong> 将答题模型与多个专家工具混合使用，输出多种证据，提升 PAR 的准确性。</li>
 <li><strong>Agentic PAR V4</strong> 将每条 rubric 与多种工具绑定，通过 workflow harness 组织证据并逐 rubric 做出判断。</li>
 </ul></aside>
-<p>三个版本都以任务相关的检查项作为统一接口，逐步扩展答题能力，并让证据处理更加有序。</p>
+<p>三个版本的准确率提升，都建立在以任务相关的检查项作为统一接口的基础上：逐步扩展答题能力，并让证据处理更加有序。V1 和 V4 的提升进一步说明了 PAR 的另一优势：<strong>通过 rubric 预先绑定相关工具，再由路由规则或 workflow harness 组织多工具调用</strong>，无需为了实现这种多工具协作，先收集昂贵的 tool-calling 训练数据来训练通用工具调用策略。</p>
 <figure class="results-overview"><img src="/assets/images/par/precision-overview.svg" alt="Bench2 精确率：外部集成 67.70%，Single PAR 65.61%，V1 69.85%，V4 72.94%。红色垂直虚线标记外部 SOTA 的 67.70% 参考值。"><figcaption>在 Bench2 上，Agentic PAR V4 的 precision 比外部 SOTA 集成 <strong>Gemini-3-Pro-Preview + GPT-5.6-Sol</strong> 高出 <strong>5.24 个百分点</strong>。红色垂直虚线标记外部 SOTA 的 precision，便于对照三个 PAR 版本。</figcaption></figure>
 <div class="metric-strip metric-strip-pair" aria-label="项目主要结果">
 <div><strong>68.06<span>%</span></strong><span>数据可用率，从 31% 提升至此（严格可用 + 可容忍）</span></div>
