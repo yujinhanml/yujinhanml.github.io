@@ -34,7 +34,7 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 <div><strong>2.2<span>×</span></strong><span>百万量级数据合成管线中的预计人工审核效率加速倍数</span></div>
 </div>
 
-<p><strong>PAR 的缺陷和优化方向。</strong>当前 PAR 答题模型输出 0/1 二分类判断，采用 <strong>System 1</strong> 快速评估。对于基座 <strong>Rubric Verifier</strong> 已经覆盖的能力，通过 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong> 构造更好的 context 来激发，并通过训练让判断口径与评测专家对齐后，System 1 的评估准确性得到明显提升。但对于基座仍欠缺的能力，例如识别细小区域的崩坏，仅靠直接二分类判断仍然不够，需要更复杂的答题推理过程：结合 <strong>crop 等工具</strong>，必要时检查相邻帧，再通过 CoT 推理做出判断（<strong>System 2</strong>）。</p>
+<p><strong>PAR 的缺陷和优化方向。</strong>当前 PAR 答题模型输出 0/1 二分类判断，采用 <strong>System 1</strong> 快速评估。对于基座 <strong>Rubric Verifier</strong> 已经覆盖的能力，通过 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong> 构造更好的 context 来激发，并通过训练让判断口径与评测专家对齐后，System 1 的评估准确性得到明显提升。但对于基座仍欠缺的能力，例如识别细小区域的崩坏，仅靠直接二分类判断仍然不够，需要更复杂的答题推理过程，比如结合 <strong>crop 等工具的 CoT</strong> 做出判断（<strong>System 2</strong>）。</p>
 <p>因此，长期方向是混合式 verifier：用 <strong>System 1</strong> 快速、直接地决策；对特定 rubric 类别启用 <strong>System 2</strong>，结合更复杂的思维链推理与工具检查。</p>
 
 <section id="design" class="article-section">
