@@ -31,7 +31,7 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 <figure class="results-overview"><img src="/assets/images/par/precision-overview.svg" alt="Bench2 精确率：外部集成 67.70%，Single PAR 65.61%，V1 69.85%，V4 72.94%。红色垂直虚线标记外部 SOTA 的 67.70% 参考值。"><figcaption>在 Bench2 上，Agentic PAR V4 的 precision 比外部 SOTA 集成 <strong>Gemini-3-Pro-Preview + GPT-5.6-Sol</strong> 高出 <strong>5.24 个百分点</strong>。红色垂直虚线标记外部 SOTA 的 precision，便于对照三个 PAR 版本。</figcaption></figure>
 <div class="metric-strip metric-strip-pair" aria-label="项目主要结果">
 <div><strong>68.06<span>%</span></strong><span>数据可用率，从 31% 提升至此（严格可用 + 可容忍）</span></div>
-<div><strong>2.2<span>×</span></strong><span>百万量级数据合成管线中的预计人工审核效率加速倍数</span></div>
+<div><strong>2.2<span>×</span></strong><span>百万量级数据合成管线中的人工审核效率加速倍数</span></div>
 </div>
 
 <p><strong>PAR 的缺陷和优化方向。</strong>当前 PAR 答题模型输出 0/1 二分类判断，采用 <strong>System 1</strong> 快速评估。对于基座 <strong>Rubric Verifier</strong> 已经覆盖的能力，通过 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong> 构造更好的 context 来激发，并通过训练让判断口径与评测专家对齐后，System 1 的评估准确性得到明显提升。但对于基座仍欠缺的能力，例如识别细小区域的崩坏，仅靠直接二分类判断仍然不够，需要更复杂的答题推理过程，比如结合 <strong>crop 等工具的 CoT</strong> 做出判断（<strong>System 2</strong>）。</p>
