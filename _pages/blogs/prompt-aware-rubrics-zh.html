@@ -183,7 +183,7 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 <p>在真实业务中，专家评测解释告诉我们编辑<em>为什么失败</em>，任务相关的 rubric 则指出答题模型漏判了<em>哪项要求</em>。两者结合，可以准确定位当前模型的能力缺口，例如仅要求视觉编辑时，无法识别背景音被改变。</p>
 <p>一种快速上线的思路是引入专家算子补强薄弱能力：运行当前 verifier，分析业务解释与错误 case，定位相关 rubric，引入专家工具并调整路由，再评估更新后的系统。这样就从单一答题模型扩展为答题模型与多工具池的组合。</p>
 <figure><img src="/assets/images/par/capability-extension.svg" alt="四步能力补强流程：当前模型推理、业务解释与错误分析、引入算子及调整路由、更新后模型推理。" loading="lazy" width="1100" height="540"><figcaption><span>图 13a.</span> 引入专家算子补强答题模型。业务解释与逐 rubric 错误共同定位需要补充的能力。</figcaption></figure>
-<p><strong>展开 Step 3：算子发现与验证。</strong>通过本地沙箱实验寻找适用工具。针对性的验证集包含 <strong>50 个异常 case 和 50 个正常 case</strong>，由强模型提出并执行候选算子，同时评估<strong>错误识别率</strong>与<strong>误杀率</strong>。只有既能识别目标错误、又能保留正常样本的算子，才被选入固定路由流程。</p>
+<p><strong>上图流程中的关键是 Step 3：如何找到合适的专家算子。</strong>我们通过本地沙箱实验寻找适用工具。具体而言，我们构建了一个包含 <strong>50 个异常 case 和 50 个正常 case</strong> 的针对性验证集，由强模型提出候选算子，并在沙箱中执行和验证，同时评估<strong>错误识别率</strong>与<strong>误杀率</strong>。只有错误识别率和误杀率均满足要求的<strong>算子组合</strong>，才会被纳入固定路由流程。</p>
 <figure><img src="/assets/images/par/sandbox.svg" alt="算子发现与验证：构建 50 异常加 50 正常样本集，强模型在本地沙箱执行候选工具，双指标验证后纳入固定路由。" loading="lazy" width="1100" height="760"><figcaption><span>图 13b.</span> 本地沙箱发现与验证流程。异常和正常样本共同检验工具是否真正增加了区分能力。</figcaption></figure>
 <p>以 <strong><code>visual_only</code> 任务的音频一致性</strong>为例，沙箱实验找到了互补的信号级检查，配置阈值如下：</p>
 <div class="table-scroll" role="region" tabindex="0" aria-label="纯视觉编辑任务的音频一致性算子阈值"><table><thead><tr><th>信号级检查</th><th>阈值</th></tr></thead><tbody>
