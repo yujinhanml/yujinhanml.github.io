@@ -185,31 +185,32 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 <figure><img src="/assets/images/par/capability-extension.svg" alt="四步能力补强流程：当前模型推理、业务解释与错误分析、引入算子及调整路由、更新后模型推理。" loading="lazy" width="1100" height="540"><figcaption><span>图 13a.</span> 引入专家算子补强答题模型。业务解释与逐 rubric 错误共同定位需要补充的能力。</figcaption></figure>
 <p><strong>上图流程中的关键是 Step 3：如何找到合适的专家算子。</strong>我们通过本地沙箱实验寻找适用工具。具体而言，我们构建了一个包含 <strong>50 个异常 case 和 50 个正常 case</strong> 的针对性验证集，由强模型提出候选算子，并在沙箱中执行和验证，同时评估<strong>错误识别率</strong>与<strong>误杀率</strong>。只有错误识别率和误杀率均满足要求的<strong>算子组合</strong>，才会被纳入固定路由流程。</p>
 <figure><img src="/assets/images/par/sandbox.svg" alt="算子发现与验证：构建 50 异常加 50 正常样本集，强模型在本地沙箱执行候选工具，双指标验证后纳入固定路由。" loading="lazy" width="1100" height="760"><figcaption><span>图 13b.</span> 本地沙箱发现与验证流程。异常和正常样本共同检验工具是否真正增加了区分能力。</figcaption></figure>
-<p>以 <strong><code>visual_only</code> 任务的音频一致性</strong>为例，沙箱实验找到了互补的信号级检查，配置阈值如下：</p>
-<div class="table-scroll" role="region" tabindex="0" aria-label="纯视觉编辑任务的音频一致性算子阈值"><table><thead><tr><th>信号级检查</th><th>阈值</th></tr></thead><tbody>
+<p>以 <strong><code>visual_only</code> 任务的音频一致性</strong>为例，沙箱实验找到了以下音频一致性检查算子及其配置阈值：</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="纯视觉编辑任务的音频一致性算子阈值"><table><thead><tr><th>音频一致性算子</th><th>阈值</th></tr></thead><tbody>
 <tr><td>波形相关（Waveform correlation）</td><td>≥ 0.15</td></tr>
 <tr><td>频谱余弦（Spectral cosine similarity）</td><td>≥ 0.65</td></tr>
 <tr><td>平均相干（Mean coherence）</td><td>≥ 0.15</td></tr>
 <tr><td>残差信噪比（Residual SNR）</td><td>≥ 0 dB</td></tr>
 </tbody></table></div>
-<p>这些数值是该音频保持场景下的配置，仅在编辑要求保持原音频时适用。如果任务明确要求修改台词或音乐，就应使用匹配该要求的检查。同样的发现流程可以引入用于同步问题的 <strong>Lip-Sync Verifier</strong>，以及用于视觉缺陷的 <strong>Visual Quality Specialist</strong>。</p>
+<p>这些数值是该音频保持场景下的配置，仅在编辑要求保持原音频时适用。如果任务明确要求修改台词或音乐，就应使用匹配该要求的检查。同样的发现流程也可以找到用于检测口型同步问题的 <strong>Lip-Sync Verifier</strong>，以及用于评估编辑质量的 <strong>Visual Quality Verifier</strong>。</p>
 
-<h3 id="v1">Agentic PAR V1：固定工作流中的专家工具</h3>
-<p><strong>Agentic PAR V1</strong> 将上述能力放入固定工作流：先执行适用的内容保持预检查，再运行 PAR，并将相关 rubric 类型路由到专家工具。任务条件十分关键：不能因为用户明确要求改变音频，就让音频保持检查直接拒绝样本。</p>
+<h3 id="v1">Agentic PAR V1：从单一答题模型到多工具融合</h3>
+<p><strong>Agentic PAR V1</strong> 将发现并验证的专家算子与训练后的答题模型整合到固定路由流程中。在保持 <strong>Rubric Handbook</strong> 和 <strong>Rubric Generator</strong> 不变的前提下，系统根据 rubric 类型与任务要求调用相关专家工具，再将专家工具的判断与答题模型的输出聚合，得到对应 rubric 的分数。</p>
 <figure><img src="/assets/images/par/agentic-v1.svg" alt="V1 根据任务进行音频预检查，再运行 PAR，并通过固定 rubric 路由使用口型与质量专家。" loading="lazy" width="1100" height="650"><figcaption><span>图 14.</span> 已上线的 V1：通过固定路由，让专家能力补强训练后的 verifier。</figcaption></figure>
 
-<h3 id="v4">Agentic PAR V4：基于证据的 Harness</h3>
-<p>V4 探索如何更有效地使用更大的工具池，harness 分为三个阶段：<strong>Rubric 回扫（gap review）</strong>检查遗漏并补充任务相关的 synthetic rubrics；<strong>多工具编排</strong>将检查项绑定到工具，为每条 rubric 收集 evidence bundle；<strong>基于证据的判断</strong>逐 rubric 决策，证据冲突时由独立裁决器处理。</p>
-<figure><img src="/assets/images/par/agentic-v4.svg" alt="V4 的三阶段 harness：补充遗漏 rubric、编排多工具取证、逐 rubric 判断并独立处理冲突。" loading="lazy" width="1100" height="655"><figcaption><span>图 15.</span> 探索中的 V4：工具池决定可获得哪些证据，harness 决定这些证据如何影响判断。</figcaption></figure>
+<h3 id="v4">Agentic PAR V4：从多工具融合走向 Workflow Harness 式奖励系统</h3>
+<p><strong>Agentic PAR V4</strong> 进一步探索如何将多工具融合发展为更智能的 <strong>workflow 式奖励系统</strong>。我们引入 <strong>Agent Brain</strong>，首先对现有 rubrics 进行回扫，补充音色、台词等可能遗漏的任务要求，再通过 workflow harness 组织逐 rubric 的取证与判断。每条 rubric 所需的专家算子和工具组合，均通过沙箱实验预先发现、验证并绑定。</p>
+<p>推理时，Agent Brain 根据 rubric 的具体含义调用相关工具，将结果汇集为<strong>多源证据</strong>，并据此判断该条要求是否满足。如果证据之间存在冲突，Agent Brain 会进一步检查相关证据，必要时调用工具补充取证，再作出最终判断。</p>
+<figure><img src="/assets/images/par/agentic-v4.svg" alt="V4 的三阶段 harness：补充遗漏 rubric、编排多工具取证、逐 rubric 判断并独立处理冲突。" loading="lazy" width="1100" height="655"><figcaption><span>图 15.</span> V4：工具池提供多源证据，workflow harness 组织逐 rubric 的取证、判断与冲突处理。<strong>任务相关的 rubrics 为工具调用提供了明确接口</strong>：系统可以根据每条 rubric 的语义预先绑定适用工具，使 Agent Brain 按检查项组织多工具协作，无需先收集昂贵的 tool-calling 训练数据，再训练通用的工具调用策略。</figcaption></figure>
 <div class="article-note">
 <p><strong>PAR 架构的两个优势</strong></p>
-<p><strong>1. 定位并补强具体弱点。</strong>业务评测解释与任务相关 rubric 结合，可以定位当前答题模型处理不好的要求，再用专家工具定向补全，使系统更容易随着新错误类型出现而扩展。</p>
-<p><strong>2. 通过显式 rubric-to-tool 绑定构建编排。</strong>每条 rubric 可以提前绑定多个相关工具，绑定关系及相应规则定义证据如何被收集和处理。我们没有先收集昂贵的 tool-calling 训练数据，再训练通用自主工具调用策略。系统的灵活性来自可扩展工具、任务相关检查与证据处理，扩展系统不需要先经过上述工具调用训练阶段。</p>
+<p><strong>1. 定位并补强具体弱点。</strong>业务评测解释与任务相关 rubric 结合，可以定位当前答题模型处理不好的要求，再用专家工具定向补全，使系统更容易随着新错误类型出现而扩展（V1）。</p>
+<p><strong>2. 通过显式 rubric-to-tool 绑定构建编排。</strong>每条 rubric 可以提前绑定多个相关工具，绑定关系及相应规则定义证据如何被收集和处理。我们没有先收集昂贵的 tool-calling 训练数据，再训练通用自主工具调用策略。系统的灵活性来自可扩展工具、任务相关检查与证据处理，扩展系统不需要先经过上述工具调用训练阶段（V4）。</p>
 </div>
 
 <h3 id="comparison">与外部 SOTA 集成比较</h3>
-<p>Bench2 是来自真实编辑分布的筛选评测。这里<strong>正类代表可用样本</strong>：precision 衡量接受样本中的可用比例，recall 衡量所有可用样本中被保留下来的比例。这与第 5 节以崩坏为正类的诊断实验不同。</p>
-<figure><img src="/assets/images/par/versions.svg" alt="Bench2 上 Single PAR、V1、V4 与外部集成的 precision、recall 和 accuracy 对比。" loading="lazy"><figcaption><span>图 16a.</span> 同一组版本对比结果。外部集成的 recall 更高；该组记录未提供其 accuracy 与 F1。</figcaption></figure>
+<p>Bench2 是二分类任务，其中<strong>正类代表可用样本</strong>：precision 衡量接受样本中的可用比例，recall 衡量所有可用样本中被保留下来的比例。</p>
+<figure><img src="/assets/images/par/versions.svg" alt="Bench2 上 Single PAR、V1、V4 与外部集成的 precision、recall 和 accuracy 对比。" loading="lazy"><figcaption><span>图 16a.</span> 从 Single PAR 到 V1、V4，precision 逐步提升；V1 和 V4 均超过外部 SOTA 集成，Single PAR 则低于该参照。</figcaption></figure>
 <div class="table-scroll" role="region" tabindex="0" aria-label="Bench2 版本对比"><table><thead><tr><th>方法</th><th>Precision</th><th>Recall</th><th>Accuracy</th><th>F1</th></tr></thead><tbody>
 <tr><td>Single PAR</td><td>65.61%</td><td>79.17%</td><td>76.96%</td><td>71.76%</td></tr>
 <tr><td>Agentic PAR V1</td><td>69.85%</td><td>74.40%</td><td>78.20%</td><td>72.06%</td></tr>
@@ -217,13 +218,12 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 <tr><td>外部 SOTA 集成<br><small>Gemini-3-Pro-Preview + GPT-5.6-Sol</small></td><td>67.70%</td><td><strong>80.30%</strong></td><td>—</td><td>—</td></tr>
 </tbody></table></div>
 <p><strong>Agentic PAR V4 的 precision 超过 Gemini-3-Pro-Preview + GPT-5.6-Sol 外部 SOTA 集成：72.94% 对比 67.70%，提升 5.24 个百分点。</strong>从 Single PAR 到 V4，accuracy 从 76.96% 提升至 79.60%，增加 2.64 个百分点。外部集成保留了更高的 recall，因此 precision 提升也反映了筛选中的取舍。</p>
-<p>错误复盘进一步解释了版本提升来源。<strong>Single PAR → V1</strong> 中，音频一致性算子识别出 <strong>35</strong> 个音频不一致 case，质量专家识别出 <strong>24</strong> 个低质量 case。<strong>V1 → V4</strong> 中，workflow harness 与扩展工具池都有贡献：逐 rubric 判断、补漏、冲突裁决、本地算子和外部 VLM 专家各自修正了一些判断，同时也引入了新错误。</p>
-<figure><img src="/assets/images/par/version-gain-sources.svg" alt="Single 到 V1：音频算子识别 35 个、质量专家识别 24 个错误；V4 各组件修对与改错数量分别为 40/10、20/14、18/10、33/11、25/14。" loading="lazy"><figcaption><span>图 16b.</span> 三版本提升来自哪里。V4 的诊断同时展示各组件修对的决策数与引入的新错误。这些是组件级错误复盘统计，不能作为彼此独立的收益相加来计算总体准确率变化。</figcaption></figure>
+<p>我们进一步分析了 PAR 不同版本的提升来源。<strong>Single PAR → V1</strong> 中，引入的音频一致性算子识别出 <strong>35</strong> 个音频不一致 case，质量专家算子识别出 <strong>24</strong> 个低质量 case。<strong>V1 → V4</strong> 中，workflow harness 与扩展工具池都有贡献：逐 rubric 判断、补漏、冲突裁决、本地算子和外部 VLM 专家各自修正了一些原先错误的判断。</p>
+<figure><img src="/assets/images/par/version-gain-sources.svg" alt="Single 到 V1：音频算子识别 35 个、质量专家识别 24 个错误；V4 各组件修对与改错数量分别为 40/10、20/14、18/10、33/11、25/14。" loading="lazy"><figcaption><span>图 16b.</span> 三版本提升来自哪里：V1 和 V4 的诊断展示各组件对判断结果的影响。V4 同时列出修正的错误和引入的新错误；这些统计可能重叠，不能直接相加作为总体增益。</figcaption></figure>
 
 <h3 id="production">真实业务效果：可用与可容忍数据达到 2.20 倍</h3>
-<p>在真实数据合成管线中，已上线的 Agentic PAR V1 将<strong>严格可用 + 可容忍</strong>数据占比从 <strong>31.0% 提升至 68.06%</strong>，其中 <strong>60.92% 严格可用</strong>、<strong>7.14% 可容忍</strong>。图中可容忍部分堆叠在严格可用部分之上。</p>
+<p>在真实数据合成管线中，已上线的 Agentic PAR V1 将<strong>严格可用 + 可容忍</strong>数据占比从 <strong>31.0% 提升至 68.06%</strong>，其中 <strong>60.92% 严格可用</strong>、<strong>7.14% 可容忍</strong>。</p>
 <figure><img src="/assets/images/par/business.svg" alt="真实管线可用加可容忍数据占比从 31% 提升至 68.06%，其中严格可用 60.92%，可容忍 7.14%。" loading="lazy"><figcaption><span>图 17.</span> V1 在真实数据合成管线中的结果：提升 37.06 个百分点，约为基线的 2.20 倍（68.06 ÷ 31）。该批数据与 Bench2 离线对比相互独立。</figcaption></figure>
-<p>总占比包含可容忍数据，这项业务结果本身不直接量化端到端成本节省。</p>
 </section>
 
 <section id="why-it-works" class="article-section">
