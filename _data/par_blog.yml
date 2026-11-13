@@ -11,7 +11,7 @@ en:
     - 'Motivation: better context from human evaluation'
     - 'PAR: a single answering model'
     - 'Agentic PAR: multi-tool integration and harness design'
-    - Why PAR is a better choice
+    - Where PAR’s improvements come from
     - 'The future of PAR: System 1 and System 2'
   appendix: 'Appendix: RLCD and calibration'
   references: References
@@ -32,7 +32,7 @@ zh:
     - 动机：从人类评测中构造更好的 context
     - PAR：单一答题模型
     - Agentic PAR：多工具融合与 Harness 设计
-    - 为什么 PAR 是更好的选择
+    - PAR 提升来源
     - 未来的 PAR：System 1 与 System 2 混合系统
   appendix: 附录：RLCD 与概率校准
   references: 参考文献

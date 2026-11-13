@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import re
 import tempfile
+import subprocess
 import threading
 from html.parser import HTMLParser
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -90,6 +91,52 @@ class Blocks(HTMLParser):
             at = node["inner"]-1
             result = result[:at] + ' data-par-edit="' + node["id"] + '" contenteditable="true" spellcheck="false"' + result[at:]
         return result
+
+
+def source_at_revision(path, expected):
+    """Find a known base for an already-open editor; never guess from block IDs."""
+    if not isinstance(expected, str) or not re.fullmatch(r"[0-9a-f]{64}", expected):
+        return None
+    backup = Path(tempfile.gettempdir()) / "par-blog-editor-backups" / (path.stem+"-"+expected+".html")
+    if backup.is_file():
+        source = backup.read_text(encoding="utf-8")
+        if revision(source) == expected:
+            return source
+    relative = str(path.relative_to(REPO))
+    commits = subprocess.run(["git", "log", "-40", "--format=%H", "--", relative],
+                             cwd=REPO, capture_output=True, text=True, timeout=10, check=True)
+    for commit in commits.stdout.splitlines():
+        result = subprocess.run(["git", "show", commit+":"+relative], cwd=REPO,
+                                capture_output=True, text=True, timeout=10)
+        if result.returncode == 0 and revision(result.stdout) == expected:
+            return result.stdout
+    return None
+
+
+def merge_stale_changes(base_source, current_source, changes):
+    """Rebase only uniquely identified, unchanged outer blocks onto the current file."""
+    _, base_body = article_body(base_source)
+    _, current_body = article_body(current_source)
+    base_nodes = {node["id"]:node for node in Blocks(base_body).nodes}
+    current_nodes = Blocks(current_body).nodes
+    merged, conflicts = {}, []
+    for key, value in changes.items():
+        if key not in base_nodes or not isinstance(value, str):
+            raise ValueError("段落标识或内容不正确")
+        node = base_nodes[key]
+        old_inner = base_body[node["inner"]:node["end"]]
+        old_outer = base_body[node["start"]:node["end"]].rstrip()
+        if value == old_inner:
+            continue
+        matches = [candidate for candidate in current_nodes
+                   if current_body[candidate["start"]:candidate["end"]].rstrip() == old_outer]
+        if len(matches) != 1:
+            conflicts.append(key)
+        else:
+            merged[matches[0]["id"]] = value
+    if conflicts:
+        raise ValueError("同一段落存在版本冲突，未覆盖文件；你的修改已安全备份，请告诉 Codex 合并。")
+    return merged
 
 
 class Fragment(HTMLParser):
@@ -245,7 +292,19 @@ class Handler(SimpleHTTPRequestHandler):
                 path = SOURCES[lang]
                 source = path.read_text(encoding="utf-8")
                 if payload.get("revision") != revision(source):
-                    return self.respond(json.dumps({"error":"文章已在其他窗口更新。请复制你的修改，再刷新页面。"}), "application/json", 409)
+                    # Save the incoming draft before trying a merge, including on conflicts.
+                    recovery = Path(tempfile.gettempdir()) / "par-blog-editor-recovery"
+                    recovery.mkdir(exist_ok=True)
+                    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=recovery,
+                                                     prefix=lang+"-", suffix=".json", delete=False) as f:
+                        json.dump(payload, f, ensure_ascii=False)
+                    base = source_at_revision(path, payload.get("revision"))
+                    if base is None:
+                        return self.respond(json.dumps({"error":"旧版本暂时无法匹配；你的修改已安全备份，请告诉 Codex 合并。"}, ensure_ascii=False), "application/json; charset=utf-8", 409)
+                    try:
+                        changes = merge_stale_changes(base, source, changes)
+                    except ValueError as error:
+                        return self.respond(json.dumps({"error":str(error)}, ensure_ascii=False), "application/json; charset=utf-8", 409)
                 prefix, body = article_body(source)
                 nodes = {node["id"]:node for node in Blocks(body).nodes}
                 replacements = []

@@ -228,45 +228,45 @@ chinese_url: /blogs/prompt-aware-rubrics/zh/
 
 <section id="why-it-works" class="article-section">
 <div class="section-label">04 / 理解提升机制</div>
-<h2>为什么 PAR 是更好的选择</h2>
+<h2>PAR 提升来源</h2>
 
 <h3 id="better-context">更好的 context 激发基座原子能力</h3>
-<p>第一类提升来自明确的任务 context。Rubric 指定要检查什么：目标物体、颜色变化、需保持的背景或同步要求。出题模型提供结合专家经验的 hints，使 verifier 无需自己发现所有相关测试。</p>
-<p>手册实验中的 <strong>63.6% → 71.2% → 73.2%</strong> 与这一机制一致，说明评测问题的构造方式仍有优化空间，但不代表所有剩余错误都能通过提示词解决。</p>
+<p>第一类提升来自明确的任务 context。Rubric 指定要检查什么：目标物体、颜色变化、需要保持的背景或同步要求。出题模型提供结合专家经验的 hints，使 verifier 无需自行发现所有相关检查项。</p>
+<p>出题手册实验中，准确率从 <strong>63.6% 提升至 71.2%，再提升至 73.2%</strong>，为优化 context 能够提升 verifier 表现提供了实验支持。</p>
 <figure><img src="/assets/images/par/context-activation.svg" alt="通过 context 优化，Bench1 准确率从 63.6% 经 71.2% 提升至 73.2%。" loading="lazy"><figcaption><span>图 18a.</span> 优化 context 激发基座能力：准确率从 63.6% 提升至 73.2%，增加 9.6 个百分点。</figcaption></figure>
 
 <h3 id="expert-alignment">训练答题模型，与评测专家对齐</h3>
-<p>第二类提升来自判断标准的对齐。即使问对了问题，模型和专家仍可能对“编辑是否足够完整”“某个缺陷是否应导致拒绝”持不同口径。专家标签提供决策边界，平衡数据抑制捷径学习，rescue 则为困难检查项提供监督。</p>
+<p>第二类提升来自<strong>答题模型与评测专家的偏好和判断标准对齐</strong>，这也是答题模型需要训练的重要原因。即使 rubric 已经明确提出问题，基座模型对“做到什么程度才算满足要求”的理解，仍可能与专家不同。</p>
+<p>例如，用户要求将物体改为橘红色，模型虽然能识别颜色，却可能纠结于结果是否“足够橘红”，从而拒绝专家认为已经合格的编辑。通过业务场景中的专家标注数据进行训练，我们将这种接受标准传递给答题模型，让它学会哪些颜色差异可以接受、哪些偏差意味着编辑未完成。</p>
 <figure><img src="/assets/images/par/expert-alignment.svg" alt="专家对齐训练将 Bench1 答题模型准确率从 77.1% 提升至 81.4%。" loading="lazy"><figcaption><span>图 18b.</span> 优化答题模型，使判断与专家标准对齐：准确率从 77.1% 提升至 81.4%，增加 4.3 个百分点。</figcaption></figure>
-<p>这组训练对比反映完整的专家对齐配置，包括数据设计和优化。Gold-Rescue 进一步将 V2 verifier 从 <strong>81.4% 提升至 82.7%</strong>。两类结果共同说明：PAR 同时优化了“问题怎么问”和“答案怎么判”。</p>
-<p>这也解释了它的上限：明确的问题无法让不可见的细节自动变得可见，与专家对齐的决策规则也无法可靠使用模型感知不到的证据。此时需要增强答题过程本身。</p>
 </section>
 
 <section id="hybrid" class="article-section">
 <div class="section-label">05 / 局限与优化方向</div>
 <h2>未来的 PAR：System 1 与 System 2 混合系统</h2>
 
-<h3 id="failure-analysis">Rubric 已经存在，但答案仍然错误</h3>
-<p>对 <strong>186 个剩余失败样本</strong> 的分析显示：15 个缺少 rubric，162 个已存在相关 rubric 但工具或 verifier 判断错误，9 个与证据聚合有关。在这个子集中，仅增加问题覆盖率无法解决主要瓶颈。</p>
+<h3 id="failure-analysis">PAR 的主要瓶颈在于答题判断，而非 rubric 覆盖率</h3>
+<p>我们进一步分析了 V4 的 <strong>186 个判断错误样本</strong>：其中，15 个缺少相关 rubric，162 个已存在相关 rubric，但工具或 verifier 判断错误，另有 9 个与 V4 的证据聚合 harness 有关。在这组样本中，主要瓶颈是答题判断，而非检查项未覆盖。</p>
 <figure><img src="/assets/images/par/failure-analysis.svg" alt="失败归因：缺少 rubric 8.1%，工具或模型判断错误 87.1%，证据聚合错误 4.8%。" loading="lazy"><figcaption><span>图 19.</span> 所分析失败子集内的归因，不代表所有生产样本的分布。</figcaption></figure>
 
 <h3 id="artifact-cases">以质量崩坏为例：局部细节与瞬时缺陷</h3>
-<p>质量崩坏体现了直接二分类验证难以覆盖的一类能力，主要有两种模式。<strong>空间局部缺陷</strong>可以隐藏在整体正常的画面中：全局场景合理，但小范围的人脸、手、道具或物体部件发生变形。<strong>瞬时缺陷</strong>可能只在某帧出现，随后立刻恢复，需要比较局部区域随时间的变化才能识别。</p>
-<p>这两类问题都需要更细致的答题过程：定位可疑区域，crop 或 zoom，必要时观察相邻帧，再判断是否存在真实崩坏。以下两个虚拟示例分别展示这两类问题。</p>
+<p>在已经存在相关 rubric、但工具或 verifier 判断错误的案例中，质量崩坏识别是一类典型问题，主要有两种模式。<strong>空间局部崩坏</strong>：全局场景合理，但小范围的人脸、手、道具或物体部件发生变形。<strong>瞬时崩坏</strong>：缺陷可能只在某帧出现，随后立刻恢复，需要比较局部区域随时间的变化才能识别。</p>
+<p>这两类问题都需要比直接输出二分类答案更细致的答题过程，例如定位可疑区域，使用 crop 或 zoom 工具检查局部细节，必要时观察相邻帧，再判断是否存在真实崩坏。以下两个虚拟示例分别展示这两类问题。</p>
 <figure><img src="/assets/images/par/spatial-example.svg" alt="虚拟机器人天线存在细小变形，对比全局视图与局部裁剪。" loading="lazy"><figcaption><span>图 20.</span> 重新绘制的局部崩坏示意。Crop 使细小变形更容易检查；该图并非实验样本。</figcaption></figure>
 <figure><img src="/assets/images/par/temporal-example.svg" alt="三个虚拟连续帧中，中间帧短暂出现形状异常，下一帧恢复。" loading="lazy"><figcaption><span>图 21.</span> 重新绘制的瞬时崩坏示意。中间帧出现变化后恢复，不包含原视频帧或内部帧编号。</figcaption></figure>
 
-<h3 id="cot-experiment">工具辅助推理的诊断实验</h3>
-<p>随后在 Bench5 的 <strong>63 个确认存在编辑崩坏的样本</strong>上比较识别效果。直接二分类验证识别出 14.3%，质量专家为 42.9%，基础崩坏检测器为 41.3%。由此提出两个问题：<strong>模型是看到了证据却识别不出细小缺陷，还是找不到包含缺陷的关键帧？</strong></p>
+<h3 id="cot-experiment">快速诊断实验：崩坏为何被漏判</h3>
+<p>我们进一步在编辑崩坏评测集 Bench5 上开展诊断实验，区分两种可能的瓶颈：<strong>答题模型已经看到了证据，却识别不出局部细小缺陷；还是未能找到包含瞬时崩坏的关键帧？</strong></p>
 <div class="article-note"><strong>针对性的 system prompt（SP）。</strong>下面三种检查配置——5 FPS 无 CoT、5 FPS 有 CoT、人工选帧有 CoT——都使用针对质量崩坏识别专门优化的 SP。CoT 配置还加入显式推理和 crop 检查，因此对比针对的是这套崩坏专项检查设置。</div>
 <figure><img src="/assets/images/par/artifact-cot.svg" alt="5 FPS 下，崩坏识别率从无 CoT 的 57.1% 提升至 CoT 加 crop 的 63.5%。" loading="lazy"><figcaption><span>图 22a.</span> CoT 结合 crop 有助于识别崩坏：同为 5 FPS，57.1% → 63.5%，提升 6.4 个百分点。两组均使用崩坏专项 SP。</figcaption></figure>
-<p>相同 5 FPS 采样率下，CoT 与 crop 检查帮助模型审视局部证据、识别更多缺陷，说明 rubric 已经指明检查内容后，增强答题过程仍然有效。</p>
+<p>相同 5 FPS 采样率下，CoT 与 crop 检查可以帮助模型审视局部证据、识别更多缺陷。这说明，在 rubric 已明确检查内容的崩坏识别任务中，将快速、直接的二分类答题（<strong>System 1</strong>）扩展为带工具调用的 CoT 推理（<strong>System 2</strong>），有助于提高局部崩坏的识别率。</p>
 <figure><img src="/assets/images/par/artifact-frames.svg" alt="使用 CoT 时，均匀 5 FPS 的崩坏识别率为 63.5%，人工选帧为 60.3%。" loading="lazy"><figcaption><span>图 22b.</span> 这项实验中，针对性选帧没有额外收益：均匀 5 FPS 为 63.5%，人工选帧为 60.3%。两组均使用 CoT 和崩坏专项 SP。</figcaption></figure>
-<p>人工选帧加 CoT 比均匀 5 FPS <strong>低 3.2 个百分点</strong>。这组诊断中，选帧没有增加收益，CoT 加 crop 却提高了识别率。结果指向<strong>局部细节识别是主要瓶颈，而非找不到关键帧</strong>：<strong>5 FPS 对本次比较已经足够</strong>。更有价值的是细看已经提供的证据。</p>
+<p>针对瞬时崩坏，我们设计了人工选帧配置：提前挑出含有崩坏的帧，输入答题模型。在两组都启用 CoT 与 crop 的前提下，人工选帧的崩坏识别率比均匀 5 FPS 采样<strong>低 3.2 个百分点</strong>。本次比较中，选帧未带来额外收益，提升主要来自 CoT 与 crop。两组诊断结果指向<strong>局部细节识别是主要瓶颈，而非找不到关键帧</strong>：<strong>5 FPS 对本次比较已经足够</strong>。</p>
 
 <h3 id="proposed-architecture">PAR 定义检查项，答题过程按能力调整</h3>
 <p>我们提出根据<strong>答题基座已经具备的能力</strong>组织混合系统。对于基座覆盖的 rubric 类别，可以通过专家对齐训练学习可靠的判断规则，用 <strong>System 1</strong> 快速进行直接二分类验证。</p>
-<p>对于基座仍难处理的类别，例如细小局部区域的崩坏识别，则启用 <strong>System 2</strong>：结合更复杂的思维链和 crop、zoom、相邻帧检查。Rubric 定义任务要求，答题路径负责获得足以验证的证据。时间不一致或证据冲突也可以使用这种更细致的过程。</p>
+<p>对于基座仍难处理的类别，例如细小局部区域的崩坏识别，则启用 <strong>System 2</strong>，结合更复杂的思维链与 crop、zoom 等工具，必要时检查相邻帧。</p>
+<p><strong>PAR 通过任务相关的 rubrics，为 System 1 与 System 2 的分工提供更具体的依据。</strong>我们可以分析答题模型在各条 rubric 上的表现，定位当前基座的薄弱环节：对已经能够可靠判断的检查项，使用 System 1 快速评估；对直接判断仍不可靠的检查项，则引入专家算子或 System 2 类模型进行针对性增强。</p>
 <figure><img src="/assets/images/par/hybrid.svg" alt="拟议混合架构：基座覆盖的检查经专家对齐后使用快速 System 1，困难局部和时序检查使用 System 2 推理与工具。" loading="lazy" width="1100" height="710"><figcaption><span>图 23.</span> 基于能力的拟议分工：基座能覆盖的检查使用专家对齐的 System 1；直接判断仍较弱的类别，引入 System 2 检查。</figcaption></figure>
 <p>两条路径最后都可以输出相同的二分类判断，差别在于<em>获得证据的过程</em>，而非结果是 0 还是 1。PAR 提供统一接口：任务相关问题、回答所需证据，以及能用于评测、筛选或奖励构造的结果。</p>
 </section>
