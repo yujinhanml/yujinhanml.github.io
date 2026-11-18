@@ -27,6 +27,10 @@ Publications
   ICLR 2026 Workshop (ReALM-GEN).
   
 **2025** 
+- Improving Group Robustness on Spurious Correlation Requires Preciser Group Inference. [[PDF]](https://arxiv.org/abs/2404.13815) [[Code]](https://github.com/yujinhanml/GIC)<br>
+  **Yujin Han**, Difan Zou.<br>
+  International Conference on Machine Learning (ICML), 2025
+
 - Can Diffusion Models Learn Hidden Inter-Feature Rules Behind Images? [[PDF]](https://www.arxiv.org/abs/2502.04725)  
   **Yujin Han<sup>*</sup>**, Andi Han<sup>*</sup>, Wei Huang, Chaochao Lu, Difan Zou.  
   International Conference on Machine Learning (ICML), 2025  
@@ -74,8 +78,3 @@ Preprints
   
 - Capturing Conditional Dependence via Auto-regressive Diffusion Models. [[ArXiv]](https://arxiv.org/abs/2504.21314)  
   Xunpeng Huang<sup>*</sup>, **Yujin Han<sup>*</sup>**, Difan Zou, Yian Ma, Tong Zhang.
-
-**2024**
-
-- Improving Group Robustness on Spurious Correlation Requires Preciser Group Inference. [[ArXiv]](https://arxiv.org/abs/2404.13815) [[Code]](https://github.com/yujinhanml/GIC)<br>
-  **Yujin Han**, Difan Zou.
