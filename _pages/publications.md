@@ -74,3 +74,8 @@ Preprints
   
 - Capturing Conditional Dependence via Auto-regressive Diffusion Models. [[ArXiv]](https://arxiv.org/abs/2504.21314)  
   Xunpeng Huang<sup>*</sup>, **Yujin Han<sup>*</sup>**, Difan Zou, Yian Ma, Tong Zhang.
+
+**2024**
+
+- Improving Group Robustness on Spurious Correlation Requires Preciser Group Inference. [[ArXiv]](https://arxiv.org/abs/2404.13815) [[Code]](https://github.com/yujinhanml/GIC)<br>
+  **Yujin Han**, Difan Zou.
